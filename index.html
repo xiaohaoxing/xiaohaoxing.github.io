@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  XHX Blog </title>
+
+ 
+  
+    <link rel="icon" href="/images/avatar.jpg">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header-wrapper">
+
+  <nav class="inner">
+    <div class="title">
+      <a href="/">
+        <img class="logo" src="/images/avatar.jpg">
+      </a>
+    </div>
+
+    <ul class="menu">
+      
+      
+      <li class="item">
+        <a class="link" id="menu-home" href="/">
+          <i class="iconfont icon-home">
+        </i></a>
+      </li>
+      
+      
+      
+      <li class="item">
+        <a class="link" id="menu-archives" href="/archives">
+          <i class="iconfont icon-archives">
+        </i></a>
+      </li>
+      
+      
+      
+      <li class="item">
+        <a class="link" id="menu-tags" href="/tags">
+          <i class="iconfont icon-tags">
+        </i></a>
+      </li>
+      
+      
+      
+      <li class="item">
+        <a class="link" id="menu-about" href="/about">
+          <i class="iconfont icon-about">
+        </i></a>
+      </li>
+      
+      
+      
+      <li class="item">
+        <a class="link" id="menu-search">
+          <i class="iconfont icon-search">
+        </i></a>
+        
+
+        
+      
+    </li></ul>
+  </nav>
+</header>
+
+<header class="mobile-header-wrapper">
+  <i id="mobile-toggle" class="iconfont icon-menu mobile-toggle"></i>
+</header>   
+
+      <div class="container">       
+          
+          
+            <div class="container-inner">  
+          
+
+          
+
+
+<div class="index slideDownMin">
+	
+
+	<div class="profile">
+
+		<img class="avatar" src="/images/avatar.jpg">
+
+		<p class="author">Xiao Haoxing</p>
+
+		<div class="social">
+			
+			
+			<a target="_blank" class="links" href="https://github.com/xiaohaoxing/">
+				<i class="iconfont icon-Github">
+			</i></a>
+			
+			
+			<a target="_blank" class="links" href="https://www.weibo.com/u/1867341073/home">
+				<i class="iconfont icon-Weibo">
+			</i></a>
+			
+			
+			<a target="_blank" class="links" href="https://www.zhihu.com/people/xiao-haoxing/activities">
+				<i class="iconfont icon-Zhihu">
+			</i></a>
+			
+			
+			<a target="_blank" class="links" href="https://music.163.com/#/user/home?id=77638723">
+				<i class="iconfont icon-Neteasemusic">
+			</i></a>
+			
+			
+		</div>
+	</div>
+
+
+	
+
+	
+	
+	
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="title" href="/2019/11/26/通用策略文档/">通用策略文档</a>  
+	       
+		 
+
+		<div class="meta">
+			<time>Nov 26, 2019</time>			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		 
+			<h2 id="项目背景"><a href="#项目背景" class="headerlink" title="项目背景"></a>项目背景</h2><p>场景是根据一些条件去查询指定的结果，场景较多，如果每个场景都维护一套对应的库表和数据结构，成本过高而且不通用，这里用通用策略去配置，实现的效果是传入指定的策略code和条件数据可以得到对应的查询结果。<br>  在很多场景下，我们需要根据一些条件去查询结果，</p>
+<h2 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h2><table>
+<thead>
+<tr>
+<th></th>
+<th>前端地址</th>
+<th>管理地址</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>测试环境</td>
+<td><a href="http://wl.be.test.mi.com/oms" target="_blank" rel="noopener">http://wl.be.test.mi.com/oms</a></td>
+<td><a href="http://wl.be.test.mi.com/oms/#/admin/common-strategy" target="_blank" rel="noopener">http://wl.be.test.mi.com/oms/#/admin/common-strategy</a></td>
+</tr>
+<tr>
+<td>线上环境</td>
+<td><a href="http://wl.be.mi.com/oms" target="_blank" rel="noopener">http://wl.be.mi.com/oms</a></td>
+<td><a href="http://wl.be.mi.com/oms/#/admin/common-strategy" target="_blank" rel="noopener">http://wl.be.mi.com/oms/#/admin/common-strategy</a></td>
+</tr>
+<tr>
+<td>* 如遇无法登陆请在工作台(<a href="http://wl.be.test.mi.com/work/" target="_blank" rel="noopener">测试</a>/<a href="http://wl.be.mi.com/work" target="_blank" rel="noopener">线上</a>)添加系统权限。</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="使用指南"><a href="#使用指南" class="headerlink" title="使用指南"></a>使用指南</h2><h3 id="1-创建策略集"><a href="#1-创建策略集" class="headerlink" title="1. 创建策略集"></a>1. 创建策略集</h3><h3 id="2-定义策略集字段"><a href="#2-定义策略集字段" class="headerlink" title="2. 定义策略集字段"></a>2. 定义策略集字段</h3><h3 id="3-创建策略"><a href="#3-创建策略" class="headerlink" title="3. 创建策略"></a>3. 创建策略</h3><h3 id="4-选择策略字段"><a href="#4-选择策略字段" class="headerlink" title="4. 选择策略字段"></a>4. 选择策略字段</h3><h3 id="5-下载策略和基础数据"><a href="#5-下载策略和基础数据" class="headerlink" title="5. 下载策略和基础数据"></a>5. 下载策略和基础数据</h3><h3 id="6-填写好策略数据，并导入"><a href="#6-填写好策略数据，并导入" class="headerlink" title="6. 填写好策略数据，并导入"></a>6. 填写好策略数据，并导入</h3><h3 id="7-定义该策略的匹配规则"><a href="#7-定义该策略的匹配规则" class="headerlink" title="7. 定义该策略的匹配规则"></a>7. 定义该策略的匹配规则</h3><h3 id="8-通过系统第三方X5接口查询策略数据"><a href="#8-通过系统第三方X5接口查询策略数据" class="headerlink" title="8. 通过系统第三方X5接口查询策略数据"></a>8. 通过系统第三方X5接口查询策略数据</h3>
+		  	  
+	</div>
+
+
+
+	<div class="article-categories">
+	 
+	</div>
+	
+
+	<div class="article-tags">
+		
+			<i class="iconfont icon-tags" style="margin-right:4px"></i>
+			            
+				<a class="link" href="/tags/mi/">mi</a>           
+			
+		
+	</div>
+
+	<div class="article-bottom">
+		<a class="readmore" href="/2019/11/26/通用策略文档/">Continue</a> 	
+	</div>	
+    
+</article>
+
+	
+	
+	
+	
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="title" href="/2019/11/26/hello-world/">Hello World</a>  
+	       
+		 
+
+		<div class="meta">
+			<time>Nov 26, 2019</time>			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		 
+			<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+
+		  	  
+	</div>
+
+
+
+	<div class="article-categories">
+	 
+	</div>
+	
+
+	<div class="article-tags">
+		
+	</div>
+
+	<div class="article-bottom">
+		<a class="readmore" href="/2019/11/26/hello-world/">Continue</a> 	
+	</div>	
+    
+</article>
+
+	
+	
+
+	
+	
+
+	
+
+    <script type="text/x-mathjax-config">
+        var post = document.getElementsByClassName("post")[0];  
+        MathJax.Hub.Config({
+            showProcessingMessages: false,
+            messageStyle: "none",    
+            tex2jax: {
+                inlineMath:  [ ["$", "$"] , ["\\(","\\)"]],
+                displayMath: [ ["$$","$$"] , ["\\[","\\]"]],
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'],
+            },
+            "HTML-CSS": {            
+                showMathMenu: false
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub,post]);
+    </script>
+    <style>.MathJax{outline:0;}</style>
+
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.2/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+ 
+</div>
+          </div> 
+      </div>            
+    
+        <i id="toTop" class="iconfont icon-backtotop"></i>
+
+  
+    <div class="none" id="search">
+    <div class="header">
+        <input type="text" placeholder="Typing Something here." id="search-input" class="input">
+        
+        <i id="search-cancel" class="iconfont icon-cancel"></i>
+    </div>
+
+    <div id="search-result" class="result"></div>
+</div>
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon" src="/images/avatar.jpg">  
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">Home
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">Archives
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">Tags
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">About
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">Search </a>                 
+            
+         
+      
+</div>
+        
+    
+
+
+
+     
+    
+
+
+<footer class="footer">
+	<div class="inner">
+		<div class="copyright">
+			&copy;
+			
+			2019
+			Lemon
+
+			<br>
+			By <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>
+		</div>
+	</div>
+</footer>   
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>
