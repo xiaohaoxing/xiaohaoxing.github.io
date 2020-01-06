@@ -98,7 +98,7 @@
 			
 			
 				<i class="iconfont icon-words"></i>
-				<span class="words">4543
+				<span class="words">4853
 				</span>
 			
 		</div>
@@ -205,8 +205,9 @@
 <p>上述的代码，只有括号包含的值是用户配置的，而且大部分都为选项，最大程度降低了配置成本。但是为了保证健壮和灵活性，也需要将每个规则集的条件和结果定义交给更有经验的开发者配置，因此同样需要设计一个规则集和字段管理的管理员配置模块。</p>
 </li>
 </ul>
-<h2 id="5-功能设计"><a href="#5-功能设计" class="headerlink" title="5 功能设计"></a>5 功能设计</h2><p>功能设计上参考之前通用策略部分，实现了“管理员侧”和“用户侧”2部分的管理系统，具体功能如下图：<br><img src="/images/%E9%80%9A%E7%94%A8%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8E%E5%8A%9F%E8%83%BD%E8%AE%BE%E8%AE%A1.png" alt="功能设计图"></p>
-<h2 id="6-库表结构设计"><a href="#6-库表结构设计" class="headerlink" title="6 库表结构设计"></a>6 库表结构设计</h2><h2 id="7-实现效果展示"><a href="#7-实现效果展示" class="headerlink" title="7 实现效果展示"></a>7 实现效果展示</h2><h2 id="8-后续开发计划"><a href="#8-后续开发计划" class="headerlink" title="8 后续开发计划"></a>8 后续开发计划</h2><h3 id="8-1-带有逻辑的规则语句的支持"><a href="#8-1-带有逻辑的规则语句的支持" class="headerlink" title="8.1 带有逻辑的规则语句的支持"></a>8.1 带有逻辑的规则语句的支持</h3>  	
+<h2 id="5-功能设计"><a href="#5-功能设计" class="headerlink" title="5 功能设计"></a>5 功能设计</h2><p>  功能设计上参考之前通用策略部分，实现了“管理员侧”和“用户侧”2部分的管理系统，具体功能如下图：<br><img src="/images/%E9%80%9A%E7%94%A8%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8E%E5%8A%9F%E8%83%BD%E8%AE%BE%E8%AE%A1.png" alt="功能设计图"><br>  管理员侧可以创建规则集，对应着应用规则的不同场景，同时可以修改删除；还需要实现规则集内所有条件字段、结果字段的新增调整，以供用户侧选择。<br>  用户侧可以选择一个规则集，添加新的规则，添加的时候要同时在所有字段中选择所需要的条件字段、结果字段，并设置好他们的操作符和值，确认当前规则的执行流程。用户同样可以修改、删除规则。<br>  管理员在编辑规则集和规则集字段的时候有使用状态约束，在使用中的规则集和字段是无法删除的；用户在编辑规则和字段的时候有规则引擎校验约束，如果填写的规则导致校验失败，同样是无法配置的。</p>
+<h2 id="6-库表结构设计"><a href="#6-库表结构设计" class="headerlink" title="6 库表结构设计"></a>6 库表结构设计</h2><p>  原本计划用一套新库表结构实现该部分的数据存储，为了验证通用策略的拓展性，因此将通用规则部分的数据适配到通用策略的库表结构中。</p>
+<h2 id="7-实现效果展示"><a href="#7-实现效果展示" class="headerlink" title="7 实现效果展示"></a>7 实现效果展示</h2><h2 id="8-后续开发计划"><a href="#8-后续开发计划" class="headerlink" title="8 后续开发计划"></a>8 后续开发计划</h2><h3 id="8-1-带有逻辑的规则语句的支持"><a href="#8-1-带有逻辑的规则语句的支持" class="headerlink" title="8.1 带有逻辑的规则语句的支持"></a>8.1 带有逻辑的规则语句的支持</h3>  	
 					
 	  </div>     
 	  
@@ -313,7 +314,7 @@
   
     <div class="none" id="search">
     <div class="header">
-        <input type="text" placeholder="输入你想搜索的" id="search-input" class="input">
+        <input type="text" placeholder="Typing Something here." id="search-input" class="input">
         
         <i id="search-cancel" class="iconfont icon-cancel"></i>
     </div>
@@ -329,31 +330,31 @@
          
             
 
-            <a class="mobile-menu-link" href="/">首頁
+            <a class="mobile-menu-link" href="/">Home
             </a>
             
          
             
 
-            <a class="mobile-menu-link" href="/archives">歸檔
+            <a class="mobile-menu-link" href="/archives">Archives
             </a>
             
          
             
 
-            <a class="mobile-menu-link" href="/tags">標籤
+            <a class="mobile-menu-link" href="/tags">Tags
             </a>
             
          
             
 
-            <a class="mobile-menu-link" href="/about">關於
+            <a class="mobile-menu-link" href="/about">About
             </a>
             
          
                           
 
-            <a class="mobile-menu-link mobile-menu-search" href="#">搜索 </a>                 
+            <a class="mobile-menu-link mobile-menu-search" href="#">Search </a>                 
             
          
       
