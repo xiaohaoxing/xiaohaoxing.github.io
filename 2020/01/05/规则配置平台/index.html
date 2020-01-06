@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  规则配置平台 |   XHX Blog </title>
+
+ 
+  
+    <link rel="icon" href="/images/avatar.jpg">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header-wrapper">
+
+  <nav class="inner">
+    <div class="title">
+      <a href="/">
+        <img class="logo" src="/images/avatar.jpg">
+      </a>
+    </div>
+
+    <ul class="menu">
+      
+      
+      <li class="item">
+        <a class="link" id="menu-home" href="/">
+          <i class="iconfont icon-home">
+        </i></a>
+      </li>
+      
+      
+      
+      <li class="item">
+        <a class="link" id="menu-archives" href="/archives">
+          <i class="iconfont icon-archives">
+        </i></a>
+      </li>
+      
+      
+      
+      <li class="item">
+        <a class="link" id="menu-tags" href="/tags">
+          <i class="iconfont icon-tags">
+        </i></a>
+      </li>
+      
+      
+      
+      <li class="item">
+        <a class="link" id="menu-about" href="/about">
+          <i class="iconfont icon-about">
+        </i></a>
+      </li>
+      
+      
+      
+      <li class="item">
+        <a class="link" id="menu-search">
+          <i class="iconfont icon-search">
+        </i></a>
+        
+
+        
+      
+    </li></ul>
+  </nav>
+</header>
+
+<header class="mobile-header-wrapper">
+  <i id="mobile-toggle" class="iconfont icon-menu mobile-toggle"></i>
+</header>   
+
+      <div class="container">       
+          
+          
+            <div class="container-inner">  
+          
+
+          <article class="post slideDownMin">
+  
+	
+<div class="header">
+		<p class="title">	
+			规则配置平台
+		</p>
+		<div class="info">	
+			<time>
+				Jan 05, 2020
+			</time>
+
+			
+			
+				<i class="iconfont icon-words"></i>
+				<span class="words">4543
+				</span>
+			
+		</div>
+</div> 
+	
+
+    <script type="text/x-mathjax-config">
+        var post = document.getElementsByClassName("post")[0];  
+        MathJax.Hub.Config({
+            showProcessingMessages: false,
+            messageStyle: "none",    
+            tex2jax: {
+                inlineMath:  [ ["$", "$"] , ["\\(","\\)"]],
+                displayMath: [ ["$$","$$"] , ["\\[","\\]"]],
+                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'],
+            },
+            "HTML-CSS": {            
+                showMathMenu: false
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub,post]);
+    </script>
+    <style>.MathJax{outline:0;}</style>
+
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.2/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+ 
+
+	  <div class="typo post-content ">
+
+		
+
+			
+					<h2 id="1-业务背景"><a href="#1-业务背景" class="headerlink" title="1 业务背景"></a>1 业务背景</h2><h3 id="1-1-是什么业务场景？"><a href="#1-1-是什么业务场景？" class="headerlink" title="1.1 是什么业务场景？"></a>1.1 是什么业务场景？</h3><p>  当前业务场景中存在这样的一种较为特殊的需求：订单流的处理过程中，包括了一些决策的节点。如：拆单、合单、分快递等。这些场景存在共同点：</p>
+<ol>
+<li><p>规则数量相对多，用单纯的分支代码逻辑实现起来麻烦且不优雅</p>
+</li>
+<li><p>规则随时可能会调整，如果用硬编码实现则调整周期长，不能满足业务场景的要求；此外，硬编码导致每次调整都需要开发的支持，加重了开发的负担。</p>
+</li>
+<li><p>规则的输入输出相对固定：输入一些字段的值，输出一些固定值的结果。不用的场景适合用同一套系统去维护。</p>
+<p>此前 PHP 版本的系统中实现了一套较为简单的规则配置系统，但是其不管是输入还是输出，都是直接丢给用户一个输入框直接输入全文，用户面对这样的一个空白页面其实根本不知道填写什么。<br>因此，这版的 Java 新系统需求是需要实现一个更易用、拓展性更强的一个规则配置中心。暂时给的场景是规则数量较少的合单规则——当前仅有3条明确的合单规则，需要先将这些规则正确配置到系统中。</p>
+<a id="more"></a>
+<h3 id="1-2-初识-Drools"><a href="#1-2-初识-Drools" class="headerlink" title="1.2 初识 Drools"></a>1.2 初识 Drools</h3><p>本来计划自行实现一个较为固定逻辑的字段读取、字段写入的一套对象处理流程：</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// precode for params</span></span><br><span class="line">RuleResult result = RuleParser.parse(ruleParams);</span><br><span class="line"><span class="comment">// postcode for result</span></span><br></pre></td></tr></table></figure>
+
+<p>  现在想想就能发现这种设计思路存在一些未考虑到的问题：</p>
+<ol>
+<li><p>拓展性极差；该部分的配置完全依赖于当时的业务场景的需求，如果出现了新的需求，如需要调整后续的程序结构，则只能通过调整<code>post</code>代码实现，虽然这样也能满足当场的需求，但对于后续新需求的支持能力不足，维护起来仍然较为吃力。</p>
+</li>
+<li><p>规则匹配部分的算子设计；该部分的代码可能能实现，但是需要耗费一定时间设计+实现+调试。而且这部分的实现实际上属于底层支持，开发系统应该秉持的原则应该是：能用现成的工具就不要自己发明轮子。因此，这部分代码属实不必要。</p>
+<p>偶然的机会，跟小爱部门的小康同学聊了聊，他给我说他们部门刚好需要调研一个开源工具：Drools规则引擎。从而打开了新世界的大门。</p>
+</li>
+</ol>
+<h2 id="2-技术原理"><a href="#2-技术原理" class="headerlink" title="2 技术原理"></a>2 技术原理</h2><h3 id="2-1什么是规则引擎？"><a href="#2-1什么是规则引擎？" class="headerlink" title="2.1什么是规则引擎？"></a>2.1什么是规则引擎？</h3><p>  规则引擎是基于规则的专家系统的核心部分，主要由三部分组成：规则库(Knowledge base)+Working Memory(Fact base)+推理机(规则引擎)，规则引擎根据既定事实和知识库按照一定的算法执行推理逻辑得到正确的结果。（<a href="http://www.drools.org.cn/166.html" target="_blank" rel="noopener">Drools中文网</a>）</p>
+<h3 id="2-2-Drools？"><a href="#2-2-Drools？" class="headerlink" title="2.2 Drools？"></a>2.2 Drools？</h3><p>  Drools 是一个基于Charles Forgy’s的RETE算法的，易于访问企业策略、易于调整以及易于管理的开源业务规则引擎，符合业内标准，速度快、效率高。<br>  业务分析师人员或审核人员可以利用它轻松查看业务规则，从而检验是否已编码的规则执行了所需的业务规则。（<a href="http://www.drools.org.cn/166.html" target="_blank" rel="noopener">还是Drools中文网</a>）</p>
+<h3 id="2-3-Drools特点"><a href="#2-3-Drools特点" class="headerlink" title="2.3 Drools特点"></a>2.3 Drools特点</h3><ol>
+<li>支持DSL语法、XML语法定义规则。</li>
+<li>采用RETE算法</li>
+<li>开源产品</li>
+<li>JBoss产品，成熟度高<h3 id="2-4-就决定是你了！"><a href="#2-4-就决定是你了！" class="headerlink" title="2.4 就决定是你了！"></a>2.4 就决定是你了！</h3>不管是从技术栈（Java）还是从产品的功能上来看，Drools规则引擎都完美符合我们当前的业务场景的需要，而后我们又调研了它的算子支持、结果语句的支持、动态加载的实现等多个方面的特性，最终敲定采用该方案实现我们的规则配置中心。</li>
+</ol>
+<h2 id="3-规则语法介绍"><a href="#3-规则语法介绍" class="headerlink" title="3 规则语法介绍"></a>3 规则语法介绍</h2><p>  Drools采用特殊的DSL语法定义规则，因此需要先熟悉该部分的语法。<br>  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sample.drools.rule</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="function">function <span class="title">isZero</span><span class="params">(val)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> val == <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line">rule <span class="string">"name"</span></span><br><span class="line">       no-loop <span class="keyword">true</span></span><br><span class="line">       when</span><br><span class="line">               $message:Message(status == <span class="number">0</span>)</span><br><span class="line">       then</span><br><span class="line">               System.out.println(<span class="string">"fit"</span>);</span><br><span class="line">               $message.setStatus(<span class="number">1</span>);</span><br><span class="line">               update($message);</span><br><span class="line">end</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li><p>imports：虽然是DSL，但是其基于<code>Java</code>语法，因此同样需要用 Java 的 import 语句实现类的引用。</p>
+</li>
+<li><p>functions：可以实现一些自定义函数，用在具体的规则中。由于使用 DSL 语法，在配置中心难以实现该部分代码校验，因此暂不实现该部分。</p>
+</li>
+<li><p>rules：该部分是规则语法的重点，其中包括了rule声明行、参数行、条件（when）、结果（then）等部分,下面依次介绍。</p>
+</li>
+<li><p>声明行：rule + “name”,一个规则的名称。</p>
+</li>
+<li><p>参数行：可以配置当前规则的参数，常见的有：no-loop, silience, agenda-group, auto-focus, activation-group, duration等，本项目用到了no-loop：是否重复执行当前规则，silience：优先级，activation-group：同组只会执行一条匹配的规则。</p>
+</li>
+<li><p>条件约束： 条件语句基本格式是：val:Object([field op value]*),一些例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 一般约束</span></span><br><span class="line">$c : Cheese( type == “stilton”, price &lt; <span class="number">10</span>, age == “mature” )</span><br><span class="line"><span class="comment">// &amp;&amp; 和 || 约束</span></span><br><span class="line">Cheese( type == “stilton” &amp;&amp; price &lt; <span class="number">10</span>, age == “mature” )</span><br><span class="line">Cheese( type == “stilton” || price &lt; <span class="number">10</span>, age == “mature” )</span><br><span class="line"><span class="comment">// matches 操作</span></span><br><span class="line">Cheese( type matches “(Buffalo)?/S*Mozerella” )</span><br><span class="line">Cheese( type not matches “(Buffulo)?/S*Mozerella” )</span><br><span class="line"><span class="comment">// contains 操作</span></span><br><span class="line">CheeseCounter( cheeses contains “stilton” )</span><br><span class="line">CheeseCounter( cheeses not contains “cheddar” )</span><br><span class="line"><span class="comment">// memberof 操作</span></span><br><span class="line">CheeseCounter( cheese memberof $matureCheeses )</span><br><span class="line">CheeseCounter( cheese not memberof $matureCheeses )</span><br><span class="line"><span class="comment">// 字符串约束</span></span><br><span class="line">Cheese( quantity == <span class="number">5</span> )</span><br><span class="line">Cheese( bestBefore &lt; “<span class="number">27</span>-Oct-<span class="number">2007</span>” )</span><br><span class="line">Cheese( type == “stilton” )</span><br><span class="line">Cheese( smelly == <span class="keyword">true</span> )</span><br><span class="line"><span class="comment">// 绑定变量约束</span></span><br><span class="line">Person( likes : favouriteCheese )</span><br><span class="line">Cheese( type == likes )</span><br><span class="line"><span class="comment">// 返回值约束</span></span><br><span class="line">Person( girlAge : age, sex == “F” )</span><br><span class="line">Person( age == ( girlAge + <span class="number">2</span>) ), sex == ‘M’ )</span><br><span class="line"><span class="comment">// 复合值约束</span></span><br><span class="line">Person( $cheese : favouriteCheese )</span><br><span class="line">Cheese( <span class="function">type <span class="title">in</span> <span class="params">( “stilton”, “cheddar”, $cheese )</span></span></span><br><span class="line"><span class="function"><span class="comment">// 多重约束</span></span></span><br><span class="line"><span class="function"><span class="title">Person</span><span class="params">( age ( (&gt; <span class="number">30</span> &amp;&amp; &lt; <span class="number">40</span>)</span> || <span class="params">(&gt; <span class="number">20</span> &amp;&amp; &lt; <span class="number">25</span>)</span> ) )</span></span><br><span class="line"><span class="function"><span class="title">Person</span><span class="params">( age &gt; <span class="number">30</span> &amp;&amp; &lt; <span class="number">40</span> || location == “london” )</span></span></span><br><span class="line"><span class="function"><span class="comment">// 内联 eval 约束</span></span></span><br><span class="line"><span class="function"><span class="title">Person</span><span class="params">( girlAge : age, sex = “F” )</span></span></span><br><span class="line"><span class="function"><span class="title">Person</span><span class="params">( eval( girlAge == boyAge + <span class="number">2</span> )</span>, sex </span>= ‘M’ )</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行操作：这部分的代码虽然可以直接写<code>Java</code>程序，但是应该简短，主要目的是插入和更新。</p>
+<blockquote>
+<p>此外，还有<code>query</code>等其他规则成分，由于复杂度的限制，项目中不会采用这些功能，这里也不做介绍。</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="4-将Drools应用到项目中"><a href="#4-将Drools应用到项目中" class="headerlink" title="4 将Drools应用到项目中"></a>4 将Drools应用到项目中</h2><p>  从上述的规则文件语法中可以看出，它的语法规则基于Java，是非常灵活的。但是本场景下需要将这部分的功能提供给业务方配置，因此过于灵活的配置方案不管是实现，还是交付使用成本都将会非常高，因此需要对规则进行一定程度的限制。</p>
+<ul>
+<li><p>匹配的过程条件是多个对象、每个对象又有多个字段的判断，这部分的多次配置将会造成业务方一定困扰，因此这里我们简化为：传入一个对象，包括所有字段，业务仅选择字段和写对应每个字段的筛选条件即可。</p>
+</li>
+<li><p>imports：我们默认导入java.util.Map和java.util.HashMap作为结果集的类型，以及入参的对象的引用。</p>
+</li>
+<li><p>function 和 query：出于简化考虑暂不实现该部分的配置。</p>
+</li>
+<li><p>rule参数配置：这里使用了部分需要的参数：</p>
+<ul>
+<li>salience：优先级，这个参数是提供给用户配置的，确认执行的顺序。</li>
+<li>activation-group：一个规则集中的规则都在同一个分组中，避免匹配完高优先级的规则后仍然进入低优先级的规则导致结果集字段被覆盖。</li>
+<li>no-loop：本是用于防止规则重复匹配，这里结果操作中没有update操作，因此也不会出现重复匹配，为了保险还是设置一下该参数。</li>
+</ul>
+</li>
+<li><p>rule 条件配置：只提供一个条件对象和返回结果集合，用户能配置的部分为条件对象的字段的条件，条件间的关系暂定逗号分隔，都为且（&amp;&amp;）。</p>
+</li>
+<li><p>rule 结果配置：可以直接写 Java 程序，但是为了保证业务方的使用体验，因此这部分做了极大的限制：只能向传入的Map中写入键值对。而且键也是由管理员配置的字段中选取，从而保证了业务方面的使用不会有太高的门槛。<br>综合以上的条件，我们可以得到我们项目中使用的规则文件的基本结构：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sample.drools.rule</span><br><span class="line"><span class="keyword">import</span> java.util.Map</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap</span><br><span class="line"><span class="keyword">import</span> com.sample.RuleCondition</span><br><span class="line">rule <span class="string">"[ruleName]"</span></span><br><span class="line">  no-loop: <span class="keyword">true</span></span><br><span class="line">  salience: [priority]</span><br><span class="line">  activation-group: sample</span><br><span class="line">  when</span><br><span class="line">    $condition: Condition([f1] [op] [v1], [f2] [op] [v2])</span><br><span class="line">    $resultMap: HashMap()</span><br><span class="line">  then</span><br><span class="line">    $resultMap.put([key1], [value1])</span><br><span class="line">    $resultMap.put([key2], [value2])</span><br><span class="line">    ...</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+
+<p>上述的代码，只有括号包含的值是用户配置的，而且大部分都为选项，最大程度降低了配置成本。但是为了保证健壮和灵活性，也需要将每个规则集的条件和结果定义交给更有经验的开发者配置，因此同样需要设计一个规则集和字段管理的管理员配置模块。</p>
+</li>
+</ul>
+<h2 id="5-功能设计"><a href="#5-功能设计" class="headerlink" title="5 功能设计"></a>5 功能设计</h2><p>功能设计上参考之前通用策略部分，实现了“管理员侧”和“用户侧”2部分的管理系统，具体功能如下图：<br><img src="/images/%E9%80%9A%E7%94%A8%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8E%E5%8A%9F%E8%83%BD%E8%AE%BE%E8%AE%A1.png" alt="功能设计图"></p>
+<h2 id="6-库表结构设计"><a href="#6-库表结构设计" class="headerlink" title="6 库表结构设计"></a>6 库表结构设计</h2><h2 id="7-实现效果展示"><a href="#7-实现效果展示" class="headerlink" title="7 实现效果展示"></a>7 实现效果展示</h2><h2 id="8-后续开发计划"><a href="#8-后续开发计划" class="headerlink" title="8 后续开发计划"></a>8 后续开发计划</h2><h3 id="8-1-带有逻辑的规则语句的支持"><a href="#8-1-带有逻辑的规则语句的支持" class="headerlink" title="8.1 带有逻辑的规则语句的支持"></a>8.1 带有逻辑的规则语句的支持</h3>  	
+					
+	  </div>     
+	  
+
+	<div class="bottom">
+  <div class="other">
+    <div class="meta">
+      
+
+      
+      <i class="iconfont icon-tag"></i>
+      <a class="tag-link" href="/tags/drools/">drools</a> <a class="tag-link" href="/tags/java/">java</a>
+      
+    </div>
+
+    <div class="operate">
+      
+      <span class="text">Share</span>
+      <ul class="share">
+	   			             
+        <li class="iconfont 
+		icon-share-qq 
+		-mob-share-qq 
+		item"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-weixin 
+		-mob-share-weixin 
+		item"></li>		
+   	   			             
+        <li class="iconfont 
+		icon-share-weibo 
+		-mob-share-weibo 
+		item"></li>		
+   	   
+</ul>	
+
+<script id="-mob-share" src="https://f1.webshare.mob.com/code/mob-share.js?appkey=21d601593a1de"></script>
+      
+    </div>
+  </div>
+
+
+  
+  <nav class="nav">
+    <div class="link">
+      
+      <a href="/2019/11/26/通用策略文档/" class="link-wrap">
+        <strong class="caption">older</strong>
+        
+        <span class="title">
+          通用策略文档
+        </span>
+      </a>
+      
+    </div>
+    <div class="link">
+      
+      <a href="/2020/01/06/创建hexo脚本/" class="link-wrap">
+        <strong class="caption">newer</strong>
+        
+        <span class="title">
+          创建hexo脚本
+        </span>
+      </a>
+      
+    </div>
+  </nav>
+  
+</div> 
+	
+<div class="comment">
+
+    
+
+    <div id="comment">
+    </div>
+
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+
+    <script src="//unpkg.com/valine@v1.1.8-beta/dist/Valine.min.js"></script>
+
+    <script>
+        new Valine({
+            el: '#comment',
+            notify: false,
+            verify: false,
+            app_id: 'cFM0eCo0CQ9xmBXmHi1eltol-gzGzoHsz',
+            app_key: 'oh9tizsnvV2vNvWgqEvoNtQO',
+            path: window.location.pathname,
+            avatar: 'mm',
+            guest_info: ['nick', 'mail']
+        });
+    </script>
+    
+</div>	
+</article>
+
+          </div> 
+      </div>            
+    
+        <i id="toTop" class="iconfont icon-backtotop"></i>
+
+  
+    <div class="none" id="search">
+    <div class="header">
+        <input type="text" placeholder="输入你想搜索的" id="search-input" class="input">
+        
+        <i id="search-cancel" class="iconfont icon-cancel"></i>
+    </div>
+
+    <div id="search-result" class="result"></div>
+</div>
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon" src="/images/avatar.jpg">  
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">首頁
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">歸檔
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">標籤
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">關於
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">搜索 </a>                 
+            
+         
+      
+</div>
+        
+    
+
+
+
+     
+    
+
+
+<footer class="footer">
+	<div class="inner">
+		<div class="copyright">
+			&copy;
+			
+			2019 -
+			
+			2020
+			Lemon
+
+			<br>
+			By <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>
+		</div>
+	</div>
+</footer>   
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>

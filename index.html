@@ -132,6 +132,121 @@
 	   
 	<div class="article-header">
 	    
+		<a class="title" href="/2020/01/06/创建hexo脚本/">创建hexo脚本</a>  
+	       
+		 
+
+		<div class="meta">
+			<time>Jan 06, 2020</time>			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<h1 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h1><p>本人创建Hexo脚本的痛点主要是2点：</p>
+<ol>
+<li>我用 vs code 的终端运行 hexo 命令和管理资源文件，用 Typora 撰写文章，因此每次不管是新建文章还是预览还是发布都需要来回切换，步骤较多挺麻烦的。</li>
+<li>博客源码的版本管理。之前写过好几篇博文，可是在一次装机的过程中忘记迁移，结果丢失了原始markdown的文章和配置文件，导致无法继续写下去了，只得重头开始!<code>QAQ</code></li>
+</ol>
+		  	  
+	</div>
+
+
+
+	<div class="article-categories">
+	 
+	</div>
+	
+
+	<div class="article-tags">
+		
+			<i class="iconfont icon-tags" style="margin-right:4px"></i>
+			            
+				<a class="link" href="/tags/hexo/">hexo</a>           
+			            
+				<a class="link" href="/tags/productivity/">productivity</a>           
+			
+		
+	</div>
+
+	<div class="article-bottom">
+		<a class="readmore" href="/2020/01/06/创建hexo脚本/">閱讀更多</a> 	
+	</div>	
+    
+</article>
+
+	
+	
+	
+	
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="title" href="/2020/01/05/规则配置平台/">规则配置平台</a>  
+	       
+		 
+
+		<div class="meta">
+			<time>Jan 05, 2020</time>			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<h2 id="1-业务背景"><a href="#1-业务背景" class="headerlink" title="1 业务背景"></a>1 业务背景</h2><h3 id="1-1-是什么业务场景？"><a href="#1-1-是什么业务场景？" class="headerlink" title="1.1 是什么业务场景？"></a>1.1 是什么业务场景？</h3><p>  当前业务场景中存在这样的一种较为特殊的需求：订单流的处理过程中，包括了一些决策的节点。如：拆单、合单、分快递等。这些场景存在共同点：</p>
+<ol>
+<li><p>规则数量相对多，用单纯的分支代码逻辑实现起来麻烦且不优雅</p>
+</li>
+<li><p>规则随时可能会调整，如果用硬编码实现则调整周期长，不能满足业务场景的要求；此外，硬编码导致每次调整都需要开发的支持，加重了开发的负担。</p>
+</li>
+<li><p>规则的输入输出相对固定：输入一些字段的值，输出一些固定值的结果。不用的场景适合用同一套系统去维护。</p>
+<p>此前 PHP 版本的系统中实现了一套较为简单的规则配置系统，但是其不管是输入还是输出，都是直接丢给用户一个输入框直接输入全文，用户面对这样的一个空白页面其实根本不知道填写什么。<br>因此，这版的 Java 新系统需求是需要实现一个更易用、拓展性更强的一个规则配置中心。暂时给的场景是规则数量较少的合单规则——当前仅有3条明确的合单规则，需要先将这些规则正确配置到系统中。</p>
+		  	  
+	</li></ol></div>
+
+
+
+	<div class="article-categories">
+	 
+	</div>
+	
+
+	<div class="article-tags">
+		
+			<i class="iconfont icon-tags" style="margin-right:4px"></i>
+			            
+				<a class="link" href="/tags/drools/">drools</a>           
+			            
+				<a class="link" href="/tags/java/">java</a>           
+			
+		
+	</div>
+
+	<div class="article-bottom">
+		<a class="readmore" href="/2020/01/05/规则配置平台/">閱讀更多</a> 	
+	</div>	
+    
+</article>
+
+	
+	
+	
+	
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
 		<a class="title" href="/2019/11/26/通用策略文档/">通用策略文档</a>  
 	       
 		 
@@ -167,7 +282,7 @@
 <td><a href="http://wl.be.mi.com/oms/#/admin/common-strategy" target="_blank" rel="noopener">http://wl.be.mi.com/oms/#/admin/common-strategy</a></td>
 </tr>
 <tr>
-<td>* 如遇无法登陆请在工作台(<a href="http://wl.be.test.mi.com/work/" target="_blank" rel="noopener">测试</a>/<a href="http://wl.be.mi.com/work" target="_blank" rel="noopener">线上</a>)添加系统权限。</td>
+<td>* 如遇无法登陆请在工作台(<a href="http://wl.be.test.mi.com/work/" target="_blank" rel="noopener">测试</a>/<a href="http://wl.be.mi.com/work/" target="_blank" rel="noopener">线上</a>)添加系统权限。</td>
 <td></td>
 <td></td>
 </tr>
@@ -193,65 +308,7 @@
 	</div>
 
 	<div class="article-bottom">
-		<a class="readmore" href="/2019/11/26/通用策略文档/">Continue</a> 	
-	</div>	
-    
-</article>
-
-	
-	
-	
-	
-
-<article class="article">		
-	   
-	<div class="article-header">
-	    
-		<a class="title" href="/2019/11/26/hello-world/">Hello World</a>  
-	       
-		 
-
-		<div class="meta">
-			<time>Nov 26, 2019</time>			
-		</div>
-	</div>
-
-
-	
-
-    
-	<div class="typo article-excerpt">	
-		 
-			<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-		  	  
-	</div>
-
-
-
-	<div class="article-categories">
-	 
-	</div>
-	
-
-	<div class="article-tags">
-		
-	</div>
-
-	<div class="article-bottom">
-		<a class="readmore" href="/2019/11/26/hello-world/">Continue</a> 	
+		<a class="readmore" href="/2019/11/26/通用策略文档/">閱讀更多</a> 	
 	</div>	
     
 </article>
@@ -293,7 +350,7 @@
   
     <div class="none" id="search">
     <div class="header">
-        <input type="text" placeholder="Typing Something here." id="search-input" class="input">
+        <input type="text" placeholder="输入你想搜索的" id="search-input" class="input">
         
         <i id="search-cancel" class="iconfont icon-cancel"></i>
     </div>
@@ -309,31 +366,31 @@
          
             
 
-            <a class="mobile-menu-link" href="/">Home
+            <a class="mobile-menu-link" href="/">首頁
             </a>
             
          
             
 
-            <a class="mobile-menu-link" href="/archives">Archives
+            <a class="mobile-menu-link" href="/archives">歸檔
             </a>
             
          
             
 
-            <a class="mobile-menu-link" href="/tags">Tags
+            <a class="mobile-menu-link" href="/tags">標籤
             </a>
             
          
             
 
-            <a class="mobile-menu-link" href="/about">About
+            <a class="mobile-menu-link" href="/about">關於
             </a>
             
          
                           
 
-            <a class="mobile-menu-link mobile-menu-search" href="#">Search </a>                 
+            <a class="mobile-menu-link mobile-menu-search" href="#">搜索 </a>                 
             
          
       
@@ -352,7 +409,9 @@
 		<div class="copyright">
 			&copy;
 			
-			2019
+			2019 -
+			
+			2020
 			Lemon
 
 			<br>

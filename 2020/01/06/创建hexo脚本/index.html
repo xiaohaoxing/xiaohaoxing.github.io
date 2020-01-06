@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   
   
-  <title>  Hello World |   XHX Blog </title>
+  <title>  创建Hexo脚本 |   XHX Blog </title>
 
  
   
@@ -88,17 +88,17 @@
 	
 <div class="header">
 		<p class="title">	
-			Hello World
+			创建hexo脚本
 		</p>
 		<div class="info">	
 			<time>
-				Nov 26, 2019
+				Jan 06, 2020
 			</time>
 
 			
 			
 				<i class="iconfont icon-words"></i>
-				<span class="words">370
+				<span class="words">714
 				</span>
 			
 		</div>
@@ -131,19 +131,22 @@
 		
 
 			
-					<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+					<h1 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h1><p>本人创建Hexo脚本的痛点主要是2点：</p>
+<ol>
+<li>我用 vs code 的终端运行 hexo 命令和管理资源文件，用 Typora 撰写文章，因此每次不管是新建文章还是预览还是发布都需要来回切换，步骤较多挺麻烦的。</li>
+<li>博客源码的版本管理。之前写过好几篇博文，可是在一次装机的过程中忘记迁移，结果丢失了原始markdown的文章和配置文件，导致无法继续写下去了，只得重头开始!<code>QAQ</code></li>
+</ol>
+<a id="more"></a>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<h1 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h1><p>基于以上2个原因，这里我创建了3个相关的脚本，还有一个麻烦一点正在实现中~</p>
+<h2 id="1-新建文章"><a href="#1-新建文章" class="headerlink" title="1. 新建文章"></a>1. 新建文章</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/repos/blog-src</span><br><span class="line">hexo new <span class="string">"&#123;query&#125;"</span></span><br><span class="line">open <span class="built_in">source</span>/_posts/&#123;query&#125;.md</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>核心是<code>hexo new xx</code>命令，创建了新md文件，并使用open命令使用默认方式（我设置的是Typora）打开该文件开始写文章。</p>
+<h2 id="2-本地运行博客"><a href="#2-本地运行博客" class="headerlink" title="2. 本地运行博客"></a>2. 本地运行博客</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/repos/blog-src</span><br><span class="line">hexo clean</span><br><span class="line">hexo generate</span><br><span class="line">hexo server -p &#123;query&#125;</span><br><span class="line"></span><br><span class="line">open https://localhost:&#123;query&#125;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>有点像git的提交和本地运行，就是用hexo的server本地运行命令,运行启动后需要打开浏览器访问本地地址。由于hexo server把当前的终端挂起了，因此需要将访问页面的命令换个地方启动，这里直接把启动Chrome，访问localhost:{query}的操作放在输入之后，虽然会暂时显示无法访问，但是由于Chrome开启了自动重载特性，所以起起来后还是能显示博客，就暂先这么实现了。</p>
+<h2 id="3-发布博客"><a href="#3-发布博客" class="headerlink" title="3. 发布博客"></a>3. 发布博客</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">// TODO</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
   	
 					
 	  </div>     
@@ -154,6 +157,9 @@
     <div class="meta">
       
 
+      
+      <i class="iconfont icon-tag"></i>
+      <a class="tag-link" href="/tags/hexo/">hexo</a> <a class="tag-link" href="/tags/productivity/">productivity</a>
       
     </div>
 
@@ -189,16 +195,16 @@
   <nav class="nav">
     <div class="link">
       
-    </div>
-    <div class="link">
-      
-      <a href="/2019/11/26/通用策略文档/" class="link-wrap">
-        <strong class="caption">newer</strong>
+      <a href="/2020/01/05/规则配置平台/" class="link-wrap">
+        <strong class="caption">older</strong>
         
         <span class="title">
-          通用策略文档
+          规则配置平台
         </span>
       </a>
+      
+    </div>
+    <div class="link">
       
     </div>
   </nav>
@@ -240,7 +246,7 @@
   
     <div class="none" id="search">
     <div class="header">
-        <input type="text" placeholder="Typing Something here." id="search-input" class="input">
+        <input type="text" placeholder="输入你想搜索的" id="search-input" class="input">
         
         <i id="search-cancel" class="iconfont icon-cancel"></i>
     </div>
@@ -256,31 +262,31 @@
          
             
 
-            <a class="mobile-menu-link" href="/">Home
+            <a class="mobile-menu-link" href="/">首頁
             </a>
             
          
             
 
-            <a class="mobile-menu-link" href="/archives">Archives
+            <a class="mobile-menu-link" href="/archives">歸檔
             </a>
             
          
             
 
-            <a class="mobile-menu-link" href="/tags">Tags
+            <a class="mobile-menu-link" href="/tags">標籤
             </a>
             
          
             
 
-            <a class="mobile-menu-link" href="/about">About
+            <a class="mobile-menu-link" href="/about">關於
             </a>
             
          
                           
 
-            <a class="mobile-menu-link mobile-menu-search" href="#">Search </a>                 
+            <a class="mobile-menu-link mobile-menu-search" href="#">搜索 </a>                 
             
          
       
@@ -299,7 +305,9 @@
 		<div class="copyright">
 			&copy;
 			
-			2019
+			2019 -
+			
+			2020
 			Lemon
 
 			<br>
