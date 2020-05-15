@@ -98,7 +98,7 @@
 			
 			
 				<i class="iconfont icon-words"></i>
-				<span class="words">3471
+				<span class="words">3674
 				</span>
 			
 		</div>
@@ -131,7 +131,7 @@
 		
 
 			
-					<h2 id="刷题经历"><a href="#刷题经历" class="headerlink" title="刷题经历"></a>刷题经历</h2><p>最近一直在刷 Leetcode，刚好遇到一个 <a href="https://leetcode.com/problems/reformat-department-table/" target="_blank" rel="noopener">SQL 的题</a>涉及到没有学习过的知识点。该题描述如下：</p>
+					<h2 id="刷题经历"><a href="#刷题经历" class="headerlink" title="刷题经历"></a>刷题经历</h2><p>&emsp;&emsp;最近一直在刷 Leetcode，刚好遇到一个 <a href="https://leetcode.com/problems/reformat-department-table/" target="_blank" rel="noopener">SQL 的题</a>涉及到没有学习过的知识点。该题描述如下：</p>
 <blockquote>
 <p>给定一个数据表 <code>Department</code>，数据格式如下：</p>
 </blockquote>
@@ -207,14 +207,29 @@
 <td>…</td>
 <td>null</td>
 </tr>
+<tr>
+<td><a id="more"></a></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>&emsp;&emsp;这种一看就知道用常规语法就无法做到，所以当时直接去查了答案，答案也很简单：</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
 </tbody></table>
-<p>这种一看就知道用常规语法就无法做到，所以当时直接去查了答案，答案也很简单：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> </span><br><span class="line">    <span class="keyword">id</span>,</span><br><span class="line">    <span class="keyword">SUM</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> <span class="keyword">month</span>=<span class="string">'Jan'</span> <span class="keyword">then</span> revenue <span class="keyword">else</span> <span class="literal">null</span> <span class="keyword">end</span>) <span class="keyword">as</span> <span class="string">'Jan_Revenue'</span>,</span><br><span class="line">    <span class="keyword">SUM</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> <span class="keyword">month</span>=<span class="string">'Feb'</span> <span class="keyword">then</span> revenue <span class="keyword">else</span> <span class="literal">null</span> <span class="keyword">end</span>) <span class="keyword">as</span> <span class="string">'Feb_Revenue'</span>,</span><br><span class="line">    <span class="keyword">SUM</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> <span class="keyword">month</span>=<span class="string">'Mar'</span> <span class="keyword">then</span> revenue <span class="keyword">else</span> <span class="literal">null</span> <span class="keyword">end</span>) <span class="keyword">as</span> <span class="string">'Mar_Revenue'</span>,</span><br><span class="line">    <span class="keyword">SUM</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> <span class="keyword">month</span>=<span class="string">'Apr'</span> <span class="keyword">then</span> revenue <span class="keyword">else</span> <span class="literal">null</span> <span class="keyword">end</span>) <span class="keyword">as</span> <span class="string">'Apr_Revenue'</span>,</span><br><span class="line">    <span class="keyword">SUM</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> <span class="keyword">month</span>=<span class="string">'May'</span> <span class="keyword">then</span> revenue <span class="keyword">else</span> <span class="literal">null</span> <span class="keyword">end</span>) <span class="keyword">as</span> <span class="string">'May_Revenue'</span>,</span><br><span class="line">    <span class="keyword">SUM</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> <span class="keyword">month</span>=<span class="string">'Jun'</span> <span class="keyword">then</span> revenue <span class="keyword">else</span> <span class="literal">null</span> <span class="keyword">end</span>) <span class="keyword">as</span> <span class="string">'Jun_Revenue'</span>,</span><br><span class="line">    <span class="keyword">SUM</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> <span class="keyword">month</span>=<span class="string">'Jul'</span> <span class="keyword">then</span> revenue <span class="keyword">else</span> <span class="literal">null</span> <span class="keyword">end</span>) <span class="keyword">as</span> <span class="string">'Jul_Revenue'</span>,</span><br><span class="line">    <span class="keyword">SUM</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> <span class="keyword">month</span>=<span class="string">'Aug'</span> <span class="keyword">then</span> revenue <span class="keyword">else</span> <span class="literal">null</span> <span class="keyword">end</span>) <span class="keyword">as</span> <span class="string">'Aug_Revenue'</span>,</span><br><span class="line">    <span class="keyword">SUM</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> <span class="keyword">month</span>=<span class="string">'Sep'</span> <span class="keyword">then</span> revenue <span class="keyword">else</span> <span class="literal">null</span> <span class="keyword">end</span>) <span class="keyword">as</span> <span class="string">'Sep_Revenue'</span>,</span><br><span class="line">    <span class="keyword">SUM</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> <span class="keyword">month</span>=<span class="string">'Oct'</span> <span class="keyword">then</span> revenue <span class="keyword">else</span> <span class="literal">null</span> <span class="keyword">end</span>) <span class="keyword">as</span> <span class="string">'Oct_Revenue'</span>,</span><br><span class="line">    <span class="keyword">SUM</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> <span class="keyword">month</span>=<span class="string">'Nov'</span> <span class="keyword">then</span> revenue <span class="keyword">else</span> <span class="literal">null</span> <span class="keyword">end</span>) <span class="keyword">as</span> <span class="string">'Nov_Revenue'</span>,</span><br><span class="line">    <span class="keyword">SUM</span>(<span class="keyword">CASE</span> <span class="keyword">WHEN</span> <span class="keyword">month</span>=<span class="string">'Dec'</span> <span class="keyword">then</span> revenue <span class="keyword">else</span> <span class="literal">null</span> <span class="keyword">end</span>) <span class="keyword">as</span> <span class="string">'Dec_Revenue'</span></span><br><span class="line"><span class="keyword">from</span> Department</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> <span class="keyword">id</span></span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> <span class="keyword">id</span>;</span><br></pre></td></tr></table></figure>
 
-<p>其中重点部分就是 <code>SUM(CASE WHEN XX THEN XX else XX END)</code>，其中的 <code>WHEN</code> 和 <code>THEN</code> 既可以是字段也可以是函数也可以是简单的值，很简单，语法就能看懂在做什么，不多解释了。</p>
-<h2 id="做完思考"><a href="#做完思考" class="headerlink" title="做完思考"></a>做完思考</h2><p>由于题目的解法是网上直接搜的答案，当时就在想，SQL 题目的考察点都是偏向没见过的语法，都只能直接查结果，得不到练习思维的效果了，一度想要把 SQL 题过滤掉。最后还是决定留下，每次遇到 SQL 题就直接搜结果学习下，并且多做一道程序题来弥补。把 SQL 的题当做学习。</p>
-<h2 id="🤟-👉-🎁-🍫"><a href="#🤟-👉-🎁-🍫" class="headerlink" title="🤟 👉 🎁 🍫"></a>🤟 👉 🎁 🍫</h2><p>正如《阿甘正传》里说的那样：”Life is like a box of chocolate, you never konw what you’ll gonna get“。我也没想到这种不常用的 SQL 还会有排上用场的时候。<br>场景是这样的：现在提供一个接口，实现的是自动生成调拨方案，存在表中的结构是由方案ID、商品ID、发货仓库、收货仓库四个字段唯一确定的一条记录，字段还包括当前商品的名称、当前商品的调拨数量等信息。如下表：<br>|id|plan_id|goods_id|goods_name|from|to|number|<br>|-|–|–|—-|–|–|–|<br>|1|31029|A123|小米10 Pro|31024|31028|20|<br>上述的一条记录表示的是：创建的自动调拨方案 31029 中有一条调拨记录，需要将 20 只小米 10 Pro手机(ID: A123)从 31024 仓库调拨到 31028 仓库。<br>现在需要提供一个界面，供用户查询一个调拨方案的详表，其中每一行代表了一种商品，一列数据代表了一个[发货仓]-[收货仓]的对应关系，如果该商品在这个调拨关系上没有数据则留空。最终效果如下图（来自于系统原型图）：<br><img src="/images/%E6%99%BA%E8%83%BD%E8%B0%83%E6%8B%A8%E6%95%88%E6%9E%9C%E5%9B%BE.png" alt="智能调拨效果"></p>
-<p>  一开始考虑的技术方案是，将表中对应的所有数据项都查询出来，然后通过程序去做数据的聚合，整理出来的思路如下：</p>
+<p>&emsp;&emsp;其中重点部分就是 <code>SUM(CASE WHEN XX THEN XX else XX END)</code>，其中的 <code>WHEN</code> 和 <code>THEN</code> 既可以是字段也可以是函数也可以是简单的值，很简单，语法就能看懂在做什么，不多解释了。</p>
+<h2 id="做完思考"><a href="#做完思考" class="headerlink" title="做完思考"></a>做完思考</h2><p>&emsp;&emsp;由于题目的解法是网上直接搜的答案，当时就在想，SQL 题目的考察点都是偏向没见过的语法，都只能直接查结果，得不到练习思维的效果了，一度想要把 SQL 题过滤掉。最后还是决定留下，每次遇到 SQL 题就直接搜结果学习下，并且多做一道程序题来弥补。把 SQL 的题当做学习。</p>
+<h2 id="🤟-👉-🎁-🍫"><a href="#🤟-👉-🎁-🍫" class="headerlink" title="🤟 👉 🎁 🍫"></a>🤟 👉 🎁 🍫</h2><p>&emsp;&emsp;正如《阿甘正传》里说的那样：”Life is like a box of chocolate, you never konw what you’ll gonna get“。我也没想到这种不常用的 SQL 还会有排上用场的时候。<br>&emsp;&emsp;场景是这样的：现在提供一个接口，实现的是自动生成调拨方案，存在表中的结构是由方案ID、商品ID、发货仓库、收货仓库四个字段唯一确定的一条记录，字段还包括当前商品的名称、当前商品的调拨数量等信息。如下表：<br>|id|plan_id|goods_id|goods_name|from|to|number|<br>|-|–|–|—-|–|–|–|<br>|1|31029|A123|小米10 Pro|31024|31028|20|<br>&emsp;&emsp;上述的一条记录表示的是：创建的自动调拨方案 31029 中有一条调拨记录，需要将 20 只小米 10 Pro手机(ID: A123)从 31024 仓库调拨到 31028 仓库。<br>&emsp;&emsp;现在需要提供一个界面，供用户查询一个调拨方案的详表，其中每一行代表了一种商品，一列数据代表了一个[发货仓]-[收货仓]的对应关系，如果该商品在这个调拨关系上没有数据则留空。最终效果如下图（来自于系统原型图）：<br><img src="/images/%E6%99%BA%E8%83%BD%E8%B0%83%E6%8B%A8%E6%95%88%E6%9E%9C%E5%9B%BE.png" alt="智能调拨效果"></p>
+<p>&emsp;&emsp;一开始考虑的技术方案是，将表中对应的所有数据项都查询出来，然后通过程序去做数据的聚合，整理出来的思路如下：</p>
 <pre><code>显示调拨方案详情：
 - 查询得到List&lt;Item&gt;     items
 - 所有的 MihomeFrom-MihomeTo pair 做成 HashSet
@@ -225,20 +240,23 @@
 - - data.add(item.mihomeFrom-item.mihomeTo, item.number)
 导出报表：使用显示详情的接口，并将 header+data 的结果转换成 csv
 - header转换成 ArrayList
-- data 也转换成同大小的 ArrayList，并 search 到对应的值</code></pre><p>  后来回忆起做过的做过的 LeetCode 题目，可以看出，上表中的每一行记录对应了原型图中的表格的每一个格点，这个业务场景就完美契合了上面题目的考察点：对原始表中的数据进行特定情况的聚合，生成新的数据列。不同的地方在于，例题中的数据列是给定的12个月，而当前的业务需要根据数据的特点动态生成。这一难点在Mybatis中也比较好解决：Mapper.xml 作为DAL层访问数据库的代理，既可以传入参数，也支持一些简单的逻辑操作指令，比如for循环插入<code>SUM</code>函数就可以实现生成动态列的效果。</p>
+- data 也转换成同大小的 ArrayList，并 search 到对应的值</code></pre><p>&emsp;&emsp;后来回忆起做过的做过的 LeetCode 题目，可以看出，上表中的每一行记录对应了原型图中的表格的每一个格点，这个业务场景就完美契合了上面题目的考察点：对原始表中的数据进行特定情况的聚合，生成新的数据列。不同的地方在于，例题中的数据列是给定的12个月，而当前的业务需要根据数据的特点动态生成。这一难点在Mybatis中也比较好解决：Mapper.xml 作为DAL层访问数据库的代理，既可以传入参数，也支持一些简单的逻辑操作指令，比如for循环插入<code>SUM</code>函数就可以实现生成动态列的效果。</p>
 <h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><h3 id="1-查询出所需的所有动态列数据"><a href="#1-查询出所需的所有动态列数据" class="headerlink" title="1. 查询出所需的所有动态列数据"></a>1. 查询出所需的所有动态列数据</h3><p>SQL：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> mihome_from, mihome_to <span class="keyword">from</span> plan_test <span class="keyword">as</span> l <span class="keyword">where</span> l.plan_id = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
 
 <p>结果集：<br>|mihome_from|mihome_to|<br>|-|-|<br>|1|10|<br>|1|12|<br>|2|10|<br>|3|14|</p>
-<p>将上述结果用一个数据结构 List&lt;MihomePair&gt; 保存起来，在下一步中使用。</p>
+<p>&emsp;&emsp;将上述结果用一个数据结构 List&lt;MihomePair&gt; 保存起来，在下一步中使用。</p>
 <h3 id="2-动态构建-SQL"><a href="#2-动态构建-SQL" class="headerlink" title="2. 动态构建 SQL"></a>2. 动态构建 SQL</h3><p>mapper.xml:</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"selectDetailTable"</span> <span class="attr">resultType</span>=<span class="string">"java.util.HashMap"</span>&gt;</span></span><br><span class="line">select sku, goods_id,goods_name, </span><br><span class="line">  <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">"mihomePair"</span> <span class="attr">index</span>=<span class="string">"index"</span> <span class="attr">item</span>=<span class="string">"pair"</span> <span class="attr">separator</span>=<span class="string">","</span>&gt;</span></span><br><span class="line">  SUM(CASE WHEN mihome_from=#&#123;pair.from&#125; and mihome_to = #&#123;pair_to&#125; then number else null end) as '#&#123;pair.from&#125;-#&#123;pair_to&#125;'</span><br><span class="line">  <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line">from plan_test where plan_id = 1 group by sku,goods_id, goods_name</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>SQL 执行结果：<br><img src="/images/%E6%99%BA%E8%83%BD%E8%B0%83%E6%8B%A8%E5%8A%A8%E6%80%81SQL.png" alt="智能调拨动态SQL"></p>
-<h3 id="输出结果"><a href="#输出结果" class="headerlink" title="输出结果"></a>输出结果</h3><p>结果集<code>HashMap</code>中的<code>KeySet</code>自身可以作为表头，稍转换下即可返回，数据项都符合前端需要的格式，也可以直接返回。</p>
-<p>该结果可以进一步转换成 SKU 作为键的 List，供用户的更新操作方便操作原始数据。也可以将 KeySet 转换为 List，数据列从 Map 转换成数组，方便导出 CSV 格式的文件。</p>
-<h3 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h3><p>目前该方案经过了上述的论证，还没有真正部署到项目中，等真实的数据放到系统中，会继续更新后续~</p>
-<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><p>这个问题看似简单，但是可以反映出一些有意思的观点：”世界上没有错误的道路，他们最终都走向正确“。不要放弃平时的积累，也许他们会在意想不到的时候给你一个bonus~</p>
+<h3 id="输出结果"><a href="#输出结果" class="headerlink" title="输出结果"></a>输出结果</h3><p>&emsp;&emsp;结果集<code>HashMap</code>中的<code>KeySet</code>自身可以作为表头，稍转换下即可返回，数据项都符合前端需要的格式，也可以直接返回。</p>
+<p>&emsp;&emsp;该结果可以进一步转换成 SKU 作为键的 List，供用户的更新操作方便操作原始数据。也可以将 KeySet 转换为 List，数据列从 Map 转换成数组，方便导出 CSV 格式的文件。</p>
+<h2 id="项目实践"><a href="#项目实践" class="headerlink" title="项目实践"></a>项目实践</h2><p>&emsp;&emsp;在智能调拨项目中将这个技术点应用到实践中，最终实现的效果如下：</p>
+<p>** 请求响应 json **<br><img src="/images/json.png" alt="响应"></p>
+<p>** 用户界面 **</p>
+<p><img src="/images/%E7%95%8C%E9%9D%A2.png" alt="界面"></p>
+<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><p>&emsp;&emsp;这个问题看似简单，但是可以反映出一些有意思的观点：”世界上没有错误的道路，他们最终都走向正确“。不要放弃平时的积累，也许他们会在意想不到的时候给你一个bonus~</p>
   	
 					
 	  </div>     
@@ -298,6 +316,14 @@
     </div>
     <div class="link">
       
+      <a href="/2020/05/15/如何实现复制Excel内容更新数据/" class="link-wrap">
+        <strong class="caption">newer</strong>
+        
+        <span class="title">
+          如何实现复制Excel内容更新数据
+        </span>
+      </a>
+      
     </div>
   </nav>
   
@@ -348,7 +374,7 @@
      <div class="mobile-menu">      
 
       
-      <img class="mobile-menu-icon" src="/images/avatar.jpg">  
+      <img class="mobile-menu-icon lazyload" src="/images/placeholder.png" data-src="/images/avatar.jpg">  
       
 
          
