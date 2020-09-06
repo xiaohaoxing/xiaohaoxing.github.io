@@ -98,7 +98,7 @@
 			
 			
 				<i class="iconfont icon-words"></i>
-				<span class="words">1671
+				<span class="words">1990
 				</span>
 			
 		</div>
@@ -154,10 +154,17 @@
 <p>后续再追加上一个 <code>Run Script</code>把{query}传递进去打开该文件即可。</p>
 <p>效果：</p>
 <p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gih01zia3qj30w20mkax9.jpg" alt="blog-edit 实现效果"></p>
+<h2 id="base64-编码解码"><a href="#base64-编码解码" class="headerlink" title="base64 编码解码"></a>base64 编码解码</h2><p>  完成上述的几个 workflow 后，继续一鼓作气完成了 base64  编码解码的 workflow。还增加了新的特性：filter，通过 Notification 提示用户转换成功还是失败。<br>  还是用 python 的库执行核心的转换：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line">query = <span class="string">"&#123;query&#125;"</span></span><br><span class="line"></span><br><span class="line">sys.stdout.write(base64.b64decode(query))</span><br></pre></td></tr></table></figure>
+
+<p>代码很简单，这部分流程控制更重要，如下图：</p>
+<p>workflow 流程图：</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gih1cgizuhj31830u0all.jpg" alt="base64解码"></p>
+<p>在执行完编码和解码后，根据内容是否为空判断是否成功，并使用 Notification 提示用户结果~成功了还会自动复制到剪贴板中。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>使用 alfred 实现了博客文章的新增、编辑、本地运行和发布几个常用功能，对自己日常使用也非常有意义，而且对熟悉 workflow 库的语法也有帮助，后续可以进一步考虑把常用的一些工作流优化到 workflow~</p>
 <p>e.p.:</p>
 <ol>
-<li>base64 的转换</li>
+<li>base64 的转换(Done)</li>
 </ol>
   	
 					
