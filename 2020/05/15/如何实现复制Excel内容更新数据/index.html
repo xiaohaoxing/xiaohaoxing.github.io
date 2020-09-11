@@ -1,137 +1,27 @@
-<!DOCTYPE html>
-<html>
-  <head><meta name="generator" content="Hexo 3.9.0">
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  
-  
-  <title>  如何实现复制Excel内容更新数据 |   XHX Blog </title>
-
- 
-  
-    <link rel="icon" href="/images/avatar.jpg">
-  
-
-
-  <link rel="stylesheet" href="/nayo.min.css"> 
-</head>  
-  <body>   
-    
-      <header class="header-wrapper">
-
-  <nav class="inner">
-    <div class="title">
-      <a href="/">
-        <img class="logo" src="/images/avatar.jpg">
-      </a>
-    </div>
-
-    <ul class="menu">
-      
-      
-      <li class="item">
-        <a class="link" id="menu-home" href="/">
-          <i class="iconfont icon-home">
-        </i></a>
-      </li>
-      
-      
-      
-      <li class="item">
-        <a class="link" id="menu-archives" href="/archives">
-          <i class="iconfont icon-archives">
-        </i></a>
-      </li>
-      
-      
-      
-      <li class="item">
-        <a class="link" id="menu-tags" href="/tags">
-          <i class="iconfont icon-tags">
-        </i></a>
-      </li>
-      
-      
-      
-      <li class="item">
-        <a class="link" id="menu-about" href="/about">
-          <i class="iconfont icon-about">
-        </i></a>
-      </li>
-      
-      
-      
-      <li class="item">
-        <a class="link" id="menu-search">
-          <i class="iconfont icon-search">
-        </i></a>
-        
-
-        
-      
-    </li></ul>
-  </nav>
-</header>
-
-<header class="mobile-header-wrapper">
-  <i id="mobile-toggle" class="iconfont icon-menu mobile-toggle"></i>
-</header>   
-
-      <div class="container">       
-          
-          
-            <div class="container-inner">  
-          
-
-          <article class="post slideDownMin">
-  
-	
-<div class="header">
-		<p class="title">	
-			如何实现复制Excel内容更新数据
-		</p>
-		<div class="info">	
-			<time>
-				May 15, 2020
-			</time>
-
-			
-			
-				<i class="iconfont icon-words"></i>
-				<span class="words">6397
-				</span>
-			
-		</div>
-</div> 
-	
-
-    <script type="text/x-mathjax-config">
-        var post = document.getElementsByClassName("post")[0];  
-        MathJax.Hub.Config({
-            showProcessingMessages: false,
-            messageStyle: "none",    
-            tex2jax: {
-                inlineMath:  [ ["$", "$"] , ["\\(","\\)"]],
-                displayMath: [ ["$$","$$"] , ["\\[","\\]"]],
-                skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code','a'],
-            },
-            "HTML-CSS": {            
-                showMathMenu: false
-            }
-        });
-        MathJax.Hub.Queue(["Typeset",MathJax.Hub,post]);
-    </script>
-    <style>.MathJax{outline:0;}</style>
-
-    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.2/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
- 
-
-	  <div class="typo post-content ">
-
-		
-
-			
-					<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>&emsp;&emsp;上季度在迭代通用策略的时候，曾经尝试迁移 PHP 版本的策略数据上传功能到 Java 后台，最后结果是配置管理部分的都完成了迁移（技术难度较低），但是相对而言，修改下载下来的 Excel 数据，然后复制内容到文本域里实现上传更新的功能就复杂的多，在上次的迁移中以失败告终，没有顺利迁移过来。</p>
+<!DOCTYPE html><html lang="cn"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#0078E7"><meta name="author" content="Xiao Haoxing"><meta name="copyright" content="Xiao Haoxing"><meta name="generator" content="Hexo 5.1.1"><meta name="theme" content="hexo-theme-yun"><title>如何实现复制Excel内容更新数据 | XHX Blog</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="none" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/star-markdown-css@0.1.19/dist/yun/yun-markdown.min.css"><script src="//at.alicdn.com/t/font_1140697_stqaphw3j4.js" async></script><script src="https://cdn.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>document.addEventListener("DOMContentLoaded", () => {
+  [".post-card",".post-content img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+});
+</script><link rel="shortcut icon" type="image/svg+xml" href="/yun.svg"><link rel="mask-icon" href="/yun.svg" color="#0078E7"><link rel="alternate icon" href="/yun.ico"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="preload" href="/js/utils.js" as="script"><link rel="preload" href="/js/hexo-theme-yun.js" as="script"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script id="yun-config">
+    const Yun = window.Yun || {};
+    window.CONFIG = {"root":"/","title":"XHX 博客","version":"1.0.0","anonymous_image":"https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/avatar/none.jpg","say":{"api":"https://v1.hitokoto.cn","hitokoto":true},"fireworks":{"colors":["102, 167, 221","62, 131, 225","33, 78, 194"]}};
+  </script><meta name="description" content="背景&amp;emsp;&amp;emsp;上季度在迭代通用策略的时候，曾经尝试迁移 PHP 版本的策略数据上传功能到 Java 后台，最后结果是配置管理部分的都完成了迁移（技术难度较低），但是相对而言，修改下载下来的 Excel 数据，然后复制内容到文本域里实现上传更新的功能就复杂的多，在上次的迁移中以失败告终，没有顺利迁移过来。 &amp;emsp;&amp;emsp;这个季度需要做的需求”智能调拨“也有类似的技术点：需要实">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何实现复制Excel内容更新数据">
+<meta property="og:url" content="http://xiaohaoxing.github.com/2020/05/15/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%A4%8D%E5%88%B6Excel%E5%86%85%E5%AE%B9%E6%9B%B4%E6%96%B0%E6%95%B0%E6%8D%AE/index.html">
+<meta property="og:site_name" content="XHX Blog">
+<meta property="og:description" content="背景&amp;emsp;&amp;emsp;上季度在迭代通用策略的时候，曾经尝试迁移 PHP 版本的策略数据上传功能到 Java 后台，最后结果是配置管理部分的都完成了迁移（技术难度较低），但是相对而言，修改下载下来的 Excel 数据，然后复制内容到文本域里实现上传更新的功能就复杂的多，在上次的迁移中以失败告终，没有顺利迁移过来。 &amp;emsp;&amp;emsp;这个季度需要做的需求”智能调拨“也有类似的技术点：需要实">
+<meta property="og:locale">
+<meta property="og:image" content="http://xiaohaoxing.github.com/images/%E7%AD%96%E7%95%A5%E6%9B%B4%E6%96%B0.png">
+<meta property="og:image" content="http://xiaohaoxing.github.com/images/%E6%99%BA%E8%83%BD%E8%B0%83%E6%8B%A8%E6%9B%B4%E6%96%B0.png">
+<meta property="article:published_time" content="2020-05-15T09:03:42.000Z">
+<meta property="article:modified_time" content="2020-05-15T11:01:53.791Z">
+<meta property="article:author" content="Xiao Haoxing">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="技术方案">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xiaohaoxing.github.com/images/%E7%AD%96%E7%95%A5%E6%9B%B4%E6%96%B0.png"></head><body><script defer src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script defer src="/js/ui/fireworks.js"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="Table of Contents"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-list-ordered"></use></svg></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="Overview"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-passport-line"></use></svg></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="Xiao Haoxing"><img width="96" loading="lazy" src="/Yun.png" alt="Xiao Haoxing"></a><div class="site-author-name"><a href="/about/">Xiao Haoxing</a></div><a class="site-name" href="/about/site.html">XHX Blog</a><sub class="site-subtitle">record every little progress.</sub><div class="site-desciption">争取把日常中整理的技术相关的都沉淀下来</div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="Home"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-home-4-line"></use></svg></span></a><div class="site-state-item"><a href="/archives/" title="Archives"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-archive-line"></use></svg></span><span class="site-state-item-count">8</span></a></div><div class="site-state-item"><a href="/categories/" title="Categories"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-2-line"></use></svg></span><span class="site-state-item-count">0</span></a></div><div class="site-state-item"><a href="/tags/" title="Tags"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="site-state-item-count">10</span></a></div></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="/atom.xml" title="RSS" target="_blank" style="color:orange"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-rss-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/xiaohaoxing" title="GitHub" target="_blank" style="color:#6e5494"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-github-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://music.163.com/#/user/home?id=77638723" title="网易云音乐" target="_blank" style="color:#C20C0C"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-netease-cloud-music-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="mailto:xiaohaoxing@outlook.com" title="E-Mail" target="_blank" style="color:#8E71C1"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-mail-line"></use></svg></a></div><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="我的小伙伴们" style="color:dodgerblue"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-genderless-line"></use></svg></a></div></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">1.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9E%84%E6%80%9D"><span class="toc-number">2.</span> <span class="toc-text">构思</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A8%E6%A0%BC%E6%95%B0%E6%8D%AE%E7%9A%84%E6%A0%A1%E9%AA%8C"><span class="toc-number">2.1.</span> <span class="toc-text">表格数据的校验</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%A1%B9%E6%9B%B4%E6%96%B0%E6%88%96%E6%96%B0%E5%A2%9E%E7%9A%84%E5%88%A4%E6%96%AD"><span class="toc-number">2.2.</span> <span class="toc-text">数据项更新或新增的判断</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%B4%E5%BA%A6%E5%80%BC%E7%9A%84%E8%BD%AC%E6%8D%A2"><span class="toc-number">2.3.</span> <span class="toc-text">维度值的转换</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#service-%E4%BB%A3%E7%A0%81"><span class="toc-number">3.1.</span> <span class="toc-text">service 代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#update-%E5%87%BD%E6%95%B0%E9%83%A8%E5%88%86"><span class="toc-number">3.2.</span> <span class="toc-text">update 函数部分</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E7%BB%AD%E8%BF%AD%E4%BB%A3%E8%AE%A1%E5%88%92"><span class="toc-number">4.</span> <span class="toc-text">后续迭代计划</span></a></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="post-block" itemscope itemtype="https://schema.org/Article"><link itemprop="mainEntityOfPage" href="http://xiaohaoxing.github.com/2020/05/15/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%A4%8D%E5%88%B6Excel%E5%86%85%E5%AE%B9%E6%9B%B4%E6%96%B0%E6%95%B0%E6%8D%AE/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="Xiao Haoxing"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="XHX Blog"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">如何实现复制Excel内容更新数据</h1><div class="post-meta"><div class="post-time" style="display:inline-block"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-line"></use></svg></span> <time title="Created: 2020-05-15 17:03:42" itemprop="dateCreated datePublished" datetime="2020-05-15T17:03:42+08:00">2020-05-15</time></div><div class="post-classify"><span class="post-tag"><a class="tag" href="/tags/Java/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="tag-name">Java</span></a><a class="tag" href="/tags/%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="tag-name">技术方案</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body" style="--smc-primary:#0078E7;"><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>&emsp;&emsp;上季度在迭代通用策略的时候，曾经尝试迁移 PHP 版本的策略数据上传功能到 Java 后台，最后结果是配置管理部分的都完成了迁移（技术难度较低），但是相对而言，修改下载下来的 Excel 数据，然后复制内容到文本域里实现上传更新的功能就复杂的多，在上次的迁移中以失败告终，没有顺利迁移过来。</p>
 <p>&emsp;&emsp;这个季度需要做的需求”智能调拨“也有类似的技术点：需要实现智能调拨方案的下载数据和修改数据，然后上传覆盖更新，还需要记录更新日志。不一样的业务场景，相似的技术点，不过最大的不同在于：这次的方案全盘由我自己来决策，需要什么字段自己加，需要执行什么操作自己构思；自由发挥的空间很大。因此心中就决心这次一定要把这个功能做好。</p>
 <p><strong>策略更新的信息</strong><br><img src="/images/%E7%AD%96%E7%95%A5%E6%9B%B4%E6%96%B0.png" alt="策略更新表"></p>
 <a id="more"></a>
@@ -152,190 +42,11 @@
 <h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>&emsp;&emsp;考虑完所有的坑之后，实现起来就比较顺利了，也比较幸运，用了大约半天（4-6小时）一口气实现了这部分的代码。自我感觉在没有大量注释的情况下可读性还是不错的~这里直接抛出来供大家鞭策指正。</p>
 <h3 id="service-代码"><a href="#service-代码" class="headerlink" title="service 代码"></a>service 代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">importTransferPlanDetail</span><span class="params">(Long planId, String data, Long operator)</span> </span>&#123;</span><br><span class="line">  TransferPlanDO plan = transferPlanMapper.selectPlanByPlanId(planId);</span><br><span class="line">  <span class="keyword">if</span> (plan == <span class="keyword">null</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> CommonException(ErrorCodeEnum.TRANSFER_PLAN_NOT_EXIST);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (plan.getStatus() != TransferConst.PlanStatus.CREATED) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> CommonException(ErrorCodeEnum.TRANSFER_PLAN_NOT_EDITABLE);</span><br><span class="line">  &#125;</span><br><span class="line">  TransferPlanDetailBO bo = getTransferPlanDetail(planId);</span><br><span class="line">  StringBuilder err = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="comment">// 验证数据 + 获取数据的更新信息</span></span><br><span class="line">      List&lt;TransferPlanDetailRecordUpdateBO&gt; updates = getUpdates(data, bo, err);</span><br><span class="line">      <span class="keyword">if</span> (err.length() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> err.toString();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">// 更新数据库详情数据</span></span><br><span class="line">      updates.forEach(update -&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (update.getNumFrom() == <span class="number">0</span>) &#123;</span><br><span class="line">  <span class="comment">// 从无到有要新增记录</span></span><br><span class="line">  itemService.insertDetailRecord(update, planId);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (update.getNumTo() == <span class="number">0</span>) &#123;</span><br><span class="line">  <span class="comment">// 从有到无要删除记录</span></span><br><span class="line">  itemService.deleteDetailRecord(update, planId);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="comment">// 否则更新记录</span></span><br><span class="line">  itemService.updateDetailRecord(update, planId);</span><br><span class="line">    &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">      <span class="comment">// 更新调拨方案更新时间</span></span><br><span class="line">      transferPlanMapper.updateTime(planId, System.currentTimeMillis() / <span class="number">1000</span>);</span><br><span class="line">      <span class="comment">// 写入日志</span></span><br><span class="line">      logService.logImport(operator, planId, updates);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">      err.append(e.getMessage());</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> err.toString();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="update-函数部分"><a href="#update-函数部分" class="headerlink" title="update 函数部分"></a>update 函数部分</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> List&lt;TransferPlanDetailRecordUpdateBO&gt; <span class="title">getUpdates</span><span class="params">(String data, TransferPlanDetailBO bo, StringBuilder err)</span> </span>&#123;</span><br><span class="line">    String[] rows = data.split(<span class="string">"[\n]+"</span>);</span><br><span class="line">    <span class="keyword">if</span> (rows.length != bo.getDatas().size() + <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"数据行数错误！需要"</span> + (bo.getDatas().size() + <span class="number">1</span>) + <span class="string">"行。"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    String[] headers = rows[<span class="number">0</span>].split(<span class="string">"[\t]+"</span>);</span><br><span class="line">    String[] dataRows = Arrays.copyOfRange(rows, <span class="number">1</span>, rows.length);</span><br><span class="line">    PlanDetailHeaderBO[] existHeaders = bo.getHeaders().toArray(<span class="keyword">new</span> PlanDetailHeaderBO[<span class="number">0</span>]);</span><br><span class="line">    HashMap&lt;String, Object&gt;[] existDataRows = bo.getDatas().toArray(<span class="keyword">new</span> HashMap[<span class="number">0</span>]);</span><br><span class="line">    <span class="keyword">if</span> (existHeaders.length != headers.length) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"表头列数错误！需要"</span> + existHeaders.length + <span class="string">"列。"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 验证表头</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; existDataRows.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!headers[i].equals(existHeaders[i].getTitle())) &#123;</span><br><span class="line">            err.append(<span class="string">"表头缺少["</span> + existHeaders[i].getTitle() + <span class="string">"]\n"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    List&lt;TransferPlanDetailRecordUpdateBO&gt; result = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="comment">// 验证数据</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; existDataRows.length; i++) &#123;</span><br><span class="line">        String[] cells = dataRows[i].split(<span class="string">"[\t]+"</span>);</span><br><span class="line">        HashMap&lt;String, Object&gt; existRow = existDataRows[i];</span><br><span class="line">        String currentGoodsId = String.valueOf(existRow.get(<span class="string">"goods_id"</span>));</span><br><span class="line">        String currentGoodsName = (String) existRow.get(<span class="string">"goods_name"</span>);</span><br><span class="line">        String currentSku = (String) existRow.get(<span class="string">"sku"</span>);</span><br><span class="line">        <span class="keyword">if</span> (cells.length != existRow.size()) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"第"</span> + (i + <span class="number">1</span>) + <span class="string">"行数据列数错误！需要"</span> + existRow.size() + <span class="string">"列。\n"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">boolean</span> goodsId = cells[<span class="number">0</span>].equals(currentGoodsId);</span><br><span class="line">        <span class="keyword">boolean</span> goodsName = cells[<span class="number">1</span>].equals(currentGoodsName);</span><br><span class="line">        <span class="keyword">boolean</span> sku = cells[<span class="number">2</span>].equals(currentSku);</span><br><span class="line">        <span class="keyword">if</span> (!goodsId || !goodsName || !sku) &#123;</span><br><span class="line">            err.append(<span class="string">"第"</span> + (i + <span class="number">1</span>) + <span class="string">"行数据商品信息有误，应为"</span> + currentGoodsName);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">3</span>; j &lt; cells.length; j++) &#123;</span><br><span class="line">            String currentCellInfo = existHeaders[j].getTitle() + <span class="string">"调拨"</span> + currentGoodsName;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 转换数据</span></span><br><span class="line">                Integer preNum = ((Double) existRow.get(existHeaders[j].getDataIndex())).intValue();</span><br><span class="line">                Integer newNum = Integer.parseInt(cells[j]);</span><br><span class="line">                <span class="keyword">if</span> (newNum &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                    err.append(currentCellInfo + <span class="string">"数据有误，请检查。\n"</span>);</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (!preNum.equals(newNum)) &#123;</span><br><span class="line">                    String[] mihomePair = existHeaders[j].getDataIndex().split(<span class="string">"-"</span>);</span><br><span class="line">                    String[] mihomeNamepair = existHeaders[j].getTitle().split(<span class="string">"-"</span>);</span><br><span class="line">                    result.add(TransferPlanDetailRecordUpdateBO.builder()</span><br><span class="line">                            .goodsId(currentGoodsId)</span><br><span class="line">                            .goodsName(currentGoodsName)</span><br><span class="line">                            .sku(currentSku)</span><br><span class="line">                            .mihomeFrom(mihomePair[<span class="number">0</span>])</span><br><span class="line">                            .mihomeTo(mihomePair[<span class="number">1</span>])</span><br><span class="line">                            .mihomeFromName(mihomeNamepair[<span class="number">0</span>])</span><br><span class="line">                            .mihomeToName(mihomeNamepair[<span class="number">1</span>])</span><br><span class="line">                            .numFrom(preNum)</span><br><span class="line">                            .numTo(newNum).build());</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                err.append(currentCellInfo + <span class="string">"数据有误，请检查。\n"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="update-函数部分"><a href="#update-函数部分" class="headerlink" title="update 函数部分"></a>update 函数部分</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> List&lt;TransferPlanDetailRecordUpdateBO&gt; <span class="title">getUpdates</span><span class="params">(String data, TransferPlanDetailBO bo, StringBuilder err)</span> </span>&#123;</span><br><span class="line">    String[] rows = data.split(<span class="string">&quot;[\n]+&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (rows.length != bo.getDatas().size() + <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">&quot;数据行数错误！需要&quot;</span> + (bo.getDatas().size() + <span class="number">1</span>) + <span class="string">&quot;行。&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    String[] headers = rows[<span class="number">0</span>].split(<span class="string">&quot;[\t]+&quot;</span>);</span><br><span class="line">    String[] dataRows = Arrays.copyOfRange(rows, <span class="number">1</span>, rows.length);</span><br><span class="line">    PlanDetailHeaderBO[] existHeaders = bo.getHeaders().toArray(<span class="keyword">new</span> PlanDetailHeaderBO[<span class="number">0</span>]);</span><br><span class="line">    HashMap&lt;String, Object&gt;[] existDataRows = bo.getDatas().toArray(<span class="keyword">new</span> HashMap[<span class="number">0</span>]);</span><br><span class="line">    <span class="keyword">if</span> (existHeaders.length != headers.length) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">&quot;表头列数错误！需要&quot;</span> + existHeaders.length + <span class="string">&quot;列。&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 验证表头</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; existDataRows.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!headers[i].equals(existHeaders[i].getTitle())) &#123;</span><br><span class="line">            err.append(<span class="string">&quot;表头缺少[&quot;</span> + existHeaders[i].getTitle() + <span class="string">&quot;]\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    List&lt;TransferPlanDetailRecordUpdateBO&gt; result = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="comment">// 验证数据</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; existDataRows.length; i++) &#123;</span><br><span class="line">        String[] cells = dataRows[i].split(<span class="string">&quot;[\t]+&quot;</span>);</span><br><span class="line">        HashMap&lt;String, Object&gt; existRow = existDataRows[i];</span><br><span class="line">        String currentGoodsId = String.valueOf(existRow.get(<span class="string">&quot;goods_id&quot;</span>));</span><br><span class="line">        String currentGoodsName = (String) existRow.get(<span class="string">&quot;goods_name&quot;</span>);</span><br><span class="line">        String currentSku = (String) existRow.get(<span class="string">&quot;sku&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (cells.length != existRow.size()) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">&quot;第&quot;</span> + (i + <span class="number">1</span>) + <span class="string">&quot;行数据列数错误！需要&quot;</span> + existRow.size() + <span class="string">&quot;列。\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">boolean</span> goodsId = cells[<span class="number">0</span>].equals(currentGoodsId);</span><br><span class="line">        <span class="keyword">boolean</span> goodsName = cells[<span class="number">1</span>].equals(currentGoodsName);</span><br><span class="line">        <span class="keyword">boolean</span> sku = cells[<span class="number">2</span>].equals(currentSku);</span><br><span class="line">        <span class="keyword">if</span> (!goodsId || !goodsName || !sku) &#123;</span><br><span class="line">            err.append(<span class="string">&quot;第&quot;</span> + (i + <span class="number">1</span>) + <span class="string">&quot;行数据商品信息有误，应为&quot;</span> + currentGoodsName);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">3</span>; j &lt; cells.length; j++) &#123;</span><br><span class="line">            String currentCellInfo = existHeaders[j].getTitle() + <span class="string">&quot;调拨&quot;</span> + currentGoodsName;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 转换数据</span></span><br><span class="line">                Integer preNum = ((Double) existRow.get(existHeaders[j].getDataIndex())).intValue();</span><br><span class="line">                Integer newNum = Integer.parseInt(cells[j]);</span><br><span class="line">                <span class="keyword">if</span> (newNum &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                    err.append(currentCellInfo + <span class="string">&quot;数据有误，请检查。\n&quot;</span>);</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (!preNum.equals(newNum)) &#123;</span><br><span class="line">                    String[] mihomePair = existHeaders[j].getDataIndex().split(<span class="string">&quot;-&quot;</span>);</span><br><span class="line">                    String[] mihomeNamepair = existHeaders[j].getTitle().split(<span class="string">&quot;-&quot;</span>);</span><br><span class="line">                    result.add(TransferPlanDetailRecordUpdateBO.builder()</span><br><span class="line">                            .goodsId(currentGoodsId)</span><br><span class="line">                            .goodsName(currentGoodsName)</span><br><span class="line">                            .sku(currentSku)</span><br><span class="line">                            .mihomeFrom(mihomePair[<span class="number">0</span>])</span><br><span class="line">                            .mihomeTo(mihomePair[<span class="number">1</span>])</span><br><span class="line">                            .mihomeFromName(mihomeNamepair[<span class="number">0</span>])</span><br><span class="line">                            .mihomeToName(mihomeNamepair[<span class="number">1</span>])</span><br><span class="line">                            .numFrom(preNum)</span><br><span class="line">                            .numTo(newNum).build());</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                err.append(currentCellInfo + <span class="string">&quot;数据有误，请检查。\n&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>&emsp;&emsp;<code>getUpdates</code>部分的代码一开始其实是准备把验证和读数分开做的<del>先验证格式正确性，取出入参的子集数据<code>int[][]</code>，再进行新建/更新判断，但是做的过程中发现没有必要，已经遍历到具体的数值了，对应的原始数值也正好能读到（已有数据的数据结构是用 HashMap 存储的，用<code>dataRow.get([headerName])</code>就可以得到），就直接去生成对应的变更记录列表了。由于违背了一开始的设计思路，所以可能看起来有点乱，如果你有更优雅的实现方式也可以跟我交流下</del></p>
 <h2 id="后续迭代计划"><a href="#后续迭代计划" class="headerlink" title="后续迭代计划"></a>后续迭代计划</h2><p>&emsp;&emsp;这里使用了100行不到的代码实现了对上传数据表格更新数据库的具体操作（当然还有前置读取原始数据的步骤），虽然代码不多，但是还是比较锻炼思维能力，我第二次开发才算比较满意的实现了预期的效果，后续计划将对上次未完成的通用策略的数据导入进行开发，进一步提高对这部分技术点的掌握。</p>
 <blockquote>
 <p>平凡的业务中也有不平凡的闪光点~</p>
 </blockquote>
-  	
-					
-	  </div>     
-	  
-
-	<div class="bottom">
-  <div class="other">
-    <div class="meta">
-      
-
-      
-      <i class="iconfont icon-tag"></i>
-      <a class="tag-link" href="/tags/Java/">Java</a> <a class="tag-link" href="/tags/技术方案/">技术方案</a>
-      
-    </div>
-
-    <div class="operate">
-      
-      <span class="text">Share</span>
-      <ul class="share">
-	   			             
-        <li class="iconfont 
-		icon-share-qq 
-		-mob-share-qq 
-		item"></li>		
-   	   			             
-        <li class="iconfont 
-		icon-share-weixin 
-		-mob-share-weixin 
-		item"></li>		
-   	   			             
-        <li class="iconfont 
-		icon-share-weibo 
-		-mob-share-weibo 
-		item"></li>		
-   	   
-</ul>	
-
-<script id="-mob-share" src="https://f1.webshare.mob.com/code/mob-share.js?appkey=21d601593a1de"></script>
-      
-    </div>
-  </div>
-
-
-  
-  <nav class="nav">
-    <div class="link">
-      
-      <a href="/2020/04/30/学以致用/" class="link-wrap">
-        <strong class="caption">older</strong>
-        
-        <span class="title">
-          学以致用
-        </span>
-      </a>
-      
-    </div>
-    <div class="link">
-      
-      <a href="/2020/07/26/思维导图demo/" class="link-wrap">
-        <strong class="caption">newer</strong>
-        
-        <span class="title">
-          思维导图demo
-        </span>
-      </a>
-      
-    </div>
-  </nav>
-  
-</div> 
-	
-<div class="comment">
-
-    
-
-    <div id="comment">
-    </div>
-
-    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-
-    <script src="//unpkg.com/valine@v1.1.8-beta/dist/Valine.min.js"></script>
-
-    <script>
-        new Valine({
-            el: '#comment',
-            notify: false,
-            verify: false,
-            app_id: 'cFM0eCo0CQ9xmBXmHi1eltol-gzGzoHsz',
-            app_key: 'oh9tizsnvV2vNvWgqEvoNtQO',
-            path: window.location.pathname,
-            avatar: 'mm',
-            guest_info: ['nick', 'mail']
-        });
-    </script>
-    
-</div>	
-</article>
-
-          </div> 
-      </div>            
-    
-        <i id="toTop" class="iconfont icon-backtotop"></i>
-
-  
-    <div class="none" id="search">
-    <div class="header">
-        <input type="text" placeholder="Typing Something here." id="search-input" class="input">
-        
-        <i id="search-cancel" class="iconfont icon-cancel"></i>
-    </div>
-
-    <div id="search-result" class="result"></div>
-</div>
-     <div class="mobile-menu">      
-
-      
-      <img class="mobile-menu-icon" src="/images/avatar.jpg">  
-      
-
-         
-            
-
-            <a class="mobile-menu-link" href="/">Home
-            </a>
-            
-         
-            
-
-            <a class="mobile-menu-link" href="/archives">Archives
-            </a>
-            
-         
-            
-
-            <a class="mobile-menu-link" href="/tags">Tags
-            </a>
-            
-         
-            
-
-            <a class="mobile-menu-link" href="/about">About
-            </a>
-            
-         
-                          
-
-            <a class="mobile-menu-link mobile-menu-search" href="#">Search </a>                 
-            
-         
-      
-</div>
-        
-    
-
-
-
-     
-    
-
-
-<footer class="footer">
-	<div class="inner">
-		<div class="copyright">
-			&copy;
-			
-			2019 -
-			
-			2020
-			Lemon
-
-			<br>
-			By <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>
-		</div>
-	</div>
-</footer>   
-
-    <script src="/nayo.bundle.js"></script>           
-  </body>        
-</html>
+</div><ul class="post-copyright"><li class="post-copyright-author"><strong>Post author: </strong>Xiao Haoxing</li><li class="post-copyright-link"><strong>Post link: </strong><a href="http://xiaohaoxing.github.com/2020/05/15/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%A4%8D%E5%88%B6Excel%E5%86%85%E5%AE%B9%E6%9B%B4%E6%96%B0%E6%95%B0%E6%8D%AE/" title="如何实现复制Excel内容更新数据">http://xiaohaoxing.github.com/2020/05/15/%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%A4%8D%E5%88%B6Excel%E5%86%85%E5%AE%B9%E6%9B%B4%E6%96%B0%E6%95%B0%E6%8D%AE/</a></li><li class="post-copyright-license"><strong>Copyright Notice: </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><svg class="icon"><use xlink:href="#icon-creative-commons-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-by-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-nc-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-sa-line"></use></svg></a> unless stating additionally.</li></ul></section></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/2020/07/26/%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BEdemo/" rel="prev" title="思维导图demo"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-left-s-line"></use></svg><span class="post-nav-text">思维导图demo</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/2020/04/30/%E5%AD%A6%E4%BB%A5%E8%87%B4%E7%94%A8/" rel="next" title="学以致用"><span class="post-nav-text">学以致用</span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-right-s-line"></use></svg></a></div></div></div><div id="comment"><div class="comment-tooltip text-center"><span>点击按钮跳转 GitHub Issues 评论。</span><br><span>若没有本文 Issue，您可以使用 Comment 模版新建。</span><br><a class="hty-button hty-button--raised" id="github-issues" target="_blank" rel="noopener" href="https://github.com/YunYouJun/yunyoujun.github.io/issues?q=is:issue+如何实现复制Excel内容更新数据">GitHub Issues</a></div></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2019 – 2020 </span><span class="with-love" id="animate"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-cloud-line"></use></svg></span><span class="author"> Xiao Haoxing</span></div><div class="powered"><span>Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> v5.1.1</span><span class="footer-separator">|</span><span>Theme - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.0.0</span></div></footer><a class="hty-icon-button" id="goUp" aria-label="back-to-top" href="#"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-up-s-line"></use></svg><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a></div><script defer src="/js/utils.js"></script><script defer src="/js/hexo-theme-yun.js"></script></body></html>
