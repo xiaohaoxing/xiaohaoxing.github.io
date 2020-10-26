@@ -1,0 +1,155 @@
+<!DOCTYPE html><html lang="cn"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#0078E7"><meta name="author" content="Xiao Haoxing"><meta name="copyright" content="Xiao Haoxing"><meta name="generator" content="Hexo 5.1.1"><meta name="theme" content="hexo-theme-yun"><title>GitLab CI 搭建指南 | XHX Blog</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="none" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/star-markdown-css@0.1.19/dist/yun/yun-markdown.min.css"><script src="//at.alicdn.com/t/font_1140697_stqaphw3j4.js" async></script><script src="https://cdn.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>document.addEventListener("DOMContentLoaded", () => {
+  [".post-card",".post-content img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+});
+</script><link rel="shortcut icon" type="image/svg+xml" href="/yun.svg"><link rel="mask-icon" href="/yun.svg" color="#0078E7"><link rel="alternate icon" href="/yun.ico"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="preload" href="/js/utils.js" as="script"><link rel="preload" href="/js/hexo-theme-yun.js" as="script"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script id="yun-config">
+    const Yun = window.Yun || {};
+    window.CONFIG = {"root":"/","title":"XHX 博客","version":"1.0.0","anonymous_image":"https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/avatar/none.jpg","fireworks":{"colors":["102, 167, 221","62, 131, 225","33, 78, 194"]}};
+  </script><meta name="description" content="起因  事情的起因也是来自工作中跟我们日常密切相关，而又没有机会接触到的东西：CI。项目脚手架自带了 CI 脚本，只需要稍作修改就可以直接使用；GitLab 上的项目的 CI 配合也不需要我们管，直接使用Public Runner就行了。时间长了自然就对这方面比较感兴趣，想知道其中的原理。正好搭建了服务器，部署好了 GitLab，于是说干就干，开始着手做自己的 GitLab CI 配置。 过程CI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GitLab CI 搭建指南">
+<meta property="og:url" content="http://xiaohaoxing.github.com/2020/10/26/GitLab-CI-%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97/index.html">
+<meta property="og:site_name" content="XHX Blog">
+<meta property="og:description" content="起因  事情的起因也是来自工作中跟我们日常密切相关，而又没有机会接触到的东西：CI。项目脚手架自带了 CI 脚本，只需要稍作修改就可以直接使用；GitLab 上的项目的 CI 配合也不需要我们管，直接使用Public Runner就行了。时间长了自然就对这方面比较感兴趣，想知道其中的原理。正好搭建了服务器，部署好了 GitLab，于是说干就干，开始着手做自己的 GitLab CI 配置。 过程CI">
+<meta property="og:locale">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/0081Kckwgy1gk38mj082jj31uh0u0h8v.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/0081Kckwgy1gk38uzcm7sj31ye0u0dlr.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/0081Kckwgy1gk38xonz62j32140kcdhu.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/0081Kckwgy1gk38yei629j31i80pqtdh.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/0081Kckwgy1gk393be6hqj318u0d4mzd.jpg">
+<meta property="article:published_time" content="2020-10-26T14:59:58.000Z">
+<meta property="article:modified_time" content="2020-10-26T17:35:18.234Z">
+<meta property="article:author" content="Xiao Haoxing">
+<meta property="article:tag" content="教程">
+<meta property="article:tag" content="技术">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/0081Kckwgy1gk38mj082jj31uh0u0h8v.jpg"><script src="/js/ui/mode.js"></script><link id="light-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.20.0/themes/prism.css" media="(prefers-color-scheme: light)"><link id="dark-prism-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.20.0/themes/prism-tomorrow.css" media="(prefers-color-scheme: dark)"></head><body><script defer src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script defer src="/js/ui/fireworks.js"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="見出し"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-list-ordered"></use></svg></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="概要"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-passport-line"></use></svg></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="Xiao Haoxing"><img width="96" loading="lazy" src="/Yun.png" alt="Xiao Haoxing"></a><div class="site-author-name"><a href="/about/">Xiao Haoxing</a></div><a class="site-name" href="/about/site.html">XHX Blog</a><sub class="site-subtitle">record every little progress.</sub><div class="site-desciption">争取把日常中整理的技术相关的都沉淀下来</div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="ホーム"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-home-4-line"></use></svg></span></a><div class="site-state-item"><a href="/archives/" title="アーカイブ"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-archive-line"></use></svg></span><span class="site-state-item-count">9</span></a></div><div class="site-state-item"><a href="/categories/" title="カテゴリ"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-2-line"></use></svg></span><span class="site-state-item-count">0</span></a></div><div class="site-state-item"><a href="/tags/" title="タグ"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="site-state-item-count">12</span></a></div></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="/atom.xml" title="RSS" target="_blank" style="color:orange"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-rss-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/xiaohaoxing" title="GitHub" target="_blank" style="color:#6e5494"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-github-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://music.163.com/#/user/home?id=77638723" title="网易云音乐" target="_blank" style="color:#C20C0C"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-netease-cloud-music-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="mailto:xiaohaoxing@outlook.com" title="E-Mail" target="_blank" style="color:#8E71C1"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-mail-line"></use></svg></a></div><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="我的小伙伴们" style="color:dodgerblue"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-genderless-line"></use></svg></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-contrast-2-line"></use></svg></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B5%B7%E5%9B%A0"><span class="toc-number">1.</span> <span class="toc-text">起因</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%87%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text">过程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#CI-%E8%84%9A%E6%9C%AC"><span class="toc-number">2.1.</span> <span class="toc-text">CI 脚本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CI-Runner"><span class="toc-number">2.2.</span> <span class="toc-text">CI Runner</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-gitlab-runner"><span class="toc-number">2.2.1.</span> <span class="toc-text">安装 gitlab-runner</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Runner-%E7%9A%84%E5%9D%91"><span class="toc-number">2.2.2.</span> <span class="toc-text">Runner 的坑</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C-CI"><span class="toc-number">2.3.</span> <span class="toc-text">执行 CI</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%8E%E7%BB%AD"><span class="toc-number">3.</span> <span class="toc-text">后续</span></a></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="post-block" itemscope itemtype="https://schema.org/Article"><link itemprop="mainEntityOfPage" href="http://xiaohaoxing.github.com/2020/10/26/GitLab-CI-%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="Xiao Haoxing"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="XHX Blog"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">GitLab CI 搭建指南</h1><div class="post-meta"><div class="post-time" style="display:inline-block"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-line"></use></svg></span> <time title="作成日：2020-10-26 22:59:58" itemprop="dateCreated datePublished" datetime="2020-10-26T22:59:58+08:00">2020-10-26</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-2-line"></use></svg></span> <time title="修正日：2020-10-27 01:35:18" itemprop="dateModified" datetime="2020-10-27T01:35:18+08:00">2020-10-27</time></div><div class="post-classify"><span class="post-tag"><a class="tag" href="/tags/%E6%95%99%E7%A8%8B/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="tag-name">教程</span></a><a class="tag" href="/tags/%E6%8A%80%E6%9C%AF/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="tag-name">技术</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body" style="--smc-primary:#0078E7;"><h1 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h1><p>  事情的起因也是来自工作中跟我们日常密切相关，而又没有机会接触到的东西：CI。项目脚手架自带了 CI 脚本，只需要稍作修改就可以直接使用；GitLab 上的项目的 CI 配合也不需要我们管，直接使用<code>Public Runner</code>就行了。时间长了自然就对这方面比较感兴趣，想知道其中的原理。正好搭建了服务器，部署好了 GitLab，于是说干就干，开始着手做自己的 GitLab CI 配置。</p>
+<h1 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h1><h2 id="CI-脚本"><a href="#CI-脚本" class="headerlink" title="CI 脚本"></a>CI 脚本</h2><p>  已经知道了在项目上执行的东西，包括推代码、打 tag 都会导致 CI 的自动执行，而什么情况执行什么 CI 的 stage 就由项目根目录下的.gitlab-ci.yml 文件决定。因此找到一个项目的 CI 文件看看是怎么写的：</p>
+<pre class="language-yml" data-language="yml"><code class="language-yml">image: xxxxxx:maven-openjdk8-onbuild
+
+stages:
+  - build
+  - release
+
+test:
+  stage: build
+  script:
+    - rm -rf test_target&#x2F;* &amp;&amp; mkdir -p test_target &amp;&amp; mvn -U clean package -Dmaven.test.skip&#x3D;true -P test
+    - cp -a oms-web&#x2F;target&#x2F;oms-web.jar test_target&#x2F;ROOT.jar
+    - chmod +x .&#x2F;test_target&#x2F;ROOT.jar
+    - cp -rf .&#x2F;.dockerignore .&#x2F;test_target &amp;&amp; cp -rf .&#x2F;Dockerfile .&#x2F;test_target
+  environment: test
+  only:
+    - &#x2F;^neo-java-test-.*$&#x2F;
+  except:
+    - branches
+  artifacts:
+    paths:
+     - test_target&#x2F;*
+    untracked: false
+    
+neo-image-upload:
+  stage: release
+  image: xxxxx:docker19.06-base-image
+  script:
+    - mi_env&#x3D;$(echo $CI_COMMIT_TAG | awk -F &#39;-&#39; &#39;&#123;print $3&#125;&#39;)
+    - cd .&#x2F;$mi_env&#39;_target&#39;
+    - docker login hub.pf.xiaomi.com -u $HUBUSER -p $HUBPASS
+    - docker build . -t  xxxxxx.xxx.xxx&#x2F;$(echo $CI_COMMIT_TAG | awk -F &#39;-&#39; &#39;&#123;print $2&quot;-&quot;$3&#125;&#39;):$CI_COMMIT_TAG
+    - docker push xxxxxxxxx.xxx.xxx]、&#x2F;$(echo $CI_COMMIT_TAG | awk -F &#39;-&#39; &#39;&#123;print $2&quot;-&quot;$3&#125;&#39;):$CI_COMMIT_TAG
+  environment:
+    name: neo
+  only:
+    - &#x2F;^neo-.*$&#x2F;
+  except:
+    - branches
+...</code></pre>
+
+<p>  首先上来是先定义CI 需要的基本 docker 镜像，不管你 CI 的目的是什么，最终都是要执行一段代码，这部分代码一定需要个环境去执行的，这个环境就是来自于声明的镜像类型。下面是定义了 2 个执行阶段：build 和 release。在 gitlab 平台上 CI 的过程状态图可以知道：这里是定义了他们执行的先后顺序：需要先构建好项目的产出可执行包，再推送到指定的容器中供启动。下面 2 部分则是定义了具体的 stage 的条件和执行的内容。stage：指定为哪个执行阶段。image：指定该阶段使用的镜像。script：该阶段执行的代码，一般为 shell 脚本。only：指定该阶段执行的触发条件，一般为分支或 tag 名。</p>
+<p>  根据上面的 ci 脚本，我定义一个最简单的 CI 脚本：</p>
+<pre class="language-shell" data-language="shell"><code class="language-shell">image: docker:dind
+
+stages:
+  - stage1
+  - stage2
+
+stage-first:
+  stage: stage1
+  script:
+    - echo &#39;I am first executed!&#39;
+  only:
+    - master
+  artifacts:
+    paths:
+      - prod_target&#x2F;*
+
+
+stage-second:
+  stage: stage2
+  script:
+    - echo &#39;I am second executed!&#39;
+  only:
+    - master</code></pre>
+
+<p>  定义了 2 个阶段，分别打印字符串。</p>
+<h2 id="CI-Runner"><a href="#CI-Runner" class="headerlink" title="CI Runner"></a>CI Runner</h2><p>  完成上面的 CI 脚本后我迫不及待的将分支合到 master 并推送到远程，期望他能立刻执行出结果。可是 GitLab 上显示的CI 状态为：Pending：No Runner available for pipeline。表明没有可以用来执行CI 的 Runner。那么就需要查找跟 Runner 相关的信息。得知：Runner 是支持多节点的独立部署的服务，在机器上启动 Runner <strong>管理服务</strong>后<strong>注册</strong>一个新的 Runner，将其<strong>绑定</strong>到对应的 GitLab 上（可以绑定为一个 GitLab 库公用或者一个指定 repository 专用）就可以用来执行 CI 了。</p>
+<h3 id="安装-gitlab-runner"><a href="#安装-gitlab-runner" class="headerlink" title="安装 gitlab-runner"></a>安装 gitlab-runner</h3><p>  此时我就去找 Runner 的安装了。我直接运行：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> gitlab-runner</code></pre>
+
+<p>  安装成功，<strong>但是</strong>此时执行再执行：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> gitlab-runner register</code></pre>
+
+<p>  想注册一个 Runner 并绑定到我的 GitLab 上发现总是失败。</p>
+<h3 id="Runner-的坑"><a href="#Runner-的坑" class="headerlink" title="Runner 的坑"></a>Runner 的坑</h3><p>  经过一番搜索，知道了 GitLab 和 Runner 的版本有约束：8.X 版本的 GitLab 只支持 1.X 版本的 Runner 服务，而 apt 自动安装的为 13.X 版本的了，无法兼容。于是就需要开始搜索互联网上的 1.X 版本的 Runner 安装程序。</p>
+<ul>
+<li><p>Runner 的 RELEASE：没有 1.X 版本。</p>
+</li>
+<li><p>Runner 的 Tag 列表：有 1.X 版本的 tag 但是没有 artifacts 产物。</p>
+</li>
+<li><p>各大镜像站：只有 10.X 开始版本的 Runner 安装程序。</p>
+<p>看似已经山穷水尽了。忽然灵光一现：你虽然可以删除 RELEASE 的旧版本，但是你打版本 tag 的那次 CI 一定有输出到的路径，我就去追溯你那个生成 artifact 的路径不就可以了？果然，被我找到了导出到 AWS 的<a target="_blank" rel="noopener" href="https://gitlab-ci-multi-runner-downloads.s3.amazonaws.com/v1.11.5/deb/gitlab-ci-multi-runner_i386.deb">文件</a>~</p>
+</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/0081Kckwgy1gk38mj082jj31uh0u0h8v.jpg" alt="CI product" loading="lazy"></p>
+<p>  找到了安装文件后就是顺利的安装过程~直接用命令说明吧：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">scp</span> ~/Downloads/gitlab-ci-multi-runner_i386.deb haoxingxiao@XXX.XXX.XXX.XXX:~/
+
+<span class="token function">ssh</span> XXX.XXX.XXX.XXX
+
+<span class="token function">sudo</span> dpkg -i gitlab-ci-multi-runner_i386.deb
+
+<span class="token function">sudo</span> gitlab-runner register
+<span class="token punctuation">(</span>gitlab url<span class="token punctuation">)</span>
+<span class="token operator">></span> http://XXXXXXXX.XXX.XXX/ci/    // 注意这里需要提供 /ci 路径
+<span class="token punctuation">(</span>token<span class="token punctuation">)</span>
+<span class="token operator">></span> XXXXXXXXXXXXXX
+<span class="token punctuation">(</span>runner name<span class="token punctuation">)</span>
+<span class="token operator">></span> tencent-cloud-runner
+<span class="token punctuation">(</span>tags<span class="token punctuation">)</span>
+<span class="token operator">></span> tencent,common
+<span class="token punctuation">(</span>allow untagged task?<span class="token punctuation">)</span>
+<span class="token operator">></span> <span class="token boolean">true</span>
+<span class="token punctuation">(</span>choose type:docker,shell <span class="token operator">&amp;</span> etc.?<span class="token punctuation">)</span>
+<span class="token operator">></span> docker</code></pre>
+
+<h2 id="执行-CI"><a href="#执行-CI" class="headerlink" title="执行 CI"></a>执行 CI</h2><p>  配置好 Runner 后就可以在 GitLab 上看到创建成功的 Runner 了:</p>
+<p><img src="https://tva1.sinaimg.cn/large/0081Kckwgy1gk38uzcm7sj31ye0u0dlr.jpg" alt="Runners" loading="lazy"></p>
+<p>  这里我已经把租的阿里云服务器和腾讯云的服务器都配置上去了，构成了多个节点的 Runner 集群，当 CI 任务进入后会自动寻找空闲的 Runner 去执行。其实同一个容器绑定多个 Runner 也可以，不过负载就都在一台容器上了。</p>
+<p>  而刚才 Pending 的 CI 也开始执行了。学习了一下 CI 脚本的语法和知识，最终运行的结果如下图：</p>
+<p><img src="https://tva1.sinaimg.cn/large/0081Kckwgy1gk38xonz62j32140kcdhu.jpg" alt="stages" loading="lazy"></p>
+<p><img src="https://tva1.sinaimg.cn/large/0081Kckwgy1gk38yei629j31i80pqtdh.jpg" alt="stage1" loading="lazy"></p>
+<p>  最终达到了搭建自己的自动化 CI 的环境~也利用了开源免费的 <a target="_blank" rel="noopener" href="https://shields.io/category/build">badge 服务</a> 给项目的 README 增加了一个构建 CI 状态的徽章：</p>
+<p><img src="https://tva1.sinaimg.cn/large/0081Kckwgy1gk393be6hqj318u0d4mzd.jpg" alt="badge" loading="lazy"></p>
+<p>  方便直观在项目主页查看状态。</p>
+<h1 id="后续"><a href="#后续" class="headerlink" title="后续"></a>后续</h1><p>  经过搭建 GitLab 和搭建 GitLab CI 2 步之后，下一步有好几个想要做的东西：</p>
+<ol>
+<li><p>Git Talk 服务</p>
+</li>
+<li><p>创建 Feishu SDK 项目，部署飞书通知的服务，并接入 CI，实现主动推送构建结果到飞书客户端。</p>
+</li>
+<li><p>进一步配置 Blog，目前 Blog 弄的比较仓促，很多信息和配置还没加上去。</p>
+<p>今天就先写这么多吧~难得有摸鱼的机会弄自己的东西，希望还能一直保持这种热情做下去！:sunny:</p>
+</li>
+</ol>
+</div><ul class="post-copyright"><li class="post-copyright-author"><strong>著者：</strong>Xiao Haoxing</li><li class="post-copyright-link"><strong>記事へのリンク：</strong><a href="http://xiaohaoxing.github.com/2020/10/26/GitLab-CI-%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97/" title="GitLab CI 搭建指南">http://xiaohaoxing.github.com/2020/10/26/GitLab-CI-%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97/</a></li><li class="post-copyright-license"><strong>著作権表示：</strong>このブログ内のすべての記事は、特別な記載がない限り <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><svg class="icon"><use xlink:href="#icon-creative-commons-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-by-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-nc-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-sa-line"></use></svg></a> の下のライセンスで保護されています。</li></ul></section></article><div class="post-nav"><div class="post-nav-item"></div><div class="post-nav-item"><a class="post-nav-next" href="/2020/09/08/PHP%20SQL%E8%BF%81%E7%A7%BB%E5%88%B0%E6%8E%A5%E5%8F%A3%E6%96%B9%E6%A1%88/" rel="next" title="PHP SQL迁移到接口方案"><span class="post-nav-text">PHP SQL迁移到接口方案</span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-right-s-line"></use></svg></a></div></div></div><div id="comment"><div class="comment-tooltip text-center"><span>点击按钮跳转 GitHub Issues 评论。</span><br><span>若没有本文 Issue，您可以使用 Comment 模版新建。</span><br><a class="hty-button hty-button--raised" id="github-issues" target="_blank" rel="noopener" href="https://github.com/YunYouJun/yunyoujun.github.io/issues?q=is:issue+GitLab CI 搭建指南">GitHub Issues</a></div></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2019 – 2020 </span><span class="with-love" id="animate"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-cloud-line"></use></svg></span><span class="author"> Xiao Haoxing</span></div><div class="powered"><span>Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> v5.1.1</span><span class="footer-separator">|</span><span>Theme - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.0.0</span></div></footer><a class="hty-icon-button" id="goUp" aria-label="back-to-top" href="#"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-up-s-line"></use></svg><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a></div><script defer src="/js/utils.js"></script><script defer src="/js/hexo-theme-yun.js"></script></body></html>
