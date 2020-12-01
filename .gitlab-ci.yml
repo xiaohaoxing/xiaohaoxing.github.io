@@ -1,0 +1,19 @@
+image: ubuntu
+
+stages:
+  - install
+  - deploy
+
+install-node:
+  stage: install
+  script:
+    - apt-get install node
+    - npm install hexo-cli
+
+deploy-blog:
+  stage: deploy
+  script:
+    - git clone https://github.com/xiaohaoxing/blog-src
+    - cd blog-src
+    - hexo g
+    - hexo d
