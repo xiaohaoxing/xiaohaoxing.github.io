@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+
+<html lang="cn">
+
+<head>
+    
+    <title>爬取微信公众号文章 - XHX Blog</title>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="blog,programmer">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <meta name="description" content="¶需求背景   由于微信公众号文章的搜索功能实在是过于孱弱（只支持内容分词匹配+是否最近读过+排序方式），对于某些公众号内的文章需要进行更多的检索就只能自己动手了。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="爬取微信公众号文章">
+<meta property="og:url" content="http://xiaohaoxing.xyz/2022/07/05/%E7%88%AC%E5%8F%96%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E6%96%87%E7%AB%A0/index.html">
+<meta property="og:site_name" content="XHX Blog">
+<meta property="og:description" content="¶需求背景   由于微信公众号文章的搜索功能实在是过于孱弱（只支持内容分词匹配+是否最近读过+排序方式），对于某些公众号内的文章需要进行更多的检索就只能自己动手了。">
+<meta property="og:locale">
+<meta property="og:image" content="https://xiaohaoxing-1257815318.cos.ap-chengdu.myqcloud.com/wechat_public_account_article_search_conditions%20.jpeg">
+<meta property="og:image" content="https://xiaohaoxing-1257815318.cos.ap-chengdu.myqcloud.com/wechat_public_account_homepage.png">
+<meta property="og:image" content="https://xiaohaoxing-1257815318.cos.ap-chengdu.myqcloud.com/ceeb653ely8gyke9r2sfij206o06o0sv.jpg">
+<meta property="og:image" content="https://xiaohaoxing-1257815318.cos.ap-chengdu.myqcloud.com/image-20220705164401641.png">
+<meta property="og:image" content="https://xiaohaoxing-1257815318.cos.ap-chengdu.myqcloud.com/image-20220705165346083.png">
+<meta property="og:image" content="https://xiaohaoxing-1257815318.cos.ap-chengdu.myqcloud.com/image-20220705173700603.png">
+<meta property="og:image" content="https://xiaohaoxing-1257815318.cos.ap-chengdu.myqcloud.com/image-20220705211106545.png">
+<meta property="article:published_time" content="2022-07-05T07:15:38.000Z">
+<meta property="article:modified_time" content="2022-07-07T08:15:26.822Z">
+<meta property="article:author" content="Xiao Haoxing">
+<meta property="article:tag" content="blog,programmer">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xiaohaoxing-1257815318.cos.ap-chengdu.myqcloud.com/wechat_public_account_article_search_conditions%20.jpeg">
+    
+<link rel="stylesheet" href="/lib/fancybox/fancybox.css">
+<link rel="stylesheet" href="/lib/justifiedGallery/justifiedGallery.min.css">
+<link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
+
+
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1690554855013">
+    
+    <link rel="stylesheet" href="/css/style.css?v=1690554855013">
+
+    
+        
+            <link rel="stylesheet" href="/custom.css?v=1690554855013">
+        
+    
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body class="mdui-drawer-body-left">
+    <div id="nexmoe-background">
+        <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg)"></div>
+        <div class="mdui-appbar mdui-shadow-0">
+            <div class="mdui-toolbar">
+                <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+                <div class="mdui-toolbar-spacer"></div>
+                <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+                <a href="/" title="Xiao Haoxing" class="mdui-btn mdui-btn-icon"><img src="/../../images/header.jpg" alt="Xiao Haoxing"></a>
+            </div>
+        </div>
+    </div>
+    <div id="nexmoe-header">
+        <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Xiao Haoxing">
+            <img src="/../../images/header.jpg" alt="Xiao Haoxing" alt="Xiao Haoxing">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>Articles</span>13</div>
+        <div><span>Tags</span>14</div>
+        <div><span>Categories</span>0</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/about.html" title="关于博客">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+    
+        
+        
+        
+        
+        
+  <div class="nexmoe-widget-wrap">
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
+      <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/drools/" style="font-size: 10px;">drools</a> <a href="/tags/frp/" style="font-size: 10px;">frp</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/tags/mi/" style="font-size: 10px;">mi</a> <a href="/tags/productivity/" style="font-size: 10px;">productivity</a> <a href="/tags/spring-boot/" style="font-size: 10px;">spring-boot</a> <a href="/tags/spring-security/" style="font-size: 10px;">spring-security</a> <a href="/tags/%E6%8A%80%E6%9C%AF/" style="font-size: 10px;">技术</a> <a href="/tags/%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88/" style="font-size: 10px;">技术方案</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 20px;">教程</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 10px;">日常</a>
+    </div>
+    
+      <script>
+        var maxTagcloud = parseInt(17);
+        var tags_length = parseInt(14);
+        var tags_arr = [];
+        for(var i = 0; i < tags_length; i++){
+          tags_arr.push(i);
+        }
+        tags_arr.sort(function (l, r) {
+          return Math.random() > 0.5 ? -1 : 1;
+        });
+        tags_arr = tags_arr.slice(0, maxTagcloud < tags_length ? tags_length - maxTagcloud : 0);
+        for(var tag_i = 0; tag_i < tags_arr.length; tag_i++){
+          document.getElementById("randomtagcloud").children[tags_arr[tag_i]].style.display = 'none';
+        }
+      </script>
+    
+  </div>
+
+    
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2023 Xiao Haoxing
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/theme-nexmoe/hexo-theme-nexmoe" target="_blank">Nexmoe</a>
+        
+    </div>
+</div><!-- .nexmoe-drawer -->
+    </div>
+    <div id="nexmoe-content">
+        <div class="nexmoe-primary">
+            <div class="nexmoe-post">
+
+  <article>
+    
+        <div class="nexmoe-post-cover mdui-ripple text"> 
+            <img src="https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg" alt="爬取微信公众号文章" loading="lazy">
+            <h1>爬取微信公众号文章</h1>
+        </div>
+    
+    
+    <div class="nexmoe-post-meta nexmoe-rainbow">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2022年07月05日</a>
+    
+    
+    <a><i class="nexmoefont icon-areachart"></i>约2.5k字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>预计需要11分钟</a>
+
+</div>
+
+    <h2 id="需求背景"><a class="header-anchor" href="#需求背景">¶</a>需求背景</h2>
+<p>  由于微信公众号文章的搜索功能实在是过于孱弱（只支持内容分词匹配+是否最近读过+排序方式），对于某些公众号内的文章需要进行更多的检索就只能自己动手了。</p>
+<span id="more"></span>
+<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="https://xiaohaoxing-1257815318.cos.ap-chengdu.myqcloud.com/wechat_public_account_article_search_conditions%20.jpeg" alt="微信公众号搜索界面" data-caption="微信公众号搜索界面" loading="lazy"></p>
+<h2 id="设计思路"><a class="header-anchor" href="#设计思路">¶</a>设计思路</h2>
+<p>  总的计划是将文章的内容都爬取下来保存在自己的数据库中，后续需要按照任何条件检索都可以很方便的进行。</p>
+<p>  微信公众号的文章列表在电脑端都是要在微信内置浏览器内显示的，在外部浏览器强行打开就会提示：<code>请在微信端打开</code>。但是具体一篇文章却是可以在浏览器打开的。因此，获取到文章链接再爬取文章内容相对是比较容易做到的。难点在于如何获取到完整的公众号文章列表。</p>
+<div class="mermaid">
+graph LR
+    抓取文章列表请求--->爬取文章列表--->爬取文章正文--->梳理文章数据--->输出展示;
+</div>
+<h2 id="抓取文章列表请求"><a class="header-anchor" href="#抓取文章列表请求">¶</a>抓取文章列表请求</h2>
+<p>  由于微信公众号主页不能在浏览器中打开，因此考虑使用抓包工具抓到请求文章列表的请求。<br>
+<img onerror="imgOnError(this);" data-fancybox="gallery" src="https://xiaohaoxing-1257815318.cos.ap-chengdu.myqcloud.com/wechat_public_account_homepage.png" alt="文章列表请求" data-caption="文章列表请求" loading="lazy"></p>
+<hr />
+&nbsp;&nbsp;Mac 上大家推荐的大多是 [Charles](https://xclient.info/s/charles.html)这款软件。不过这款软件在我的 mac 上好像有点水土不服，反正就是无法抓到任何请求。
+<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="https://xiaohaoxing-1257815318.cos.ap-chengdu.myqcloud.com/ceeb653ely8gyke9r2sfij206o06o0sv.jpg" alt="烧脑筋呢_脑筋表情" data-caption="烧脑筋呢_脑筋表情" loading="lazy"></p>
+<p>然后就检索到了 windows 上常用的抓包软件 <a target="_blank" rel="noopener" href="https://www.telerik.com/fiddler">Fiddler</a> 出了一个 <a target="_blank" rel="noopener" href="https://www.telerik.com/fiddler/fiddler-everywhere">Fiddler Everywhere</a>，可以在 MacOS 上安装使用。于是使用了一下，效果拔群！而且软件还支持 http 请求调试（Postman 危），界面也是非常现代化很好看，推荐！</p>
+<blockquote>
+<p>Fiddler 抓到的公众号文章列表请求：</p>
+</blockquote>
+<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="https://xiaohaoxing-1257815318.cos.ap-chengdu.myqcloud.com/image-20220705164401641.png" alt="Fiddler 抓到的公众号文章列表" data-caption="Fiddler 抓到的公众号文章列表" loading="lazy"></p>
+<h2 id="爬取文章列表"><a class="header-anchor" href="#爬取文章列表">¶</a>爬取文章列表</h2>
+<p>这一步具体操作就是用代码修改一些参数并重演上述的请求，将相应的结果拼接保存，从而获取整个公众号的所有文章链接~</p>
+<p>将抓取的请求的 url、method、headers、params 都粘贴出来，放到 postman 里修改一下 offset 参数再次请求确认是可以正常执行的：</p>
+<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="https://xiaohaoxing-1257815318.cos.ap-chengdu.myqcloud.com/image-20220705165346083.png" alt="Postman 请求" data-caption="Postman 请求" loading="lazy"></p>
+<p>展开右边的代码，选择你想用的爬虫代码语言版本，我这里用了 python，编写完成后的爬取列表的代码如下：</p>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> requests
+<span class="token keyword">import</span> json
+
+<span class="token keyword">def</span> <span class="token function">send_req</span><span class="token punctuation">(</span>offset<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    url <span class="token operator">=</span> <span class="token string">"https://mp.weixin.qq.com/mp/profile_ext?action=getmsg&amp;__biz=Mzg5OTE4NTczMQ==&amp;f=json&amp;offset="</span> <span class="token operator">+</span> <span class="token builtin">str</span><span class="token punctuation">(</span>
+        offset<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"&amp;count=10&amp;is_ok=1&amp;...略"</span>
+    payload <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+    headers <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+			<span class="token comment"># 略</span>
+    <span class="token punctuation">&#125;</span>
+
+    response <span class="token operator">=</span> requests<span class="token punctuation">.</span>request<span class="token punctuation">(</span><span class="token string">"GET"</span><span class="token punctuation">,</span> url<span class="token punctuation">,</span> headers<span class="token operator">=</span>headers<span class="token punctuation">,</span> data<span class="token operator">=</span>payload<span class="token punctuation">)</span>
+    resp <span class="token operator">=</span> json<span class="token punctuation">.</span>loads<span class="token punctuation">(</span>response<span class="token punctuation">.</span>text<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> resp<span class="token punctuation">[</span><span class="token string">'general_msg_list'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> resp<span class="token punctuation">[</span><span class="token string">'next_offset'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> resp<span class="token punctuation">[</span><span class="token string">'can_msg_continue'</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">1</span>
+
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    has_more <span class="token operator">=</span> <span class="token boolean">True</span>
+    offset <span class="token operator">=</span> <span class="token number">0</span>
+    count <span class="token operator">=</span> <span class="token number">1</span>
+    all_list <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token keyword">while</span> has_more<span class="token punctuation">:</span>
+        msg_list<span class="token punctuation">,</span> offset<span class="token punctuation">,</span> has_more <span class="token operator">=</span> send_req<span class="token punctuation">(</span>offset<span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'第'</span> <span class="token operator">+</span> <span class="token builtin">str</span><span class="token punctuation">(</span>count<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">'页:'</span> <span class="token operator">+</span> msg_list<span class="token punctuation">)</span>
+        post_list <span class="token operator">=</span> json<span class="token punctuation">.</span>loads<span class="token punctuation">(</span>msg_list<span class="token punctuation">)</span>
+        all_list<span class="token punctuation">.</span>extend<span class="token punctuation">(</span>post_list<span class="token punctuation">)</span>
+
+        count <span class="token operator">+=</span> <span class="token number">1</span>
+
+    <span class="token keyword">print</span><span class="token punctuation">(</span>json<span class="token punctuation">.</span>dumps<span class="token punctuation">(</span>all_list<span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre>
+<blockquote>
+<p>这里有一个小优化点：每次请求拿到的结果是{“list”: […]}，可以先展开再 append。这里懒得弄了就这样吧~后续解析的时候按行解析就行了。</p>
+</blockquote>
+<h2 id="爬取文章正文"><a class="header-anchor" href="#爬取文章正文">¶</a>爬取文章正文</h2>
+<p>获取到列表后观察一下结构：</p>
+<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="https://xiaohaoxing-1257815318.cos.ap-chengdu.myqcloud.com/image-20220705173700603.png" alt="list json 格式" data-caption="list json 格式" loading="lazy"></p>
+<p>字段很多，按照自己需求决定将其中的 type（做分组检索可能用得上，虽然还没搞懂枚举值分别是什么含义），datetme（时间范围条件筛选），title，content_url，cover（封面图，后续展示效果优化时可能用得上）这几个字段挑选出来使用。</p>
+<blockquote>
+<p>这里又有一个优化点，在最终展示的时候发现，有很多貌似草稿/已删除的也被查询出来了，这里应该要按照 status 做一次过滤。</p>
+</blockquote>
+<p>将上述几个字段保存到结构体中，并留空 content 字段，等待后续爬正文内容再填充。</p>
+<h3 id="转换解析结构体"><a class="header-anchor" href="#转换解析结构体">¶</a>转换解析结构体</h3>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token comment"># Python 中面向对象的编程</span>
+<span class="token keyword">class</span> <span class="token class-name">Record</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> obj<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        common <span class="token operator">=</span> obj<span class="token punctuation">[</span><span class="token string">'comm_msg_info'</span><span class="token punctuation">]</span>
+        ext <span class="token operator">=</span> obj<span class="token punctuation">[</span><span class="token string">'app_msg_ext_info'</span><span class="token punctuation">]</span>
+        self<span class="token punctuation">.</span><span class="token builtin">type</span> <span class="token operator">=</span> common<span class="token punctuation">[</span><span class="token string">'type'</span><span class="token punctuation">]</span>
+        self<span class="token punctuation">.</span>datetime <span class="token operator">=</span> common<span class="token punctuation">[</span><span class="token string">'datetime'</span><span class="token punctuation">]</span>
+        self<span class="token punctuation">.</span>title <span class="token operator">=</span> ext<span class="token punctuation">[</span><span class="token string">'title'</span><span class="token punctuation">]</span>
+        self<span class="token punctuation">.</span>content_url <span class="token operator">=</span> ext<span class="token punctuation">[</span><span class="token string">'content_url'</span><span class="token punctuation">]</span>
+        self<span class="token punctuation">.</span>cover_url <span class="token operator">=</span> ext<span class="token punctuation">[</span><span class="token string">'cover'</span><span class="token punctuation">]</span>
+        self<span class="token punctuation">.</span>content <span class="token operator">=</span> <span class="token string">''</span>
+
+<span class="token keyword">with</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">'wechat.json'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f<span class="token punctuation">:</span>
+  has_more <span class="token operator">=</span> <span class="token boolean">True</span>
+  <span class="token keyword">while</span> has_more<span class="token punctuation">:</span>
+    line <span class="token operator">=</span> f<span class="token punctuation">.</span>readline<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> line <span class="token operator">==</span> <span class="token string">''</span> <span class="token keyword">or</span> line <span class="token operator">==</span> <span class="token string">'\n'</span><span class="token punctuation">:</span>
+      has_more <span class="token operator">=</span> <span class="token boolean">False</span>
+      <span class="token keyword">continue</span>
+      objs <span class="token operator">=</span> json<span class="token punctuation">.</span>loads<span class="token punctuation">(</span>line<span class="token punctuation">)</span>
+      arr <span class="token operator">=</span> objs<span class="token punctuation">[</span><span class="token string">'list'</span><span class="token punctuation">]</span>
+      <span class="token keyword">for</span> obj <span class="token keyword">in</span> arr<span class="token punctuation">:</span>
+        results<span class="token punctuation">.</span>append<span class="token punctuation">(</span>Record<span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
+<h3 id="请求文章正文"><a class="header-anchor" href="#请求文章正文">¶</a>请求文章正文</h3>
+<p>读取了文章列表后就可以开始爬取文章数据了。这里用 requests 模块发送 http 请求获取正文，BeautifulSoup 模块解析响应的 html 文档。在 F12 控制台中可以检索到正文对应的文档树节点 id 为&quot;js_content&quot;，用这个 selector 去获取元素及其文本即可。</p>
+<pre class="language-python" data-language="python"><code class="language-python">counter <span class="token operator">=</span> <span class="token number">0</span>
+fails <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+
+<span class="token keyword">for</span> record <span class="token keyword">in</span> results<span class="token punctuation">:</span>
+  url <span class="token operator">=</span> record<span class="token punctuation">.</span>content_url
+  <span class="token keyword">try</span><span class="token punctuation">:</span>
+    resp <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'get success #'</span> <span class="token operator">+</span> <span class="token builtin">str</span><span class="token punctuation">(</span>counter<span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token keyword">except</span> Exception<span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'get failed #'</span> <span class="token operator">+</span> <span class="token builtin">str</span><span class="token punctuation">(</span>counter<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    fails<span class="token punctuation">.</span>append<span class="token punctuation">(</span>record<span class="token punctuation">)</span>
+    counter <span class="token operator">+=</span> <span class="token number">1</span>
+    content <span class="token operator">=</span> resp<span class="token punctuation">.</span>content
+    soup <span class="token operator">=</span> BeautifulSoup<span class="token punctuation">(</span>content<span class="token punctuation">,</span> <span class="token string">'lxml'</span><span class="token punctuation">)</span>
+    text <span class="token operator">=</span> soup<span class="token punctuation">.</span>select<span class="token punctuation">(</span><span class="token string">'#js_content'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>getText<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token comment"># 避免 csv 出错，统一改为中文逗号</span>
+    text <span class="token operator">=</span> text<span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">','</span><span class="token punctuation">,</span> <span class="token string">'，'</span><span class="token punctuation">)</span>
+    record<span class="token punctuation">.</span>content <span class="token operator">=</span> text
+    <span class="token comment"># TODO 标题也修改为中文逗号</span>
+    record<span class="token punctuation">.</span>title <span class="token operator">=</span> record<span class="token punctuation">.</span>title<span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">','</span><span class="token punctuation">,</span> <span class="token string">'，'</span><span class="token punctuation">)</span></code></pre>
+<h3 id="写入-csv-文件"><a class="header-anchor" href="#写入-csv-文件">¶</a>写入 csv 文件</h3>
+<p>得到正文后需要保存落库。原本计划是写入数据库，但是看到 <a target="_blank" rel="noopener" href="https://github.com/YunYouJun">yunyoujun</a> 的<a target="_blank" rel="noopener" href="https://github.com/YunYouJun/cook">做菜项目</a>使用了 csv 作为数据源，直接用 ts 代码读取数据而不用连接传统 sql 数据库，考虑到最近也正在看 react 的教程，于是决定也这么做！</p>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token comment"># for export to csv</span>
+titles <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'title'</span><span class="token punctuation">,</span> <span class="token string">'datetime'</span><span class="token punctuation">,</span> <span class="token string">'content_url'</span><span class="token punctuation">,</span> <span class="token string">'content'</span><span class="token punctuation">,</span> <span class="token string">'type'</span><span class="token punctuation">,</span> <span class="token string">'cover_url'</span><span class="token punctuation">]</span>
+f <span class="token operator">=</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">'database.csv'</span><span class="token punctuation">,</span> <span class="token string">'w'</span><span class="token punctuation">)</span>
+<span class="token keyword">with</span> f<span class="token punctuation">:</span>
+  writer <span class="token operator">=</span> csv<span class="token punctuation">.</span>DictWriter<span class="token punctuation">(</span>f<span class="token punctuation">,</span> fieldnames<span class="token operator">=</span>titles<span class="token punctuation">)</span>
+  writer<span class="token punctuation">.</span>writeheader<span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token keyword">for</span> row <span class="token keyword">in</span> results<span class="token punctuation">:</span>
+    writer<span class="token punctuation">.</span>writerow<span class="token punctuation">(</span>row<span class="token punctuation">.</span>__dict__<span class="token punctuation">)</span></code></pre>
+<h3 id="记录请求失败的case"><a class="header-anchor" href="#记录请求失败的case">¶</a>记录请求失败的case</h3>
+<p>由于网络等原因，正文获取总会有失败的可能性，这里在 request.get() 的时候记录下了对应的 url（上文的请求文章正文部分的<code>fails.append(record)</code>），最终会汇总输出到控制台，再根据情况考虑如何补上这部分数据。</p>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>fails<span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">:</span>
+  <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'get '</span> <span class="token operator">+</span> <span class="token builtin">str</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>fails<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">'failed:'</span><span class="token punctuation">)</span>
+  <span class="token keyword">for</span> fail <span class="token keyword">in</span> fails<span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>json<span class="token punctuation">.</span>dumps<span class="token punctuation">(</span>fail<span class="token punctuation">.</span>__dict__<span class="token punctuation">)</span><span class="token punctuation">)</span></code></pre>
+<blockquote>
+<p>可能是微信公众号的服务比较不稳定或者是我网络不稳定，即使在浏览器中访问文章也有不小的概率失败，因此将请求加了重试，具体见下面的完整代码。</p>
+</blockquote>
+<h3 id="完整代码"><a class="header-anchor" href="#完整代码">¶</a>完整代码</h3>
+<pre class="language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> json
+<span class="token keyword">import</span> requests
+<span class="token keyword">from</span> bs4 <span class="token keyword">import</span> BeautifulSoup
+<span class="token keyword">import</span> csv
+
+
+<span class="token keyword">class</span> <span class="token class-name">Record</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> obj<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        common <span class="token operator">=</span> obj<span class="token punctuation">[</span><span class="token string">'comm_msg_info'</span><span class="token punctuation">]</span>
+        ext <span class="token operator">=</span> obj<span class="token punctuation">[</span><span class="token string">'app_msg_ext_info'</span><span class="token punctuation">]</span>
+        self<span class="token punctuation">.</span><span class="token builtin">type</span> <span class="token operator">=</span> common<span class="token punctuation">[</span><span class="token string">'type'</span><span class="token punctuation">]</span>
+        self<span class="token punctuation">.</span>datetime <span class="token operator">=</span> common<span class="token punctuation">[</span><span class="token string">'datetime'</span><span class="token punctuation">]</span>
+        self<span class="token punctuation">.</span>title <span class="token operator">=</span> ext<span class="token punctuation">[</span><span class="token string">'title'</span><span class="token punctuation">]</span>
+        self<span class="token punctuation">.</span>content_url <span class="token operator">=</span> ext<span class="token punctuation">[</span><span class="token string">'content_url'</span><span class="token punctuation">]</span>
+        self<span class="token punctuation">.</span>cover_url <span class="token operator">=</span> ext<span class="token punctuation">[</span><span class="token string">'cover'</span><span class="token punctuation">]</span>
+        self<span class="token punctuation">.</span>content <span class="token operator">=</span> <span class="token string">''</span>
+
+<span class="token comment"># 加上重试</span>
+<span class="token keyword">def</span> <span class="token function">try_get</span><span class="token punctuation">(</span>url<span class="token punctuation">,</span> times<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">for</span> time <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>times<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">try</span><span class="token punctuation">:</span>
+            resp <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>url<span class="token punctuation">)</span>
+            <span class="token keyword">if</span> resp<span class="token punctuation">.</span>status_code <span class="token operator">!=</span> <span class="token number">200</span><span class="token punctuation">:</span>
+                <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'request failed for #'</span> <span class="token operator">+</span> <span class="token builtin">str</span><span class="token punctuation">(</span>time<span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token keyword">continue</span>
+            <span class="token keyword">return</span> resp
+        <span class="token keyword">except</span> Exception<span class="token punctuation">:</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'request failed for #'</span> <span class="token operator">+</span> <span class="token builtin">str</span><span class="token punctuation">(</span>time<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token keyword">continue</span>
+    <span class="token keyword">raise</span> Exception<span class="token punctuation">(</span><span class="token string">'failed for '</span> <span class="token operator">+</span> <span class="token builtin">str</span><span class="token punctuation">(</span>times<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">' times'</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
+    results <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token keyword">with</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">'wechat.json'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> f<span class="token punctuation">:</span>
+        has_more <span class="token operator">=</span> <span class="token boolean">True</span>
+        <span class="token keyword">while</span> has_more<span class="token punctuation">:</span>
+            line <span class="token operator">=</span> f<span class="token punctuation">.</span>readline<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token keyword">if</span> line <span class="token operator">==</span> <span class="token string">''</span> <span class="token keyword">or</span> line <span class="token operator">==</span> <span class="token string">'\n'</span><span class="token punctuation">:</span>
+                has_more <span class="token operator">=</span> <span class="token boolean">False</span>
+                <span class="token keyword">continue</span>
+            objs <span class="token operator">=</span> json<span class="token punctuation">.</span>loads<span class="token punctuation">(</span>line<span class="token punctuation">)</span>
+            arr <span class="token operator">=</span> objs<span class="token punctuation">[</span><span class="token string">'list'</span><span class="token punctuation">]</span>
+            <span class="token keyword">for</span> obj <span class="token keyword">in</span> arr<span class="token punctuation">:</span>
+                results<span class="token punctuation">.</span>append<span class="token punctuation">(</span>Record<span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+
+    <span class="token comment"># for fetch content</span>
+    counter <span class="token operator">=</span> <span class="token number">0</span>
+    fails <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token keyword">for</span> record <span class="token keyword">in</span> results<span class="token punctuation">:</span>
+
+        url <span class="token operator">=</span> record<span class="token punctuation">.</span>content_url
+        <span class="token keyword">print</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span>
+        <span class="token keyword">try</span><span class="token punctuation">:</span>
+            resp <span class="token operator">=</span> try_get<span class="token punctuation">(</span>url<span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'get success #'</span> <span class="token operator">+</span> <span class="token builtin">str</span><span class="token punctuation">(</span>counter<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">except</span> Exception<span class="token punctuation">:</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'get failed #'</span> <span class="token operator">+</span> <span class="token builtin">str</span><span class="token punctuation">(</span>counter<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            fails<span class="token punctuation">.</span>append<span class="token punctuation">(</span>record<span class="token punctuation">)</span>
+        counter <span class="token operator">+=</span> <span class="token number">1</span>
+        content <span class="token operator">=</span> resp<span class="token punctuation">.</span>content
+        soup <span class="token operator">=</span> BeautifulSoup<span class="token punctuation">(</span>content<span class="token punctuation">,</span> <span class="token string">'lxml'</span><span class="token punctuation">)</span>
+        text <span class="token operator">=</span> soup<span class="token punctuation">.</span>select<span class="token punctuation">(</span><span class="token string">'#js_content'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>getText<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token comment"># 避免 csv 出错，统一改为中文逗号</span>
+        text <span class="token operator">=</span> text<span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">','</span><span class="token punctuation">,</span> <span class="token string">'，'</span><span class="token punctuation">)</span>
+        record<span class="token punctuation">.</span>content <span class="token operator">=</span> text
+        <span class="token comment"># TODO 标题也修改为中文逗号</span>
+        record<span class="token punctuation">.</span>title <span class="token operator">=</span> record<span class="token punctuation">.</span>title<span class="token punctuation">.</span>replace<span class="token punctuation">(</span><span class="token string">','</span><span class="token punctuation">,</span> <span class="token string">'，'</span><span class="token punctuation">)</span>
+
+    <span class="token comment"># for export to csv</span>
+    titles <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'title'</span><span class="token punctuation">,</span> <span class="token string">'datetime'</span><span class="token punctuation">,</span> <span class="token string">'content_url'</span><span class="token punctuation">,</span> <span class="token string">'content'</span><span class="token punctuation">,</span> <span class="token string">'type'</span><span class="token punctuation">,</span> <span class="token string">'cover_url'</span><span class="token punctuation">]</span>
+    f <span class="token operator">=</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">'database.csv'</span><span class="token punctuation">,</span> <span class="token string">'w'</span><span class="token punctuation">)</span>
+    <span class="token keyword">with</span> f<span class="token punctuation">:</span>
+        writer <span class="token operator">=</span> csv<span class="token punctuation">.</span>DictWriter<span class="token punctuation">(</span>f<span class="token punctuation">,</span> fieldnames<span class="token operator">=</span>titles<span class="token punctuation">)</span>
+        writer<span class="token punctuation">.</span>writeheader<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">for</span> row <span class="token keyword">in</span> results<span class="token punctuation">:</span>
+            writer<span class="token punctuation">.</span>writerow<span class="token punctuation">(</span>row<span class="token punctuation">.</span>__dict__<span class="token punctuation">)</span>
+
+    <span class="token keyword">if</span> <span class="token builtin">len</span><span class="token punctuation">(</span>fails<span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'get '</span> <span class="token operator">+</span> <span class="token builtin">str</span><span class="token punctuation">(</span><span class="token builtin">len</span><span class="token punctuation">(</span>fails<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">'failed:'</span><span class="token punctuation">)</span>
+        <span class="token keyword">for</span> fail <span class="token keyword">in</span> fails<span class="token punctuation">:</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span>json<span class="token punctuation">.</span>dumps<span class="token punctuation">(</span>fail<span class="token punctuation">.</span>__dict__<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+</code></pre>
+<p>至此，爬虫部分的代码就完成啦。所有的公众号文章的内容都已经存入了 <code>database.csv</code>文件里了。后续就可以使用 react 项目去读取并展示了。</p>
+<h2 id="梳理文章数据"><a class="header-anchor" href="#梳理文章数据">¶</a>梳理文章数据</h2>
+<p>所有文章信息都导入到了 CSV 里了：</p>
+<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="https://xiaohaoxing-1257815318.cos.ap-chengdu.myqcloud.com/image-20220705211106545.png" alt="csv示例" data-caption="csv示例" loading="lazy"></p>
+<p>创建一个前端 React 项目：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">npx create-react-app wechat-app</code></pre>
+<p>然后进入项目 <code>src</code> 目录，参考 yunyoujun 的<a target="_blank" rel="noopener" href="https://github.com/YunYouJun/cook/blob/dev/scripts/convert.ts">转换代码</a>，将 csv 转换为 json 数据提供给 js 代码引用。</p>
+<blockquote>
+<p>之所以转换的原因是前端代码只能 import 一个 json 文件而不能 import 一个 csv 文件。</p>
+</blockquote>
+<p>转换代码：</p>
+<pre class="language-js" data-language="js"><code class="language-js"># csvConverter<span class="token punctuation">.</span>ts
+
+<span class="token keyword">import</span> fs <span class="token keyword">from</span> <span class="token string">'fs'</span>
+<span class="token keyword">import</span> path <span class="token keyword">from</span> <span class="token string">'path'</span>
+<span class="token keyword">import</span> consola <span class="token keyword">from</span> <span class="token string">'consola'</span>
+
+<span class="token keyword">const</span> csvFile <span class="token operator">=</span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">'../src/asset/database.csv'</span><span class="token punctuation">)</span>
+<span class="token keyword">const</span> jsonFile <span class="token operator">=</span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">'../src/asset/database.json'</span><span class="token punctuation">)</span>
+
+<span class="token keyword">function</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">const</span> csvData <span class="token operator">=</span> fs<span class="token punctuation">.</span><span class="token function">readFileSync</span><span class="token punctuation">(</span>csvFile<span class="token punctuation">,</span> <span class="token string">'utf-8'</span><span class="token punctuation">)</span>
+    <span class="token keyword">let</span> jsonData<span class="token operator">:</span> Database <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token keyword">const</span> lines <span class="token operator">=</span> csvData<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">\r?\n</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">)</span>
+    lines<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">line</span><span class="token punctuation">)</span><span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>line<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            <span class="token keyword">const</span> attrs <span class="token operator">=</span> line<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">','</span><span class="token punctuation">)</span>
+            jsonData<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+                title<span class="token operator">:</span> attrs<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                datetime<span class="token operator">:</span> <span class="token function">parseInt</span><span class="token punctuation">(</span>attrs<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                content_url<span class="token operator">:</span>attrs<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                content<span class="token operator">:</span>attrs<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                type<span class="token operator">:</span><span class="token function">parseInt</span><span class="token punctuation">(</span>attrs<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                cover_url<span class="token operator">:</span>attrs<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+    fs<span class="token punctuation">.</span><span class="token function">writeFileSync</span><span class="token punctuation">(</span>jsonFile<span class="token punctuation">,</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span>jsonData<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    consola<span class="token punctuation">.</span><span class="token function">success</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Generate file success: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>jsonFile<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">Item</span> <span class="token punctuation">&#123;</span>
+    title<span class="token operator">:</span> string
+    datetime<span class="token operator">:</span> number
+    content_url<span class="token operator">:</span> string
+    content<span class="token operator">:</span> string
+    type<span class="token operator">:</span> number
+    cover_url<span class="token operator">:</span> string
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">export</span> type Database <span class="token operator">=</span> Item<span class="token punctuation">[</span><span class="token punctuation">]</span></code></pre>
+<p>在 package.json 文件中添加如下：</p>
+<pre class="language-diff" data-language="diff"><code class="language-diff">&#123;
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line"> ...
+</span><span class="token prefix unchanged"> </span><span class="token line"> "scripts": &#123;
+</span><span class="token prefix unchanged"> </span><span class="token line">   ...
+</span></span><span class="token coord">+++    "convert": "tsx src/csvConverter.ts"</span>
+<span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line"> &#125;
+</span></span>&#125;</code></pre>
+<p>在命令行中执行转换代码：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">npm</span> run convert</code></pre>
+<p>执行完成后就可以看到出现了一个新文件：<code>database.json</code>。此时就可以在项目中直接引用该文件作为数据源啦。</p>
+<h2 id="输出展示"><a class="header-anchor" href="#输出展示">¶</a>输出展示</h2>
+<p>前端使用 import 引入数据文件：</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token keyword">import</span> data <span class="token keyword">from</span> <span class="token string">'./asset/database.json'</span></code></pre>
+<p>随后就可以按照 React 的正常开发方式读取数据写业务代码了~~（程序员最擅长写的表格视图）</p>
+<p>完整代码：</p>
+<pre class="language-jsx" data-language="jsx"><code class="language-jsx"><span class="token keyword">import</span> React <span class="token keyword">from</span> <span class="token string">'react'</span>
+<span class="token keyword">import</span> ReactDOM <span class="token keyword">from</span> <span class="token string">'react-dom/client'</span>
+<span class="token keyword">import</span> <span class="token string">'./index.css'</span>
+<span class="token keyword">import</span> data <span class="token keyword">from</span> <span class="token string">'./asset/database.json'</span>
+
+<span class="token comment">// 函数式组件</span>
+<span class="token keyword">function</span> <span class="token function">Record</span><span class="token punctuation">(</span><span class="token parameter">props</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">let</span> record <span class="token operator">=</span> props<span class="token punctuation">.</span>record
+    <span class="token keyword">let</span> time <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span>record<span class="token punctuation">.</span>datetime<span class="token punctuation">)</span>
+    <span class="token comment">//日期</span>
+    <span class="token keyword">var</span> <span class="token constant">DD</span> <span class="token operator">=</span> <span class="token function">String</span><span class="token punctuation">(</span>time<span class="token punctuation">.</span><span class="token function">getDate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">padStart</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">'0'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 获取日</span>
+    <span class="token keyword">var</span> <span class="token constant">MM</span> <span class="token operator">=</span> <span class="token function">String</span><span class="token punctuation">(</span>time<span class="token punctuation">.</span><span class="token function">getMonth</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">padStart</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">'0'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">//获取月份，1 月为 0</span>
+    <span class="token keyword">var</span> yyyy <span class="token operator">=</span> time<span class="token punctuation">.</span><span class="token function">getFullYear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 获取年</span>
+
+    <span class="token comment">// 时间</span>
+    <span class="token keyword">let</span> hh <span class="token operator">=</span>  <span class="token function">String</span><span class="token punctuation">(</span>time<span class="token punctuation">.</span><span class="token function">getHours</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">padStart</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">'0'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>       <span class="token comment">//获取当前小时数(0-23)</span>
+    <span class="token keyword">let</span> mm <span class="token operator">=</span> <span class="token function">String</span><span class="token punctuation">(</span>time<span class="token punctuation">.</span><span class="token function">getMinutes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">padStart</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">'0'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token comment">//获取当前分钟数(0-59)</span>
+    <span class="token keyword">let</span> ss <span class="token operator">=</span> <span class="token function">String</span><span class="token punctuation">(</span>time<span class="token punctuation">.</span><span class="token function">getSeconds</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">padStart</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">'0'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>     <span class="token comment">//获取当前秒数(0-59)</span>
+    <span class="token keyword">let</span> timeformat <span class="token operator">=</span> yyyy <span class="token operator">+</span> <span class="token string">'-'</span> <span class="token operator">+</span> <span class="token constant">MM</span> <span class="token operator">+</span> <span class="token string">'-'</span> <span class="token operator">+</span> <span class="token constant">DD</span> <span class="token operator">+</span> <span class="token string">' '</span> <span class="token operator">+</span> hh <span class="token operator">+</span> <span class="token string">':'</span> <span class="token operator">+</span> mm <span class="token operator">+</span> <span class="token string">':'</span> <span class="token operator">+</span> ss<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">></span></span><span class="token plain-text">
+            </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span><span class="token punctuation">&#123;</span>timeformat<span class="token punctuation">&#125;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span><span class="token plain-text">
+            </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>record<span class="token punctuation">.</span>content_url<span class="token punctuation">&#125;</span></span><span class="token punctuation">></span></span><span class="token punctuation">&#123;</span>record<span class="token punctuation">.</span>title<span class="token punctuation">&#125;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span><span class="token plain-text">
+            </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span><span class="token punctuation">&#123;</span>record<span class="token punctuation">.</span>content<span class="token punctuation">.</span>length <span class="token operator">></span> <span class="token number">50</span><span class="token operator">?</span>record<span class="token punctuation">.</span>content<span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">50</span><span class="token punctuation">)</span><span class="token operator">:</span>record<span class="token punctuation">.</span>content <span class="token operator">+</span> <span class="token string">'...'</span><span class="token punctuation">&#125;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">></span></span>
+    <span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token comment">// 传统组件</span>
+<span class="token keyword">class</span> <span class="token class-name">DataBase</span> <span class="token keyword">extends</span> <span class="token class-name">React<span class="token punctuation">.</span>Component</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">props</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">super</span><span class="token punctuation">(</span>props<span class="token punctuation">)</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>state <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+            data<span class="token operator">:</span> data
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    
+    <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">let</span> recordList <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        <span class="token comment">// 只展示 top 10 预览</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span><span class="token number">10</span><span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            recordList<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Record</span></span> <span class="token attr-name">record</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>data<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">&#125;</span></span><span class="token punctuation">/></span></span><span class="token punctuation">)</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">return</span>  <span class="token punctuation">(</span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span><span class="token plain-text">loaded </span><span class="token punctuation">&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>data<span class="token punctuation">.</span>length<span class="token punctuation">&#125;</span><span class="token plain-text"> records</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>table</span> <span class="token punctuation">></span></span><span class="token plain-text">
+            </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span><span class="token plain-text">
+                </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">></span></span><span class="token plain-text">时间</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">></span></span><span class="token plain-text">
+                </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">></span></span><span class="token plain-text">标题</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">></span></span><span class="token plain-text">
+                </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">></span></span><span class="token plain-text">正文</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">></span></span><span class="token plain-text">
+            </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span><span class="token plain-text">
+            </span><span class="token punctuation">&#123;</span>recordList<span class="token punctuation">&#125;</span><span class="token plain-text">
+            </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>table</span><span class="token punctuation">></span></span><span class="token plain-text">
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+        <span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">const</span> root <span class="token operator">=</span> ReactDOM<span class="token punctuation">.</span><span class="token function">createRoot</span><span class="token punctuation">(</span>document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"root"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+root<span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">DataBase</span></span> <span class="token punctuation">/></span></span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<h2 id="总结"><a class="header-anchor" href="#总结">¶</a>总结</h2>
+<p>很久不写博客了，这次使用技术解决了一个实际问题，正好将博客重新营业起来~</p>
+<p>由于要去攻读博士学位，后面内容可能会更偏向于一些科研。不过也说不准┓( ´∀` )┏。</p>
+
+    
+  </article>
+
+  
+      
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+   
+    
+</div>
+
+  
+      <div class="nexmoe-post-footer">
+          
+      </div>
+  
+</div>
+            <div class="nexmoe-post-right">
+              <div class="nexmoe-fixed">
+                  <div class="nexmoe-tool"> 
+                    
+                      
+                        
+                          
+                          
+                              <button class="mdui-fab catalog" style="overflow:unset;">
+                                  <i class="nexmoefont icon-i-catalog"></i>
+                                  <div class="nexmoe-toc">
+                                      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9C%80%E6%B1%82%E8%83%8C%E6%99%AF"><span class="toc-number">1.</span> <span class="toc-text">需求背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF"><span class="toc-number">2.</span> <span class="toc-text">设计思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%93%E5%8F%96%E6%96%87%E7%AB%A0%E5%88%97%E8%A1%A8%E8%AF%B7%E6%B1%82"><span class="toc-number">3.</span> <span class="toc-text">抓取文章列表请求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%88%AC%E5%8F%96%E6%96%87%E7%AB%A0%E5%88%97%E8%A1%A8"><span class="toc-number">4.</span> <span class="toc-text">爬取文章列表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%88%AC%E5%8F%96%E6%96%87%E7%AB%A0%E6%AD%A3%E6%96%87"><span class="toc-number">5.</span> <span class="toc-text">爬取文章正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%AC%E6%8D%A2%E8%A7%A3%E6%9E%90%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-number">5.1.</span> <span class="toc-text">转换解析结构体</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E6%96%87%E7%AB%A0%E6%AD%A3%E6%96%87"><span class="toc-number">5.2.</span> <span class="toc-text">请求文章正文</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%99%E5%85%A5-csv-%E6%96%87%E4%BB%B6"><span class="toc-number">5.3.</span> <span class="toc-text">写入 csv 文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%B0%E5%BD%95%E8%AF%B7%E6%B1%82%E5%A4%B1%E8%B4%A5%E7%9A%84case"><span class="toc-number">5.4.</span> <span class="toc-text">记录请求失败的case</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8C%E6%95%B4%E4%BB%A3%E7%A0%81"><span class="toc-number">5.5.</span> <span class="toc-text">完整代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A2%B3%E7%90%86%E6%96%87%E7%AB%A0%E6%95%B0%E6%8D%AE"><span class="toc-number">6.</span> <span class="toc-text">梳理文章数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E5%B1%95%E7%A4%BA"><span class="toc-number">7.</span> <span class="toc-text">输出展示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">8.</span> <span class="toc-text">总结</span></a></li></ol>
+                                  </div>
+                              </button>
+                          
+                          
+                      
+                    
+                      <a href="#nexmoe-content" class="toc-link" aria-label="Back To Top" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div id="nexmoe-search-space">
+	<div class="search-container">
+		<div class="search-header">
+			<div class="search-input-container">
+				<input
+					class="search-input"
+					type="text"
+					placeholder="Search"
+					oninput="sinput();"
+				/>
+			</div>
+			<a class="search-close" onclick="sclose();">×</a>
+		</div>
+		<div class="search-body"></div>
+	</div>
+</div>
+
+    
+<script src="/lib/mdui_043tiny/mdui.js"></script>
+<script src="/lib/jquery.min.js"></script>
+<script src="/lib/justifiedGallery/jquery.justifiedGallery.min.js"></script>
+<script src="/lib/fancybox/fancybox.umd.js"></script>
+
+
+ 
+
+<script async src="/js/app.js?v=1690554855038"></script>
+
+
+
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+</body>
+
+</html>

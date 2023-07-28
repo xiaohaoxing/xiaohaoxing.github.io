@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+
+<html lang="cn">
+
+<head>
+    
+    <title>GitLab CI 搭建指南 - XHX Blog</title>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="blog,programmer">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <meta name="description" content="起因 事情的起因也是来自工作中跟我们日常密切相关，而又没有机会接触到的东西：CI。项目脚手架自带了 CI 脚本，只需要稍作修改就可以直接使用；GitLab 上的项目的 CI 配合也不需要我们管，直接使用Public Runner就行了。时间长了自然就对这方面比较感兴趣，想知道其中的原理。正好搭建了服务器，部署好了 GitLab，于是说干就干，开始着手做自己的 GitLab CI 配置。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GitLab CI 搭建指南">
+<meta property="og:url" content="http://xiaohaoxing.xyz/2020/10/26/GitLab-CI-%E6%90%AD%E5%BB%BA%E6%8C%87%E5%8D%97/index.html">
+<meta property="og:site_name" content="XHX Blog">
+<meta property="og:description" content="起因 事情的起因也是来自工作中跟我们日常密切相关，而又没有机会接触到的东西：CI。项目脚手架自带了 CI 脚本，只需要稍作修改就可以直接使用；GitLab 上的项目的 CI 配合也不需要我们管，直接使用Public Runner就行了。时间长了自然就对这方面比较感兴趣，想知道其中的原理。正好搭建了服务器，部署好了 GitLab，于是说干就干，开始着手做自己的 GitLab CI 配置。">
+<meta property="og:locale">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/0081Kckwgy1gk38mj082jj31uh0u0h8v.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/0081Kckwgy1gk38uzcm7sj31ye0u0dlr.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/0081Kckwgy1gk38xonz62j32140kcdhu.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/0081Kckwgy1gk38yei629j31i80pqtdh.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/0081Kckwgy1gk393be6hqj318u0d4mzd.jpg">
+<meta property="article:published_time" content="2020-10-26T14:59:58.000Z">
+<meta property="article:modified_time" content="2021-08-08T18:50:51.046Z">
+<meta property="article:author" content="Xiao Haoxing">
+<meta property="article:tag" content="教程">
+<meta property="article:tag" content="技术">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/0081Kckwgy1gk38mj082jj31uh0u0h8v.jpg">
+    
+<link rel="stylesheet" href="/lib/fancybox/fancybox.css">
+<link rel="stylesheet" href="/lib/justifiedGallery/justifiedGallery.min.css">
+<link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
+
+
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1690554855052">
+    
+    <link rel="stylesheet" href="/css/style.css?v=1690554855052">
+
+    
+        
+            <link rel="stylesheet" href="/custom.css?v=1690554855052">
+        
+    
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body class="mdui-drawer-body-left">
+    <div id="nexmoe-background">
+        <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg)"></div>
+        <div class="mdui-appbar mdui-shadow-0">
+            <div class="mdui-toolbar">
+                <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+                <div class="mdui-toolbar-spacer"></div>
+                <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+                <a href="/" title="Xiao Haoxing" class="mdui-btn mdui-btn-icon"><img src="/../../images/header.jpg" alt="Xiao Haoxing"></a>
+            </div>
+        </div>
+    </div>
+    <div id="nexmoe-header">
+        <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Xiao Haoxing">
+            <img src="/../../images/header.jpg" alt="Xiao Haoxing" alt="Xiao Haoxing">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>Articles</span>13</div>
+        <div><span>Tags</span>14</div>
+        <div><span>Categories</span>0</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/about.html" title="关于博客">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+    
+        
+        
+        
+        
+        
+  <div class="nexmoe-widget-wrap">
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
+      <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/drools/" style="font-size: 10px;">drools</a> <a href="/tags/frp/" style="font-size: 10px;">frp</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/tags/mi/" style="font-size: 10px;">mi</a> <a href="/tags/productivity/" style="font-size: 10px;">productivity</a> <a href="/tags/spring-boot/" style="font-size: 10px;">spring-boot</a> <a href="/tags/spring-security/" style="font-size: 10px;">spring-security</a> <a href="/tags/%E6%8A%80%E6%9C%AF/" style="font-size: 10px;">技术</a> <a href="/tags/%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88/" style="font-size: 10px;">技术方案</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 20px;">教程</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 10px;">日常</a>
+    </div>
+    
+      <script>
+        var maxTagcloud = parseInt(17);
+        var tags_length = parseInt(14);
+        var tags_arr = [];
+        for(var i = 0; i < tags_length; i++){
+          tags_arr.push(i);
+        }
+        tags_arr.sort(function (l, r) {
+          return Math.random() > 0.5 ? -1 : 1;
+        });
+        tags_arr = tags_arr.slice(0, maxTagcloud < tags_length ? tags_length - maxTagcloud : 0);
+        for(var tag_i = 0; tag_i < tags_arr.length; tag_i++){
+          document.getElementById("randomtagcloud").children[tags_arr[tag_i]].style.display = 'none';
+        }
+      </script>
+    
+  </div>
+
+    
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2023 Xiao Haoxing
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/theme-nexmoe/hexo-theme-nexmoe" target="_blank">Nexmoe</a>
+        
+    </div>
+</div><!-- .nexmoe-drawer -->
+    </div>
+    <div id="nexmoe-content">
+        <div class="nexmoe-primary">
+            <div class="nexmoe-post">
+
+  <article>
+    
+        <div class="nexmoe-post-cover mdui-ripple text"> 
+            <img src="https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg" alt="GitLab CI 搭建指南" loading="lazy">
+            <h1>GitLab CI 搭建指南</h1>
+        </div>
+    
+    
+    <div class="nexmoe-post-meta nexmoe-rainbow">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2020年10月26日</a>
+    
+    
+    <a><i class="nexmoefont icon-areachart"></i>约1.6k字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>预计需要6分钟</a>
+
+</div>
+
+    <h1>起因</h1>
+<p>事情的起因也是来自工作中跟我们日常密切相关，而又没有机会接触到的东西：CI。项目脚手架自带了 CI 脚本，只需要稍作修改就可以直接使用；GitLab 上的项目的 CI 配合也不需要我们管，直接使用<code>Public Runner</code>就行了。时间长了自然就对这方面比较感兴趣，想知道其中的原理。正好搭建了服务器，部署好了 GitLab，于是说干就干，开始着手做自己的 GitLab CI 配置。</p>
+<span id="more"></span>
+<h1>过程</h1>
+<h2 id="CI-脚本"><a class="header-anchor" href="#CI-脚本">¶</a>CI 脚本</h2>
+<p>已经知道了在项目上执行的东西，包括推代码、打 tag 都会导致 CI 的自动执行，而什么情况执行什么 CI 的 stage 就由项目根目录下的.gitlab-ci.yml 文件决定。因此找到一个项目的 CI 文件看看是怎么写的：</p>
+<pre class="language-yml" data-language="yml"><code class="language-yml">image: xxxxxx:maven-openjdk8-onbuild
+
+stages:
+  - build
+  - release
+
+test:
+  stage: build
+  script:
+    - rm -rf test_target&#x2F;* &amp;&amp; mkdir -p test_target &amp;&amp; mvn -U clean package -Dmaven.test.skip&#x3D;true -P test
+    - cp -a oms-web&#x2F;target&#x2F;oms-web.jar test_target&#x2F;ROOT.jar
+    - chmod +x .&#x2F;test_target&#x2F;ROOT.jar
+    - cp -rf .&#x2F;.dockerignore .&#x2F;test_target &amp;&amp; cp -rf .&#x2F;Dockerfile .&#x2F;test_target
+  environment: test
+  only:
+    - &#x2F;^neo-java-test-.*$&#x2F;
+  except:
+    - branches
+  artifacts:
+    paths:
+     - test_target&#x2F;*
+    untracked: false
+    
+neo-image-upload:
+  stage: release
+  image: xxxxx:docker19.06-base-image
+  script:
+    - mi_env&#x3D;$(echo $CI_COMMIT_TAG | awk -F &#39;-&#39; &#39;&#123;print $3&#125;&#39;)
+    - cd .&#x2F;$mi_env&#39;_target&#39;
+    - docker login hub.pf.xiaomi.com -u $HUBUSER -p $HUBPASS
+    - docker build . -t  xxxxxx.xxx.xxx&#x2F;$(echo $CI_COMMIT_TAG | awk -F &#39;-&#39; &#39;&#123;print $2&quot;-&quot;$3&#125;&#39;):$CI_COMMIT_TAG
+    - docker push xxxxxxxxx.xxx.xxx]、&#x2F;$(echo $CI_COMMIT_TAG | awk -F &#39;-&#39; &#39;&#123;print $2&quot;-&quot;$3&#125;&#39;):$CI_COMMIT_TAG
+  environment:
+    name: neo
+  only:
+    - &#x2F;^neo-.*$&#x2F;
+  except:
+    - branches
+...</code></pre>
+<p>首先上来是先定义CI 需要的基本 docker 镜像，不管你 CI 的目的是什么，最终都是要执行一段代码，这部分代码一定需要个环境去执行的，这个环境就是来自于声明的镜像类型。下面是定义了 2 个执行阶段：build 和 release。在 gitlab 平台上 CI 的过程状态图可以知道：这里是定义了他们执行的先后顺序：需要先构建好项目的产出可执行包，再推送到指定的容器中供启动。下面 2 部分则是定义了具体的 stage 的条件和执行的内容。stage：指定为哪个执行阶段。image：指定该阶段使用的镜像。script：该阶段执行的代码，一般为 shell 脚本。only：指定该阶段执行的触发条件，一般为分支或 tag 名。</p>
+<p>根据上面的 ci 脚本，我定义一个最简单的 CI 脚本：</p>
+<pre class="language-shell" data-language="shell"><code class="language-shell">image: docker:dind
+
+stages:
+  - stage1
+  - stage2
+
+stage-first:
+  stage: stage1
+  script:
+    - echo &#39;I am first executed!&#39;
+  only:
+    - master
+  artifacts:
+    paths:
+      - prod_target&#x2F;*
+
+
+stage-second:
+  stage: stage2
+  script:
+    - echo &#39;I am second executed!&#39;
+  only:
+    - master</code></pre>
+<p>定义了 2 个阶段，分别打印字符串。</p>
+<h2 id="CI-Runner"><a class="header-anchor" href="#CI-Runner">¶</a>CI Runner</h2>
+<p>完成上面的 CI 脚本后我迫不及待的将分支合到 master 并推送到远程，期望他能立刻执行出结果。可是 GitLab 上显示的CI 状态为：Pending：No Runner available for pipeline。表明没有可以用来执行CI 的 Runner。那么就需要查找跟 Runner 相关的信息。得知：Runner 是支持多节点的独立部署的服务，在机器上启动 Runner <strong>管理服务</strong>后<strong>注册</strong>一个新的 Runner，将其<strong>绑定</strong>到对应的 GitLab 上（可以绑定为一个 GitLab 库公用或者一个指定 repository 专用）就可以用来执行 CI 了。</p>
+<h3 id="安装-gitlab-runner"><a class="header-anchor" href="#安装-gitlab-runner">¶</a>安装 gitlab-runner</h3>
+<p>此时我就去找 Runner 的安装了。我直接运行：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> gitlab-runner</code></pre>
+<p>安装成功，<strong>但是</strong>此时执行再执行：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> gitlab-runner register</code></pre>
+<p>想注册一个 Runner 并绑定到我的 GitLab 上发现总是失败。</p>
+<h3 id="Runner-的坑"><a class="header-anchor" href="#Runner-的坑">¶</a>Runner 的坑</h3>
+<p>经过一番搜索，知道了 GitLab 和 Runner 的版本有约束：8.X 版本的 GitLab 只支持 1.X 版本的 Runner 服务，而 apt 自动安装的为 13.X 版本的了，无法兼容。于是就需要开始搜索互联网上的 1.X 版本的 Runner 安装程序。</p>
+<ul>
+<li>
+<p>Runner 的 RELEASE：没有 1.X 版本。</p>
+</li>
+<li>
+<p>Runner 的 Tag 列表：有 1.X 版本的 tag 但是没有 artifacts 产物。</p>
+</li>
+<li>
+<p>各大镜像站：只有 10.X 开始版本的 Runner 安装程序。</p>
+</li>
+</ul>
+<p>看似已经山穷水尽了。忽然灵光一现：你虽然可以删除 RELEASE 的旧版本，但是你打版本 tag 的那次 CI 一定有输出到的路径，我就去追溯你那个生成 artifact 的路径不就可以了？果然，被我找到了导出到 AWS 的<a target="_blank" rel="noopener" href="https://gitlab-ci-multi-runner-downloads.s3.amazonaws.com/v1.11.5/deb/gitlab-ci-multi-runner_i386.deb">文件</a>~</p>
+<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="https://tva1.sinaimg.cn/large/0081Kckwgy1gk38mj082jj31uh0u0h8v.jpg" alt="CI product" data-caption="CI product" loading="lazy"></p>
+<p>找到了安装文件后就是顺利的安装过程~直接用命令说明吧：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">scp</span> ~/Downloads/gitlab-ci-multi-runner_i386.deb haoxingxiao@XXX.XXX.XXX.XXX:~/
+
+<span class="token function">ssh</span> XXX.XXX.XXX.XXX
+
+<span class="token function">sudo</span> dpkg -i gitlab-ci-multi-runner_i386.deb
+
+<span class="token function">sudo</span> gitlab-runner register
+<span class="token punctuation">(</span>gitlab url<span class="token punctuation">)</span>
+<span class="token operator">></span> http://XXXXXXXX.XXX.XXX/ci/    // 注意这里需要提供 /ci 路径
+<span class="token punctuation">(</span>token<span class="token punctuation">)</span>
+<span class="token operator">></span> XXXXXXXXXXXXXX
+<span class="token punctuation">(</span>runner name<span class="token punctuation">)</span>
+<span class="token operator">></span> tencent-cloud-runner
+<span class="token punctuation">(</span>tags<span class="token punctuation">)</span>
+<span class="token operator">></span> tencent,common
+<span class="token punctuation">(</span>allow untagged task?<span class="token punctuation">)</span>
+<span class="token operator">></span> <span class="token boolean">true</span>
+<span class="token punctuation">(</span>choose type:docker,shell <span class="token operator">&amp;</span> etc.?<span class="token punctuation">)</span>
+<span class="token operator">></span> docker</code></pre>
+<h2 id="执行-CI"><a class="header-anchor" href="#执行-CI">¶</a>执行 CI</h2>
+<p>配置好 Runner 后就可以在 GitLab 上看到创建成功的 Runner 了:</p>
+<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="https://tva1.sinaimg.cn/large/0081Kckwgy1gk38uzcm7sj31ye0u0dlr.jpg" alt="Runners" data-caption="Runners" loading="lazy"></p>
+<p>这里我已经把租的阿里云服务器和腾讯云的服务器都配置上去了，构成了多个节点的 Runner 集群，当 CI 任务进入后会自动寻找空闲的 Runner 去执行。其实同一个容器绑定多个 Runner 也可以，不过负载就都在一台容器上了。</p>
+<p>而刚才 Pending 的 CI 也开始执行了。学习了一下 CI 脚本的语法和知识，最终运行的结果如下图：</p>
+<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="https://tva1.sinaimg.cn/large/0081Kckwgy1gk38xonz62j32140kcdhu.jpg" alt="stages" data-caption="stages" loading="lazy"></p>
+<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="https://tva1.sinaimg.cn/large/0081Kckwgy1gk38yei629j31i80pqtdh.jpg" alt="stage1" data-caption="stage1" loading="lazy"></p>
+<p>最终达到了搭建自己的自动化 CI 的环境~也利用了开源免费的 <a target="_blank" rel="noopener" href="https://shields.io/category/build">badge 服务</a> 给项目的 README 增加了一个构建 CI 状态的徽章：</p>
+<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="https://tva1.sinaimg.cn/large/0081Kckwgy1gk393be6hqj318u0d4mzd.jpg" alt="badge" data-caption="badge" loading="lazy"></p>
+<p>方便直观在项目主页查看状态。</p>
+<h1>后续</h1>
+<p>经过搭建 GitLab 和搭建 GitLab CI 2 步之后，下一步有好几个想要做的东西：</p>
+<ol>
+<li>Git Talk 服务</li>
+<li>创建 Feishu SDK 项目，部署飞书通知的服务，并接入 CI，实现主动推送构建结果到飞书客户端。</li>
+<li>进一步配置 Blog，目前 Blog 弄的比较仓促，很多信息和配置还没加上去。</li>
+</ol>
+<p>今天就先写这么多吧~难得有摸鱼的机会弄自己的东西，希望还能一直保持这种热情做下去！☀️</p>
+
+    
+  </article>
+
+  
+      
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+   
+    
+        <a class="nexmoefont icon-tag-fill -none-link" href="/tags/%E6%8A%80%E6%9C%AF/" rel="tag">技术</a> <a class="nexmoefont icon-tag-fill -none-link" href="/tags/%E6%95%99%E7%A8%8B/" rel="tag">教程</a>
+    
+</div>
+
+  
+      <div class="nexmoe-post-footer">
+          
+      </div>
+  
+</div>
+            <div class="nexmoe-post-right">
+              <div class="nexmoe-fixed">
+                  <div class="nexmoe-tool"> 
+                    
+                      
+                        
+                          
+                          
+                              <button class="mdui-fab catalog" style="overflow:unset;">
+                                  <i class="nexmoefont icon-i-catalog"></i>
+                                  <div class="nexmoe-toc">
+                                      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">起因</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">过程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#CI-%E8%84%9A%E6%9C%AC"><span class="toc-number">2.1.</span> <span class="toc-text">CI 脚本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CI-Runner"><span class="toc-number">2.2.</span> <span class="toc-text">CI Runner</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-gitlab-runner"><span class="toc-number">2.2.1.</span> <span class="toc-text">安装 gitlab-runner</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Runner-%E7%9A%84%E5%9D%91"><span class="toc-number">2.2.2.</span> <span class="toc-text">Runner 的坑</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C-CI"><span class="toc-number">2.3.</span> <span class="toc-text">执行 CI</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">后续</span></a></li></ol>
+                                  </div>
+                              </button>
+                          
+                          
+                      
+                    
+                      <a href="#nexmoe-content" class="toc-link" aria-label="Back To Top" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div id="nexmoe-search-space">
+	<div class="search-container">
+		<div class="search-header">
+			<div class="search-input-container">
+				<input
+					class="search-input"
+					type="text"
+					placeholder="Search"
+					oninput="sinput();"
+				/>
+			</div>
+			<a class="search-close" onclick="sclose();">×</a>
+		</div>
+		<div class="search-body"></div>
+	</div>
+</div>
+
+    
+<script src="/lib/mdui_043tiny/mdui.js"></script>
+<script src="/lib/jquery.min.js"></script>
+<script src="/lib/justifiedGallery/jquery.justifiedGallery.min.js"></script>
+<script src="/lib/fancybox/fancybox.umd.js"></script>
+
+
+ 
+
+<script async src="/js/app.js?v=1690554855063"></script>
+
+
+
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+</body>
+
+</html>

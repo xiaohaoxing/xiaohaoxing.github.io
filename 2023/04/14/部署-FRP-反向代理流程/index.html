@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+
+<html lang="cn">
+
+<head>
+    
+    <title>部署 FRP 反向代理流程 - XHX Blog</title>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="blog,programmer">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <meta name="description" content="最近有好几个机器都要用反向代理能力将内网的机器映射出来，做多了就成了机械操作，这里把具体操作流程写下来，方便自己也方便大家参考。 前置条件  有公网 IP 的机器一台 需要映射的机器 N 台  服务端流程 首先在有公网 IP 的机器上部署服务端（server），供其他的机器连接。  下载 FRP 的最新版本  wget https:&#x2F;&#x2F;github.com&#x2F;fatedier&#x2F;frp&#x2F;release">
+<meta property="og:type" content="article">
+<meta property="og:title" content="部署 FRP 反向代理流程">
+<meta property="og:url" content="http://xiaohaoxing.xyz/2023/04/14/%E9%83%A8%E7%BD%B2-FRP-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E6%B5%81%E7%A8%8B/index.html">
+<meta property="og:site_name" content="XHX Blog">
+<meta property="og:description" content="最近有好几个机器都要用反向代理能力将内网的机器映射出来，做多了就成了机械操作，这里把具体操作流程写下来，方便自己也方便大家参考。 前置条件  有公网 IP 的机器一台 需要映射的机器 N 台  服务端流程 首先在有公网 IP 的机器上部署服务端（server），供其他的机器连接。  下载 FRP 的最新版本  wget https:&#x2F;&#x2F;github.com&#x2F;fatedier&#x2F;frp&#x2F;release">
+<meta property="og:locale">
+<meta property="og:image" content="https://xiaohaoxing-1257815318.cos.ap-chengdu.myqcloud.com/image-20230414185831869.png">
+<meta property="og:image" content="https://xiaohaoxing-1257815318.cos.ap-chengdu.myqcloud.com/image-20230414192401048.png">
+<meta property="article:published_time" content="2023-04-14T10:28:32.000Z">
+<meta property="article:modified_time" content="2023-04-14T11:34:01.194Z">
+<meta property="article:author" content="Xiao Haoxing">
+<meta property="article:tag" content="教程">
+<meta property="article:tag" content="frp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://xiaohaoxing-1257815318.cos.ap-chengdu.myqcloud.com/image-20230414185831869.png">
+    
+<link rel="stylesheet" href="/lib/fancybox/fancybox.css">
+<link rel="stylesheet" href="/lib/justifiedGallery/justifiedGallery.min.css">
+<link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
+
+
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1690554855000">
+    
+    <link rel="stylesheet" href="/css/style.css?v=1690554855000">
+
+    
+        
+            <link rel="stylesheet" href="/custom.css?v=1690554855000">
+        
+    
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body class="mdui-drawer-body-left">
+    <div id="nexmoe-background">
+        <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg)"></div>
+        <div class="mdui-appbar mdui-shadow-0">
+            <div class="mdui-toolbar">
+                <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+                <div class="mdui-toolbar-spacer"></div>
+                <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+                <a href="/" title="Xiao Haoxing" class="mdui-btn mdui-btn-icon"><img src="/../../images/header.jpg" alt="Xiao Haoxing"></a>
+            </div>
+        </div>
+    </div>
+    <div id="nexmoe-header">
+        <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Xiao Haoxing">
+            <img src="/../../images/header.jpg" alt="Xiao Haoxing" alt="Xiao Haoxing">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>Articles</span>13</div>
+        <div><span>Tags</span>14</div>
+        <div><span>Categories</span>0</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/about.html" title="关于博客">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+    
+        
+        
+        
+        
+        
+  <div class="nexmoe-widget-wrap">
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
+      <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/drools/" style="font-size: 10px;">drools</a> <a href="/tags/frp/" style="font-size: 10px;">frp</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/leetcode/" style="font-size: 10px;">leetcode</a> <a href="/tags/mi/" style="font-size: 10px;">mi</a> <a href="/tags/productivity/" style="font-size: 10px;">productivity</a> <a href="/tags/spring-boot/" style="font-size: 10px;">spring-boot</a> <a href="/tags/spring-security/" style="font-size: 10px;">spring-security</a> <a href="/tags/%E6%8A%80%E6%9C%AF/" style="font-size: 10px;">技术</a> <a href="/tags/%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88/" style="font-size: 10px;">技术方案</a> <a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 20px;">教程</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 10px;">日常</a>
+    </div>
+    
+      <script>
+        var maxTagcloud = parseInt(17);
+        var tags_length = parseInt(14);
+        var tags_arr = [];
+        for(var i = 0; i < tags_length; i++){
+          tags_arr.push(i);
+        }
+        tags_arr.sort(function (l, r) {
+          return Math.random() > 0.5 ? -1 : 1;
+        });
+        tags_arr = tags_arr.slice(0, maxTagcloud < tags_length ? tags_length - maxTagcloud : 0);
+        for(var tag_i = 0; tag_i < tags_arr.length; tag_i++){
+          document.getElementById("randomtagcloud").children[tags_arr[tag_i]].style.display = 'none';
+        }
+      </script>
+    
+  </div>
+
+    
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2023 Xiao Haoxing
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/theme-nexmoe/hexo-theme-nexmoe" target="_blank">Nexmoe</a>
+        
+    </div>
+</div><!-- .nexmoe-drawer -->
+    </div>
+    <div id="nexmoe-content">
+        <div class="nexmoe-primary">
+            <div class="nexmoe-post">
+
+  <article>
+    
+        <div class="nexmoe-post-cover mdui-ripple absolute" style="padding-top: NaN%;"> 
+            <img src="https://xiaohaoxing-1257815318.cos.ap-chengdu.myqcloud.com/image-20230414192401048.png" alt="部署 FRP 反向代理流程" loading="lazy">
+            <h1>部署 FRP 反向代理流程</h1>
+        </div>
+    
+    
+    <div class="nexmoe-post-meta nexmoe-rainbow">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2023年04月14日</a>
+    
+    
+    <a><i class="nexmoefont icon-areachart"></i>约776字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>预计需要3分钟</a>
+
+</div>
+
+    <p>最近有好几个机器都要用反向代理能力将内网的机器映射出来，做多了就成了机械操作，这里把具体操作流程写下来，方便自己也方便大家参考。</p>
+<h1>前置条件</h1>
+<ul>
+<li>有公网 IP 的机器一台</li>
+<li>需要映射的机器 N 台</li>
+</ul>
+<h1>服务端流程</h1>
+<p>首先在有公网 IP 的机器上部署服务端（server），供其他的机器连接。</p>
+<ol>
+<li>下载 FRP 的最新版本</li>
+</ol>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">wget</span> https://github.com/fatedier/frp/releases/download/v0.48.0/frp_0.48.0_linux_amd64.tar.gz </code></pre>
+<ol start="2">
+<li>解压并放到任意你方便记忆的目录</li>
+</ol>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 解压</span>
+<span class="token function">tar</span> -zxvf frp_0.48.0_linux_amd64.tar.gz
+<span class="token comment"># 进入文件夹</span>
+<span class="token builtin class-name">cd</span> frp_0.48.0_linux_amd64
+<span class="token comment"># 创建文件夹</span>
+<span class="token function">sudo</span> <span class="token function">mkdir</span> /usr/lib/frp
+<span class="token function">sudo</span> <span class="token function">mkdir</span> /etc/frp
+<span class="token comment"># 移动服务端程序</span>
+<span class="token function">sudo</span> <span class="token function">cp</span> frps /usr/lib/frp/
+<span class="token comment"># 移动服务端配置</span>
+<span class="token function">sudo</span> <span class="token function">cp</span> frps.ini /etc/frp/</code></pre>
+<ol start="3">
+<li>前往配置服务端</li>
+</ol>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">vim</span> /usr/lib/frp/frps.ini</code></pre>
+<pre class="language-ini" data-language="ini"><code class="language-ini"><span class="token header"><span class="token punctuation">[</span><span class="token section-name selector">common</span><span class="token punctuation">]</span></span>
+
+<span class="token comment"># 其他的也行，与下面客户端配置保持一致即可</span>
+<span class="token key attr-name">bind_port</span> <span class="token punctuation">=</span> <span class="token value attr-value">7001</span> 
+<span class="token key attr-name">token</span> <span class="token punctuation">=</span> <span class="token value attr-value">[YOUR_TOKEN]</span>
+
+<span class="token key attr-name">dashboard_port</span> <span class="token punctuation">=</span> <span class="token value attr-value">8080</span> 
+
+<span class="token key attr-name">databoard_user</span> <span class="token punctuation">=</span> <span class="token value attr-value">[YOUR_USERNAME]</span>
+<span class="token key attr-name">dashboard_pwd</span> <span class="token punctuation">=</span> <span class="token value attr-value">[YOUR_PASSWORD]</span>
+<span class="token key attr-name">enable_prometheus</span> <span class="token punctuation">=</span> <span class="token value attr-value">true</span>
+
+<span class="token key attr-name">log_file</span> <span class="token punctuation">=</span> <span class="token value attr-value">/var/log/frps.log</span>
+<span class="token key attr-name">log_level</span> <span class="token punctuation">=</span> <span class="token value attr-value">info</span>
+<span class="token key attr-name">log_max_days</span> <span class="token punctuation">=</span> <span class="token value attr-value">7</span></code></pre>
+<ol start="4">
+<li>编写服务端程序的系统服务</li>
+</ol>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 这里是/usr/lib/...，用/lib/...也是可以找到的</span>
+<span class="token function">sudo</span> <span class="token function">vim</span> /usr/lib/systemd/system/frps.service</code></pre>
+<pre class="language-ini" data-language="ini"><code class="language-ini"><span class="token header"><span class="token punctuation">[</span><span class="token section-name selector">Unit</span><span class="token punctuation">]</span></span>
+<span class="token key attr-name">Description</span><span class="token punctuation">=</span><span class="token value attr-value">Frp Server Service</span>
+<span class="token key attr-name">After</span><span class="token punctuation">=</span><span class="token value attr-value">network.target</span>
+
+<span class="token header"><span class="token punctuation">[</span><span class="token section-name selector">Service</span><span class="token punctuation">]</span></span>
+<span class="token key attr-name">Type</span><span class="token punctuation">=</span><span class="token value attr-value">simple</span>
+<span class="token key attr-name">User</span><span class="token punctuation">=</span><span class="token value attr-value">nobody</span>
+<span class="token key attr-name">Restart</span><span class="token punctuation">=</span><span class="token value attr-value">on-failure</span>
+<span class="token key attr-name">RestartSec</span><span class="token punctuation">=</span><span class="token value attr-value">5s</span>
+<span class="token key attr-name">ExecStart</span><span class="token punctuation">=</span><span class="token value attr-value">/usr/bin/frps -c /etc/frp/frps.ini</span>
+
+<span class="token header"><span class="token punctuation">[</span><span class="token section-name selector">Install</span><span class="token punctuation">]</span></span>
+<span class="token key attr-name">WantedBy</span><span class="token punctuation">=</span><span class="token value attr-value">multi-user.target</span></code></pre>
+<ol start="5">
+<li>使用系统服务的方式启动服务端程序</li>
+</ol>
+<pre class="language-bash" data-language="bash"><code class="language-bash">systemctl start frps</code></pre>
+<ol start="6">
+<li>在浏览器上输入 <code>[IP]:8080</code> 进入控制台（账号密码在第三步设置了），查看服务是否正常启动了。如果出现界面则表示服务端已经正常启动了~🎉</li>
+</ol>
+<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="https://xiaohaoxing-1257815318.cos.ap-chengdu.myqcloud.com/image-20230414185831869.png" alt="image-20230414185831869" data-caption="image-20230414185831869" loading="lazy"></p>
+<h1>客户端流程</h1>
+<p>客户端流程基本同上，不同的地方会标识出来。</p>
+<ol>
+<li>下载 FRP 的最新版本</li>
+</ol>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">wget</span> https://github.com/fatedier/frp/releases/download/v0.48.0/frp_0.48.0_linux_amd64.tar.gz </code></pre>
+<ol start="2">
+<li>解压并放到任意你方便记忆的目录</li>
+</ol>
+<blockquote>
+<p>⚠️  <span style="color:red">移动客户端程序和配置！</span></p>
+</blockquote>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 解压</span>
+<span class="token function">tar</span> -zxvf frp_0.48.0_linux_amd64.tar.gz
+<span class="token comment"># 进入文件夹</span>
+<span class="token builtin class-name">cd</span> frp_0.48.0_linux_amd64
+<span class="token comment"># 创建文件夹</span>
+<span class="token function">sudo</span> <span class="token function">mkdir</span> /usr/lib/frp
+<span class="token comment"># 移动客户端程序</span>
+<span class="token function">sudo</span> <span class="token function">cp</span> frpc /usr/lib/frp/
+<span class="token comment"># 移动客户端配置</span>
+<span class="token function">sudo</span> <span class="token function">cp</span> frpc.ini /usr/lib/frp/</code></pre>
+<ol start="3">
+<li>前往配置客户端</li>
+</ol>
+<blockquote>
+<p>⚠️  <span style="color:red">配置客户端的配置文件，有所不同！</span></p>
+</blockquote>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">vim</span> /usr/lib/frp/frpc.ini</code></pre>
+<pre class="language-ini" data-language="ini"><code class="language-ini"><span class="token header"><span class="token punctuation">[</span><span class="token section-name selector">common</span><span class="token punctuation">]</span></span>
+<span class="token key attr-name">server_addr</span> <span class="token punctuation">=</span> <span class="token value attr-value">[YOUR_PUBLIC_IP_ADDRESS]</span>
+<span class="token key attr-name">server_port</span> <span class="token punctuation">=</span> <span class="token value attr-value">7001</span>
+<span class="token comment"># 在上面服务端配置的 token</span>
+<span class="token key attr-name">token</span> <span class="token punctuation">=</span> <span class="token value attr-value">[YOUR_SERVER_CONFIG_TOKEN]</span> 
+
+<span class="token comment"># 这是你在服务端管理界面上看到的名称，可以任意起名。</span>
+<span class="token header"><span class="token punctuation">[</span><span class="token section-name selector">cs-lab</span><span class="token punctuation">]</span></span>  
+<span class="token key attr-name">type</span> <span class="token punctuation">=</span> <span class="token value attr-value">tcp</span>
+<span class="token key attr-name">local_ip</span> <span class="token punctuation">=</span> <span class="token value attr-value">127.0.0.1</span>
+<span class="token key attr-name">local_port</span> <span class="token punctuation">=</span> <span class="token value attr-value">22</span>
+<span class="token comment"># 映射到公网的端口</span>
+<span class="token key attr-name">remote_port</span> <span class="token punctuation">=</span> <span class="token value attr-value">20022</span> </code></pre>
+<ol start="4">
+<li>编写客户端端程序的系统服务</li>
+</ol>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">vim</span> /lib/systemd/system/frpc.service</code></pre>
+<pre class="language-ini" data-language="ini"><code class="language-ini"><span class="token header"><span class="token punctuation">[</span><span class="token section-name selector">Unit</span><span class="token punctuation">]</span></span>
+<span class="token key attr-name">Description</span><span class="token punctuation">=</span><span class="token value attr-value">Frp Client Service</span>
+<span class="token key attr-name">After</span><span class="token punctuation">=</span><span class="token value attr-value">network.target</span>
+
+<span class="token header"><span class="token punctuation">[</span><span class="token section-name selector">Service</span><span class="token punctuation">]</span></span>
+<span class="token key attr-name">Type</span><span class="token punctuation">=</span><span class="token value attr-value">simple</span>
+<span class="token key attr-name">User</span><span class="token punctuation">=</span><span class="token value attr-value">nobody</span>
+<span class="token key attr-name">Restart</span><span class="token punctuation">=</span><span class="token value attr-value">on-failure</span>
+<span class="token key attr-name">RestartSec</span><span class="token punctuation">=</span><span class="token value attr-value">5s</span>
+<span class="token key attr-name">ExecStart</span><span class="token punctuation">=</span><span class="token value attr-value">/usr/lib/frp/frpc -c /usr/lib/frp/frpc.ini</span>
+
+<span class="token header"><span class="token punctuation">[</span><span class="token section-name selector">Install</span><span class="token punctuation">]</span></span>
+<span class="token key attr-name">WantedBy</span><span class="token punctuation">=</span><span class="token value attr-value">multi-user.target</span></code></pre>
+<ol start="5">
+<li>使用系统服务的方式启动服务端程序</li>
+</ol>
+<pre class="language-bash" data-language="bash"><code class="language-bash">systemctl start frpc</code></pre>
+<ol start="6">
+<li>在控制台刷新一下查看 proxy，如果出现新条目则表示启动成功了！🎉</li>
+</ol>
+<p><img onerror="imgOnError(this);" data-fancybox="gallery" src="https://xiaohaoxing-1257815318.cos.ap-chengdu.myqcloud.com/image-20230414192401048.png" alt="image-20230414192401048" data-caption="image-20230414192401048" loading="lazy"></p>
+<h1>Q&amp;A</h1>
+<p>如果启动出现问题也不用紧张，系统服务虽然当场不会显示错误日志，不过可以通过 <code>journalctl -u frp</code> 命令查看对应的日志从而排查错误。</p>
+
+    
+  </article>
+
+  
+      
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+   
+    
+        <a class="nexmoefont icon-tag-fill -none-link" href="/tags/frp/" rel="tag">frp</a> <a class="nexmoefont icon-tag-fill -none-link" href="/tags/%E6%95%99%E7%A8%8B/" rel="tag">教程</a>
+    
+</div>
+
+  
+      <div class="nexmoe-post-footer">
+          
+      </div>
+  
+</div>
+            <div class="nexmoe-post-right">
+              <div class="nexmoe-fixed">
+                  <div class="nexmoe-tool"> 
+                    
+                      
+                        
+                          
+                          
+                              <button class="mdui-fab catalog" style="overflow:unset;">
+                                  <i class="nexmoefont icon-i-catalog"></i>
+                                  <div class="nexmoe-toc">
+                                      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">前置条件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">服务端流程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">客户端流程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">Q&amp;A</span></a></li></ol>
+                                  </div>
+                              </button>
+                          
+                          
+                      
+                    
+                      <a href="#nexmoe-content" class="toc-link" aria-label="Back To Top" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div id="nexmoe-search-space">
+	<div class="search-container">
+		<div class="search-header">
+			<div class="search-input-container">
+				<input
+					class="search-input"
+					type="text"
+					placeholder="Search"
+					oninput="sinput();"
+				/>
+			</div>
+			<a class="search-close" onclick="sclose();">×</a>
+		</div>
+		<div class="search-body"></div>
+	</div>
+</div>
+
+    
+<script src="/lib/mdui_043tiny/mdui.js"></script>
+<script src="/lib/jquery.min.js"></script>
+<script src="/lib/justifiedGallery/jquery.justifiedGallery.min.js"></script>
+<script src="/lib/fancybox/fancybox.umd.js"></script>
+
+
+ 
+
+<script async src="/js/app.js?v=1690554855007"></script>
+
+
+
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+</body>
+
+</html>
