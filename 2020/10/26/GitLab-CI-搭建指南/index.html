@@ -35,13 +35,13 @@
 <link rel="stylesheet" href="/lib/mdui_043tiny/mdui.css">
 
 
-    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1690554855052">
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1690644890214">
     
-    <link rel="stylesheet" href="/css/style.css?v=1690554855052">
+    <link rel="stylesheet" href="/css/style.css?v=1690644890214">
 
     
         
-            <link rel="stylesheet" href="/custom.css?v=1690554855052">
+            <link rel="stylesheet" href="/custom.css?v=1690644890214">
         
     
 <meta name="generator" content="Hexo 5.4.2"></head>
@@ -204,18 +204,18 @@ stages:
 stage-first:
   stage: stage1
   script:
-    - echo &#39;I am first executed!&#39;
+    - <span class="token builtin class-name">echo</span> <span class="token string">'I am first executed!'</span>
   only:
     - master
   artifacts:
     paths:
-      - prod_target&#x2F;*
+      - prod_target/*
 
 
 stage-second:
   stage: stage2
   script:
-    - echo &#39;I am second executed!&#39;
+    - <span class="token builtin class-name">echo</span> <span class="token string">'I am second executed!'</span>
   only:
     - master</code></pre>
 <p>定义了 2 个阶段，分别打印字符串。</p>
@@ -352,7 +352,7 @@ stage-second:
 
  
 
-<script async src="/js/app.js?v=1690554855063"></script>
+<script async src="/js/app.js?v=1690644890221"></script>
 
 
 
