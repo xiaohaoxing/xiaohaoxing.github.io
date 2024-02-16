@@ -15,14 +15,14 @@ tags:
 
 **策略更新的信息**
 
-![策略更新表](/images/策略更新.png)
+![策略更新表](https://xiaohaoxing-1257815318.cos.ap-chengdu.myqcloud.com/%E7%AD%96%E7%95%A5%E6%9B%B4%E6%96%B0.png)
 
 <!-- more -->
 
 
 **智能调拨更新的信息**
 
-![智能调拨更新表](/images/智能调拨更新.png)
+![智能调拨更新表](https://xiaohaoxing-1257815318.cos.ap-chengdu.myqcloud.com/%E6%99%BA%E8%83%BD%E8%B0%83%E6%8B%A8%E6%9B%B4%E6%96%B0.png)
 
 ## 构思
 

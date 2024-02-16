@@ -56,7 +56,6 @@ declare module 'vue-router/auto/routes' {
     '/posts/爬取微信公众号文章': RouteRecordInfo<'/posts/爬取微信公众号文章', '/posts/爬取微信公众号文章', Record<never, never>, Record<never, never>>,
     '/posts/如何实现复制Excel内容更新数据': RouteRecordInfo<'/posts/如何实现复制Excel内容更新数据', '/posts/如何实现复制Excel内容更新数据', Record<never, never>, Record<never, never>>,
     '/posts/思维导图demo': RouteRecordInfo<'/posts/思维导图demo', '/posts/思维导图demo', Record<never, never>, Record<never, never>>,
-    '/posts/通用策略文档': RouteRecordInfo<'/posts/通用策略文档', '/posts/通用策略文档', Record<never, never>, Record<never, never>>,
     '/posts/学以致用': RouteRecordInfo<'/posts/学以致用', '/posts/学以致用', Record<never, never>, Record<never, never>>,
     '/posts/远程访问WSL': RouteRecordInfo<'/posts/远程访问WSL', '/posts/远程访问WSL', Record<never, never>, Record<never, never>>,
     '/posts/GitLab-CI-搭建指南': RouteRecordInfo<'/posts/GitLab-CI-搭建指南', '/posts/GitLab-CI-搭建指南', Record<never, never>, Record<never, never>>,

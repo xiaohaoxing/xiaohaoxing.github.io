@@ -7,7 +7,10 @@ export default defineSiteConfig({
   author: {
     name: '小海星',
     avatar: 'https://xiaohaoxing-1257815318.cos.ap-chengdu.myqcloud.com/header.jpg',
-    
+    status: {
+      emoji: '❤️',
+      message: 'Academic & Coding'
+    }
   },
   favicon: 'https://xiaohaoxing-1257815318.cos.ap-chengdu.myqcloud.com/favicon.ico',
   subtitle: 'Welcome to visit',

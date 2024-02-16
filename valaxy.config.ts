@@ -1,5 +1,4 @@
 import { defineValaxyConfig } from 'valaxy'
-import { addonWaline } from 'valaxy-addon-waline'
 import type { UserThemeConfig } from 'valaxy-theme-yun'
 
 // add icons what you will need
@@ -20,6 +19,14 @@ export default defineValaxyConfig<UserThemeConfig>({
   theme: 'yun',
 
   themeConfig: {
+    say: {
+      enable: false,
+      api: '',
+      hitokoto: {
+        enable: false,
+        api: '',
+      }
+    },
     banner: {
       enable: true,
       title: '小海星的博客',
