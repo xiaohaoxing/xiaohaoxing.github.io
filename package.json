@@ -1,0 +1,23 @@
+{
+  "name": "xiaohaoxing-blog",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "npm run build:ssg",
+    "build:spa": "valaxy build",
+    "build:ssg": "valaxy build --ssg",
+    "dev": "valaxy",
+    "rss": "valaxy rss",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "valaxy": "0.18.1",
+    "valaxy-addon-waline": "^0.1.2",
+    "valaxy-theme-yun": "0.18.1",
+    "vue-gtag-next": "^1.14.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}
