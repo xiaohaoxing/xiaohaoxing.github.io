@@ -36,18 +36,6 @@ export default defineValaxyConfig<UserThemeConfig>({
     },
 
     pages: [
-      // {
-      //   name: 'WHU TotemDB Group',
-      //   url: 'http://totemdb.whu.edu.cn/',
-      //   icon: 'i-ri-government-line',
-      //   color: '#002554',
-      // },
-      // {
-      //   name: 'Sheng\'s Group',
-      //   url: 'http://sheng.whu.edu.cn',
-      //   icon: 'i-ri-database-2-fill',
-      //   color: '#115740',
-      // },
     ],
 
     footer: {
@@ -60,4 +48,5 @@ export default defineValaxyConfig<UserThemeConfig>({
   },
 
   unocss: { safelist },
+  ignoreDeadLinks: true,
 })

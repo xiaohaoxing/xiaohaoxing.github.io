@@ -466,18 +466,18 @@ java -jar target/gs-securing-web-0.1.0.jar
 
   一旦项目启动，在浏览器中打开 `http://localhost:8080`。你将会看到主页，如下图：
 
-![The application’s home page](https://tva1.sinaimg.cn/large/0081Kckwgy1gl8ikm92n4j30ic0cjq43.jpg)
+> Image is dead :(
 
   当你点击链接，会尝试将你带到 `hello` 的欢迎页。但是该页面是需要鉴权的，并且你还没登录，所以会重定向到登录页，如下图:
 
-![The login page](https://tva1.sinaimg.cn/large/0081Kckwgy1gl8im4joijj30ic0cjjsi.jpg)
+> Image is dead :(
 
 > 如果你是直接跳到这里，是未接入鉴权的版本，将不会看到登录页。需要返回去继续写剩下鉴权的代码。
 
 
   在登录页，使用测试用户登录，分别使用 `user` 和 `password` 填入用户名和密码框。提交登录表单，将会被成功鉴权并重定向到欢迎页，如下图：
 
-![The secured greeting page](https://tva1.sinaimg.cn/large/0081Kckwgy1gl8iq8kmfxj30ic0codgv.jpg)
+> Image is dead :(
 
   如果点击登出按钮，鉴权将会被注销，会返回到登录页，并有一条提示信息，告知你已经登出了。
 
