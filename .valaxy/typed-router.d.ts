@@ -28,6 +28,7 @@ declare module 'vue-router/auto-routes' {
     '/links/': RouteRecordInfo<'/links/', '/links', Record<never, never>, Record<never, never>>,
     '/posts/GitLab-CI-搭建指南': RouteRecordInfo<'/posts/GitLab-CI-搭建指南', '/posts/GitLab-CI-搭建指南', Record<never, never>, Record<never, never>>,
     '/posts/web-应用安全认证': RouteRecordInfo<'/posts/web-应用安全认证', '/posts/web-应用安全认证', Record<never, never>, Record<never, never>>,
+    '/posts/一次线上事故 Case Study': RouteRecordInfo<'/posts/一次线上事故 Case Study', '/posts/一次线上事故 Case Study', Record<never, never>, Record<never, never>>,
     '/posts/关于读博这件事': RouteRecordInfo<'/posts/关于读博这件事', '/posts/关于读博这件事', Record<never, never>, Record<never, never>>,
     '/posts/创建hexo脚本': RouteRecordInfo<'/posts/创建hexo脚本', '/posts/创建hexo脚本', Record<never, never>, Record<never, never>>,
     '/posts/如何实现复制Excel内容更新数据': RouteRecordInfo<'/posts/如何实现复制Excel内容更新数据', '/posts/如何实现复制Excel内容更新数据', Record<never, never>, Record<never, never>>,
