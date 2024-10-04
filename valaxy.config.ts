@@ -1,5 +1,6 @@
 import { defineValaxyConfig } from 'valaxy'
 import type { UserThemeConfig } from 'valaxy-theme-yun'
+import siteConfig from "~/site.config";
 
 // add icons what you will need
 const safelist = [
@@ -16,6 +17,8 @@ const safelist = [
 export default defineValaxyConfig<UserThemeConfig>({
   // site config see site.config.ts
 
+  siteConfig: siteConfig,
+
   theme: 'starter',
 
   themeConfig: {
@@ -28,7 +31,7 @@ export default defineValaxyConfig<UserThemeConfig>({
       }
     },
     banner: {
-      enable: true,
+      enable: false,
       title: '小海星的博客',
       cloud: {
         enable: true,
@@ -49,4 +52,9 @@ export default defineValaxyConfig<UserThemeConfig>({
 
   unocss: { safelist },
   ignoreDeadLinks: true,
+  addons: [
+    addonWaline({
+      serverURL: 'https://waline-project-hkeyu49vl-xiaohaoxings-projects.vercel.app/'
+    })
+  ]
 })
