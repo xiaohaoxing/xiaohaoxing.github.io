@@ -1,6 +1,7 @@
-import { defineValaxyConfig } from 'valaxy'
-import type { UserThemeConfig } from 'valaxy-theme-yun'
-import siteConfig from "~/site.config";
+import { defineTheme, defineValaxyConfig } from 'valaxy'
+import { ThemeConfig } from "valaxy-theme-starter";
+import { VitePWA } from 'vite-plugin-pwa'
+import { addonWaline } from 'valaxy-addon-waline'
 
 // add icons what you will need
 const safelist = [
@@ -14,10 +15,9 @@ const safelist = [
 /**
  * User Config
  */
-export default defineValaxyConfig<UserThemeConfig>({
+export default defineValaxyConfig<ThemeConfig>({
   // site config see site.config.ts
   theme: 'starter',
-
   themeConfig: {
     say: {
       enable: false,
@@ -35,8 +35,7 @@ export default defineValaxyConfig<UserThemeConfig>({
       },
     },
 
-    pages: [
-    ],
+    pages: [],
 
     footer: {
       since: 2019,
@@ -46,8 +45,11 @@ export default defineValaxyConfig<UserThemeConfig>({
       },
     },
   },
-
+  vite: {
+    plugins: [VitePWA()]
+  },
   unocss: { safelist },
+
   addons: [
     addonWaline({
       serverURL: 'https://waline-project-hkeyu49vl-xiaohaoxings-projects.vercel.app/'
