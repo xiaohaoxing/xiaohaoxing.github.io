@@ -16,9 +16,6 @@ const safelist = [
  */
 export default defineValaxyConfig<UserThemeConfig>({
   // site config see site.config.ts
-
-  siteConfig: siteConfig,
-
   theme: 'starter',
 
   themeConfig: {
@@ -51,7 +48,6 @@ export default defineValaxyConfig<UserThemeConfig>({
   },
 
   unocss: { safelist },
-  ignoreDeadLinks: true,
   addons: [
     addonWaline({
       serverURL: 'https://waline-project-hkeyu49vl-xiaohaoxings-projects.vercel.app/'
