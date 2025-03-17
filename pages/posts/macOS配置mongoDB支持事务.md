@@ -56,3 +56,35 @@ brew services start mongodb-community
 在[官方 APP](https://www.mongodb.com/try/download/atlascli)中就可以清晰看到我们部署的服务已经变成了 replica 的模式:
 
 ![](https://xiaohaoxing-1257815318.cos.ap-chengdu.myqcloud.com/blog/%E6%88%AA%E5%B1%8F2025-03-17%2021.14.08.png)
+
+## 5. 代码实现
+
+写一点简单的 TypeScript 来验证结果：
+
+``` typescript
+  ...
+  try {
+    await withTransaction(async (session) => {
+      // 删除正向关系
+      await FriendshipModel.deleteOne({
+        userId,
+        friendId,
+      }).session(session)
+      // 删除反向关系
+      await FriendshipModel.deleteOne({
+        userId: friendId,
+        friendId: userId,
+      }).session(session)
+    })
+  } catch (error) {
+    console.log(error)
+    throw new Error('删除好友关系失败')
+  }
+  ...
+```
+
+
+# 参考资料
+
+1. [将独立运行的自管理mongod转换为副本集 - MongoDB手册 v8.0 - MongoDB Docs](https://www.mongodb.com/zh-cn/docs/manual/tutorial/convert-standalone-to-replica-set/)
+2. [javascript - Mongodb v4.0 Transaction, MongoError: Transaction numbers are only allowed on a replica set member or mongos - Stack Overflow](https://stackoverflow.com/questions/51461952/mongodb-v4-0-transaction-mongoerror-transaction-numbers-are-only-allowed-on-a)
