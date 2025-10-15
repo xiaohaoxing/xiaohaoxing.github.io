@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="https://xiaohaoxing-1257815318.cos.ap-chengdu.myqcloud.com/favicon.ico">
+    <script>
+    ;(function () {
+      const prefersDark =
+        window.matchMedia &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches
+      const setting = localStorage.getItem('vueuse-color-scheme') || 'auto'
+      if (setting === 'dark' || (prefersDark && setting !== 'light'))
+        document.documentElement.classList.toggle('dark', true)
+    })()
+    </script>
+  <style type="text/css">
+    :root { color-scheme: light dark; --va-c-bg: #fff; }
+    html.dark { --va-c-bg: #000; }
+    html { background-color: var(--va-c-bg); }
+  </style>
+    <script>
+    const locale = localStorage.getItem('valaxy-locale') || 'zh-CN';
+    document.documentElement.setAttribute('lang', locale);
+    </script>
+    
+  <script type="module" crossorigin src="/assets/app.CZTHAq40.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/framework.Bv4HAC8f.js">
+  <link rel="modulepreload" crossorigin href="/assets/chunks/dayjs.BdcnXKr1.js">
+  <link rel="modulepreload" crossorigin href="/assets/chunks/nprogress.DNg93r_p.js">
+  <link rel="modulepreload" crossorigin href="/assets/chunks/vue-router.Be9FlbTL.js">
+  <link rel="modulepreload" crossorigin href="/assets/chunks/vue-i18n.CEfar9q1.js">
+  <link rel="modulepreload" crossorigin href="/assets/chunks/pinia.DgI55BSL.js">
+  <link rel="stylesheet" crossorigin href="/assets/app.DYQo4Ihc.css">
+  <link rel="stylesheet" crossorigin href="/assets/group-icons.Bm1YPxXM.css">
+<link rel="manifest" href="/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/registerSW.js"></script></head>
+<body>
+  <div id="app"></div>
+  
+</body>
+</html>
