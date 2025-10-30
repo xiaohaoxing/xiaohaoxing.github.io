@@ -211,13 +211,13 @@ declare module 'vue-router/auto-routes' {
    * @internal
    */
   export interface _RouteFileInfoMap {
-    'node_modules/valaxy-theme-starter/pages/index.vue': {
+    'node_modules/.pnpm/valaxy-theme-starter@0.3.4/node_modules/valaxy-theme-starter/pages/index.vue': {
       routes:
         | '/'
       views:
         | never
     }
-    'node_modules/valaxy/client/pages/[...path].vue': {
+    'node_modules/.pnpm/valaxy@0.26.7_@babel+parser@7.28.5_@nuxt+kit@3.19.3_@types+markdown-it@14.1.2_@types+node@24._dfsbbpqzxnlsymvwujo5xirb3m/node_modules/valaxy/client/pages/[...path].vue': {
       routes:
         | '/[...path]'
       views:
