@@ -2,7 +2,6 @@
 layout: post
 title: 一次线上事故 Case Study
 date: 2024-08-13 11:48:32
-updated: 2024-08-13 11:48:32
 ---
 
 # 背景

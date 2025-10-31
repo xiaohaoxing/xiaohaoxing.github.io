@@ -1,7 +1,6 @@
 ---
 title: 远程访问WSL
 date: 2023-11-29 22:09:46
-updated: 2023-11-29 22:09:46
 categories:
 tags:
  - 技术

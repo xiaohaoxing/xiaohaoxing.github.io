@@ -1,7 +1,6 @@
 ---
 title: 学以致用
 date: 2020-04-30 14:22:43
-updated: 2020-04-30 14:22:43
 tags:
  - leetcode
 ---

@@ -1,7 +1,6 @@
 ---
 title: 创建hexo脚本
 date: 2020-01-06 16:37:44
-updated: 2020-01-06 16:37:44
 tags:
  - hexo
  - productivity

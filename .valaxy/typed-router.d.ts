@@ -79,114 +79,114 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
-    '/posts/5分钟实现一键文本识别工具': RouteRecordInfo<
-      '/posts/5分钟实现一键文本识别工具',
-      '/posts/5分钟实现一键文本识别工具',
+    '/posts/a_production_env_accident_Case_Study': RouteRecordInfo<
+      '/posts/a_production_env_accident_Case_Study',
+      '/posts/a_production_env_accident_Case_Study',
       Record<never, never>,
       Record<never, never>,
       | never
     >,
-    '/posts/GitLab-CI-搭建指南': RouteRecordInfo<
-      '/posts/GitLab-CI-搭建指南',
-      '/posts/GitLab-CI-搭建指南',
+    '/posts/ai_tool_and_recent_develop_plan': RouteRecordInfo<
+      '/posts/ai_tool_and_recent_develop_plan',
+      '/posts/ai_tool_and_recent_develop_plan',
       Record<never, never>,
       Record<never, never>,
       | never
     >,
-    '/posts/macOS配置mongoDB支持事务': RouteRecordInfo<
-      '/posts/macOS配置mongoDB支持事务',
-      '/posts/macOS配置mongoDB支持事务',
+    '/posts/all_about_doctor_degree': RouteRecordInfo<
+      '/posts/all_about_doctor_degree',
+      '/posts/all_about_doctor_degree',
       Record<never, never>,
       Record<never, never>,
       | never
     >,
-    '/posts/一次线上事故 Case Study': RouteRecordInfo<
-      '/posts/一次线上事故 Case Study',
-      '/posts/一次线上事故 Case Study',
+    '/posts/copy_excel_to_update_data': RouteRecordInfo<
+      '/posts/copy_excel_to_update_data',
+      '/posts/copy_excel_to_update_data',
       Record<never, never>,
       Record<never, never>,
       | never
     >,
-    '/posts/关于读博这件事': RouteRecordInfo<
-      '/posts/关于读博这件事',
-      '/posts/关于读博这件事',
+    '/posts/create_hexo_bash': RouteRecordInfo<
+      '/posts/create_hexo_bash',
+      '/posts/create_hexo_bash',
       Record<never, never>,
       Record<never, never>,
       | never
     >,
-    '/posts/创建hexo脚本': RouteRecordInfo<
-      '/posts/创建hexo脚本',
-      '/posts/创建hexo脚本',
+    '/posts/deploy-FRP': RouteRecordInfo<
+      '/posts/deploy-FRP',
+      '/posts/deploy-FRP',
       Record<never, never>,
       Record<never, never>,
       | never
     >,
-    '/posts/如何实现复制Excel内容更新数据': RouteRecordInfo<
-      '/posts/如何实现复制Excel内容更新数据',
-      '/posts/如何实现复制Excel内容更新数据',
+    '/posts/escape_from_wechat': RouteRecordInfo<
+      '/posts/escape_from_wechat',
+      '/posts/escape_from_wechat',
       Record<never, never>,
       Record<never, never>,
       | never
     >,
-    '/posts/学以致用': RouteRecordInfo<
-      '/posts/学以致用',
-      '/posts/学以致用',
+    '/posts/export_wechat_chat_history': RouteRecordInfo<
+      '/posts/export_wechat_chat_history',
+      '/posts/export_wechat_chat_history',
       Record<never, never>,
       Record<never, never>,
       | never
     >,
-    '/posts/导出微信聊天记录': RouteRecordInfo<
-      '/posts/导出微信聊天记录',
-      '/posts/导出微信聊天记录',
+    '/posts/GitLab-CI-build_guide': RouteRecordInfo<
+      '/posts/GitLab-CI-build_guide',
+      '/posts/GitLab-CI-build_guide',
       Record<never, never>,
       Record<never, never>,
       | never
     >,
-    '/posts/微信逃离指南': RouteRecordInfo<
-      '/posts/微信逃离指南',
-      '/posts/微信逃离指南',
+    '/posts/learn_to_use': RouteRecordInfo<
+      '/posts/learn_to_use',
+      '/posts/learn_to_use',
       Record<never, never>,
       Record<never, never>,
       | never
     >,
-    '/posts/爬取微信公众号文章': RouteRecordInfo<
-      '/posts/爬取微信公众号文章',
-      '/posts/爬取微信公众号文章',
+    '/posts/macOS_config_mongoDB_transaction': RouteRecordInfo<
+      '/posts/macOS_config_mongoDB_transaction',
+      '/posts/macOS_config_mongoDB_transaction',
       Record<never, never>,
       Record<never, never>,
       | never
     >,
-    '/posts/规则配置平台': RouteRecordInfo<
-      '/posts/规则配置平台',
-      '/posts/规则配置平台',
+    '/posts/OCR-tool': RouteRecordInfo<
+      '/posts/OCR-tool',
+      '/posts/OCR-tool',
       Record<never, never>,
       Record<never, never>,
       | never
     >,
-    '/posts/解决国内-OpenStreetMap-地图无法显示的问题': RouteRecordInfo<
-      '/posts/解决国内-OpenStreetMap-地图无法显示的问题',
-      '/posts/解决国内-OpenStreetMap-地图无法显示的问题',
+    '/posts/remote_access_WSL': RouteRecordInfo<
+      '/posts/remote_access_WSL',
+      '/posts/remote_access_WSL',
       Record<never, never>,
       Record<never, never>,
       | never
     >,
-    '/posts/近期开发计划': RouteRecordInfo<
-      '/posts/近期开发计划',
-      '/posts/近期开发计划',
+    '/posts/rule_config_platform': RouteRecordInfo<
+      '/posts/rule_config_platform',
+      '/posts/rule_config_platform',
       Record<never, never>,
       Record<never, never>,
       | never
     >,
-    '/posts/远程访问WSL': RouteRecordInfo<
-      '/posts/远程访问WSL',
-      '/posts/远程访问WSL',
+    '/posts/solve_mainland_OpenStreetMap_issue': RouteRecordInfo<
+      '/posts/solve_mainland_OpenStreetMap_issue',
+      '/posts/solve_mainland_OpenStreetMap_issue',
       Record<never, never>,
       Record<never, never>,
       | never
     >,
-    '/posts/部署-FRP-反向代理流程': RouteRecordInfo<
-      '/posts/部署-FRP-反向代理流程',
-      '/posts/部署-FRP-反向代理流程',
+    '/posts/spider_wechat_official_accont_posts': RouteRecordInfo<
+      '/posts/spider_wechat_official_accont_posts',
+      '/posts/spider_wechat_official_accont_posts',
       Record<never, never>,
       Record<never, never>,
       | never
@@ -211,13 +211,13 @@ declare module 'vue-router/auto-routes' {
    * @internal
    */
   export interface _RouteFileInfoMap {
-    'node_modules/.pnpm/valaxy-theme-starter@0.3.4/node_modules/valaxy-theme-starter/pages/index.vue': {
+    'node_modules/valaxy-theme-starter/pages/index.vue': {
       routes:
         | '/'
       views:
         | never
     }
-    'node_modules/.pnpm/valaxy@0.26.7_@babel+parser@7.28.5_@nuxt+kit@3.19.3_@types+markdown-it@14.1.2_@types+node@24._dfsbbpqzxnlsymvwujo5xirb3m/node_modules/valaxy/client/pages/[...path].vue': {
+    'node_modules/valaxy/client/pages/[...path].vue': {
       routes:
         | '/[...path]'
       views:
@@ -259,99 +259,99 @@ declare module 'vue-router/auto-routes' {
       views:
         | never
     }
-    'pages/posts/5分钟实现一键文本识别工具.md': {
+    'pages/posts/a_production_env_accident_Case_Study.md': {
       routes:
-        | '/posts/5分钟实现一键文本识别工具'
+        | '/posts/a_production_env_accident_Case_Study'
       views:
         | never
     }
-    'pages/posts/GitLab-CI-搭建指南.md': {
+    'pages/posts/ai_tool_and_recent_develop_plan.md': {
       routes:
-        | '/posts/GitLab-CI-搭建指南'
+        | '/posts/ai_tool_and_recent_develop_plan'
       views:
         | never
     }
-    'pages/posts/macOS配置mongoDB支持事务.md': {
+    'pages/posts/all_about_doctor_degree.md': {
       routes:
-        | '/posts/macOS配置mongoDB支持事务'
+        | '/posts/all_about_doctor_degree'
       views:
         | never
     }
-    'pages/posts/一次线上事故 Case Study.md': {
+    'pages/posts/copy_excel_to_update_data.md': {
       routes:
-        | '/posts/一次线上事故 Case Study'
+        | '/posts/copy_excel_to_update_data'
       views:
         | never
     }
-    'pages/posts/关于读博这件事.md': {
+    'pages/posts/create_hexo_bash.md': {
       routes:
-        | '/posts/关于读博这件事'
+        | '/posts/create_hexo_bash'
       views:
         | never
     }
-    'pages/posts/创建hexo脚本.md': {
+    'pages/posts/deploy-FRP.md': {
       routes:
-        | '/posts/创建hexo脚本'
+        | '/posts/deploy-FRP'
       views:
         | never
     }
-    'pages/posts/如何实现复制Excel内容更新数据.md': {
+    'pages/posts/escape_from_wechat.md': {
       routes:
-        | '/posts/如何实现复制Excel内容更新数据'
+        | '/posts/escape_from_wechat'
       views:
         | never
     }
-    'pages/posts/学以致用.md': {
+    'pages/posts/export_wechat_chat_history.md': {
       routes:
-        | '/posts/学以致用'
+        | '/posts/export_wechat_chat_history'
       views:
         | never
     }
-    'pages/posts/导出微信聊天记录.md': {
+    'pages/posts/GitLab-CI-build_guide.md': {
       routes:
-        | '/posts/导出微信聊天记录'
+        | '/posts/GitLab-CI-build_guide'
       views:
         | never
     }
-    'pages/posts/微信逃离指南.md': {
+    'pages/posts/learn_to_use.md': {
       routes:
-        | '/posts/微信逃离指南'
+        | '/posts/learn_to_use'
       views:
         | never
     }
-    'pages/posts/爬取微信公众号文章.md': {
+    'pages/posts/macOS_config_mongoDB_transaction.md': {
       routes:
-        | '/posts/爬取微信公众号文章'
+        | '/posts/macOS_config_mongoDB_transaction'
       views:
         | never
     }
-    'pages/posts/规则配置平台.md': {
+    'pages/posts/OCR-tool.md': {
       routes:
-        | '/posts/规则配置平台'
+        | '/posts/OCR-tool'
       views:
         | never
     }
-    'pages/posts/解决国内-OpenStreetMap-地图无法显示的问题.md': {
+    'pages/posts/remote_access_WSL.md': {
       routes:
-        | '/posts/解决国内-OpenStreetMap-地图无法显示的问题'
+        | '/posts/remote_access_WSL'
       views:
         | never
     }
-    'pages/posts/近期开发计划.md': {
+    'pages/posts/rule_config_platform.md': {
       routes:
-        | '/posts/近期开发计划'
+        | '/posts/rule_config_platform'
       views:
         | never
     }
-    'pages/posts/远程访问WSL.md': {
+    'pages/posts/solve_mainland_OpenStreetMap_issue.md': {
       routes:
-        | '/posts/远程访问WSL'
+        | '/posts/solve_mainland_OpenStreetMap_issue'
       views:
         | never
     }
-    'pages/posts/部署-FRP-反向代理流程.md': {
+    'pages/posts/spider_wechat_official_accont_posts.md': {
       routes:
-        | '/posts/部署-FRP-反向代理流程'
+        | '/posts/spider_wechat_official_accont_posts'
       views:
         | never
     }

@@ -2,7 +2,6 @@
 layout: post
 title: macOS配置mongoDB支持事务
 date: 2025-03-17 21:06:00
-updated: 2025-03-17 21:06:00
 ---
 
 # 背景
