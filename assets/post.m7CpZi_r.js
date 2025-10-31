@@ -1,0 +1,1 @@
+import"./chunks/nprogress.DNg93r_p.js";import{a6 as e,a9 as t,a7 as r,a8 as c}from"./framework.Bv4HAC8f.js";import"./chunks/dayjs.BdcnXKr1.js";const n={};function a(s,_){const o=t("RouterView");return c(),r(o)}const f=e(n,[["render",a]]);export{f as default};
