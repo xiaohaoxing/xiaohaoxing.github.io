@@ -1,6 +1,7 @@
 ---
 title: 爬取微信公众号文章
 date: 2022-07-05 15:15:38
+updated: 2022-07-05 15:15:38
 tags:
 mermaid: true
 ---
@@ -434,7 +435,7 @@ class DataBase extends React.Component {
             data: data
         }
     }
-    
+
     render() {
         let recordList = []
         // 只展示 top 10 预览

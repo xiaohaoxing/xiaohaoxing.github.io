@@ -1,6 +1,7 @@
 ---
 title: 规则配置平台
 date: 2020-01-05 20:10:47
+updated: 2020-01-05 20:10:47
 tags:
  - drools
  - java

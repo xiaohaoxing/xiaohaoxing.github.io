@@ -1,6 +1,7 @@
 ---
 title: 创建hexo脚本
 date: 2020-01-06 16:37:44
+updated: 2020-01-06 16:37:44
 tags:
  - hexo
  - productivity
@@ -93,7 +94,7 @@ if __name__ == u"__main__":
   完成上述的几个 workflow 后，继续一鼓作气完成了 base64  编码解码的 workflow。还增加了新的特性：filter，通过 Notification 提示用户转换成功还是失败。
   还是用 python 的库执行核心的转换：
 
-``` python 
+``` python
 import sys
 import base64
 query = "{query}"

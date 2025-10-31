@@ -1,6 +1,7 @@
 ---
 title: 部署 FRP 反向代理流程
 date: 2023-04-14 18:28:32
+updated: 2023-04-14 18:28:32
 cover: https://xiaohaoxing-1257815318.cos.ap-chengdu.myqcloud.com/image-20230414192401048.png
 categories:
 tags:

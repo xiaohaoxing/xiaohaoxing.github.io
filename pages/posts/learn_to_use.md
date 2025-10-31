@@ -1,6 +1,7 @@
 ---
 title: 学以致用
 date: 2020-04-30 14:22:43
+updated: 2020-04-30 14:22:43
 tags:
  - leetcode
 ---
@@ -30,7 +31,7 @@ tags:
 &emsp;&emsp;这种一看就知道用常规语法就无法做到，所以当时直接去查了答案，答案也很简单：
 
 ``` sql
-select 
+select
     id,
     SUM(CASE WHEN month='Jan' then revenue else null end) as 'Jan_Revenue',
     SUM(CASE WHEN month='Feb' then revenue else null end) as 'Feb_Revenue',
@@ -110,7 +111,7 @@ mapper.xml:
 
 ``` xml
 <select id="selectDetailTable" resultType="java.util.HashMap">
-select sku, goods_id,goods_name, 
+select sku, goods_id,goods_name,
   <foreach collection="mihomePair" index="index" item="pair" separator=",">
   SUM(CASE WHEN mihome_from=#{pair.from} and mihome_to = #{pair_to} then number else null end) as '#{pair.from}-#{pair_to}'
   </foreach>

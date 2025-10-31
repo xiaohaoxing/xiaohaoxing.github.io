@@ -1,6 +1,7 @@
 ---
 title: GitLab CI 搭建指南
 date: 2020-10-26 22:59:58
+updated: 2020-10-26 22:59:58
 tags:
  - 教程
  - 技术
@@ -39,7 +40,7 @@ test:
     paths:
      - test_target/*
     untracked: false
-    
+
 neo-image-upload:
   stage: release
   image: xxxxx:docker19.06-base-image

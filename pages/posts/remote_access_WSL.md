@@ -1,7 +1,8 @@
 ---
 title: 远程访问WSL
 date: 2023-11-29 22:09:46
-categories: 
+updated: 2023-11-29 22:09:46
+categories:
 tags:
  - 技术
  - windows
@@ -44,7 +45,7 @@ sudo apt install openssh-server
 sudo apt install python3
 sudo apt install python3-pip
 sudo apt install nodejs
-sudo apt install 
+sudo apt install
 ```
 
 
@@ -55,10 +56,10 @@ sudo apt install
 ### 6. 启动SSH
 
 
-``` bash 
+``` bash
 sudo systemctl enable ssh
 sudo systemctl start ssh
-sudo systemctl status ssh 
+sudo systemctl status ssh
 ```
 
 ### 7. 编写 FRPC 的服务

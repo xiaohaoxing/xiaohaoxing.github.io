@@ -2,6 +2,7 @@
 layout: post
 title: 一次线上事故 Case Study
 date: 2024-08-13 11:48:32
+updated: 2024-08-13 11:48:32
 ---
 
 # 背景
@@ -28,9 +29,9 @@ select * from record where status not in (1,2) and deleted_time is null limit 1;
 
 做出如下的修改即可：
 
-``` php diff 
+``` php diff
 // service.php
-public function getRecordBySource($sourceId) 
+public function getRecordBySource($sourceId)
 {
     $this->repository->findOne(['source_id' => $sourceId]);
 }
@@ -42,7 +43,7 @@ public function findOne($params)
     if(isset($params['record_id'])) {
         $query->where('record_id', $params['record_id'])
     }
-+   // 需要这部分代码    
++   // 需要这部分代码
 +   if(isset($params['source_id'])) {
 +       $query->where('source_id', $params['source_id'])
 +   }
@@ -55,7 +56,7 @@ public function findOne($params)
 
 再次查看拼接查询条件的方法，发现了问题所在：
 
-``` php 
+``` php
 public function findOne($params)
 {
         $query = Record::query();
@@ -66,7 +67,7 @@ public function findOne($params)
     if(isset($params['source_id'])) {
         $query->where('source_id', $params['source_id'])
     }
-    
+
     // 问题就出在这
     if(isset($params['status'])) {
         $query->whereIn('status', $params['status'] == ValidStatus::valid?Status::VALID_GROUP:Status::INVALID_GROUP);

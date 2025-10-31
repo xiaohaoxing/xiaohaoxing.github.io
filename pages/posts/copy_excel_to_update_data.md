@@ -1,6 +1,7 @@
 ---
 title: 如何实现复制Excel内容更新数据
 date: 2020-05-15 17:03:42
+updated: 2020-05-15 17:03:42
 tags:
  -  Java
  -  技术方案
@@ -93,7 +94,7 @@ public String importTransferPlanDetail(Long planId, String data, Long operator) 
   }
   TransferPlanDetailBO bo = getTransferPlanDetail(planId);
   StringBuilder err = new StringBuilder();
-  
+
   try {
       // 验证数据 + 获取数据的更新信息
       List<TransferPlanDetailRecordUpdateBO> updates = getUpdates(data, bo, err);
