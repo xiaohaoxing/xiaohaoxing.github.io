@@ -24,7 +24,7 @@ tags:
 1. 下载 FRP 的最新版本
 
 ``` bash
-wget https://github.com/fatedier/frp/releases/download/v0.54.0/frp_0.54.0_linux_amd64.tar.gz 
+wget https://github.com/fatedier/frp/releases/download/v0.54.0/frp_0.54.0_linux_amd64.tar.gz
 ```
 
 2. 解压并放到任意你方便记忆的目录
@@ -113,7 +113,7 @@ systemctl enable frps
 1. 下载 FRP 的最新版本
 
 ``` bash
-wget https://github.com/fatedier/frp/releases/download/v0.54.0/frp_0.54.0_linux_amd64.tar.gz 
+wget https://github.com/fatedier/frp/releases/download/v0.54.0/frp_0.54.0_linux_amd64.tar.gz
 ```
 
 2. 解压并放到任意你方便记忆的目录
