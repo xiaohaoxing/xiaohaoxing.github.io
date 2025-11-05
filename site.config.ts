@@ -10,7 +10,7 @@ export default defineSiteConfig({
     status: {
       emoji: '❤️',
       message: 'Academic & Coding'
-    }
+    },
   },
   favicon: 'https://xiaohaoxing-1257815318.cos.ap-chengdu.myqcloud.com/favicon.ico',
   subtitle: 'Welcome to visit',
@@ -63,4 +63,6 @@ export default defineSiteConfig({
   comment: {
     enable: true
   },
+
+  orderBy: 'date',
 })
