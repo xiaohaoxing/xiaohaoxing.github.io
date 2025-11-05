@@ -17,7 +17,7 @@ const safelist = [
  */
 export default defineValaxyConfig<ThemeConfig>({
   // site config see site.config.ts
-  theme: 'starter',
+  theme: 'yun',
   themeConfig: {
     say: {
       enable: false,
@@ -52,7 +52,7 @@ export default defineValaxyConfig<ThemeConfig>({
 
   addons: [
     addonWaline({
-      serverURL: 'https://waline-project-hkeyu49vl-xiaohaoxings-projects.vercel.app/'
+      serverURL: 'https://blog-comment-rosy.vercel.app/'
     })
   ]
 })

@@ -79,6 +79,20 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
+    '/page/[page]': RouteRecordInfo<
+      '/page/[page]',
+      '/page/:page',
+      { page: ParamValue<true> },
+      { page: ParamValue<false> },
+      | never
+    >,
+    '/posts/': RouteRecordInfo<
+      '/posts/',
+      '/posts',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
     '/posts/a_production_env_accident_Case_Study': RouteRecordInfo<
       '/posts/a_production_env_accident_Case_Study',
       '/posts/a_production_env_accident_Case_Study',
@@ -211,7 +225,7 @@ declare module 'vue-router/auto-routes' {
    * @internal
    */
   export interface _RouteFileInfoMap {
-    'node_modules/.pnpm/valaxy-theme-starter@0.3.4/node_modules/valaxy-theme-starter/pages/index.vue': {
+    'node_modules/.pnpm/valaxy-theme-yun@0.26.7_vue@3.5.22_typescript@5.9.3_/node_modules/valaxy-theme-yun/pages/index.vue': {
       routes:
         | '/'
       views:
@@ -256,6 +270,18 @@ declare module 'vue-router/auto-routes' {
     'pages/links/index.md': {
       routes:
         | '/links/'
+      views:
+        | never
+    }
+    'node_modules/.pnpm/valaxy-theme-yun@0.26.7_vue@3.5.22_typescript@5.9.3_/node_modules/valaxy-theme-yun/pages/page/[page].vue': {
+      routes:
+        | '/page/[page]'
+      views:
+        | never
+    }
+    'node_modules/.pnpm/valaxy-theme-yun@0.26.7_vue@3.5.22_typescript@5.9.3_/node_modules/valaxy-theme-yun/pages/posts/index.vue': {
+      routes:
+        | '/posts/'
       views:
         | never
     }
