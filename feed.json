@@ -1,0 +1,218 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "小海星的博客",
+    "home_page_url": "https://xiaohaoxing.github.io/",
+    "feed_url": "https://xiaohaoxing.github.io/feed.json",
+    "description": "肖皓星的个人博客",
+    "icon": "https://xiaohaoxing-1257815318.cos.ap-chengdu.myqcloud.com/header.jpg",
+    "author": {
+        "name": "小海星",
+        "url": "https://valaxy.site"
+    },
+    "items": [
+        {
+            "id": "https://xiaohaoxing.github.io/posts/install_specified_version_with_homebrew",
+            "content_html": "<p>有些时候因为一些原因，我们需要在自己的设备上安装特定版本的程序，而 homebrew 在新版本中已经移除了对 switch 参数的支持，目前也不支持API 模式了。如果依赖程序本身没有提供特定版本的安装名（例如 python@2），要安装特定版本操作起来就很麻烦。所以这里把安装方式记录下来，方便其他朋友按照操作步骤更轻松实现。</p>\n<br/><p>访问 <a href=\"https://xiaohaoxing.github.io/posts/install_specified_version_with_homebrew\" target=\"_blank\">https://xiaohaoxing.github.io/posts/install_specified_version_with_homebrew</a> 阅读全文。</p>",
+            "url": "https://xiaohaoxing.github.io/posts/install_specified_version_with_homebrew",
+            "title": "在 homebrew 里安装特定版本的程序包",
+            "date_modified": "2026-01-14T18:02:07.000Z",
+            "date_published": "2026-01-14T18:02:07.000Z",
+            "author": {
+                "name": "小海星",
+                "url": "https://valaxy.site"
+            }
+        },
+        {
+            "id": "https://xiaohaoxing.github.io/posts/ai_tool_and_recent_develop_plan",
+            "content_html": "<p>好久未更新了~最近 AI 编程尘嚣甚上，自己也在用 cursor 辅助实现一些自己思考的小需求点，目前已经有一个较为完善的开发计划，打算按照次序依次来实现。</p>\n<br/><p>访问 <a href=\"https://xiaohaoxing.github.io/posts/ai_tool_and_recent_develop_plan\" target=\"_blank\">https://xiaohaoxing.github.io/posts/ai_tool_and_recent_develop_plan</a> 阅读全文。</p>",
+            "url": "https://xiaohaoxing.github.io/posts/ai_tool_and_recent_develop_plan",
+            "title": "Vibe Coding 体验和近期开发计划",
+            "date_modified": "2025-10-15T14:38:19.000Z",
+            "date_published": "2025-10-15T14:38:19.000Z",
+            "author": {
+                "name": "小海星",
+                "url": "https://valaxy.site"
+            }
+        },
+        {
+            "id": "https://xiaohaoxing.github.io/posts/macOS_config_mongoDB_transaction",
+            "content_html": "<h1>背景</h1>\n<p>在 macOS 中使用 homebrew 安装 mongoDB 很方便，<code>brew install mongodb-community</code> 即可快速安装好 mongoDB 并使用,但是默认安装的版本是 stand alone 的,在使用事务相关特性时会出现错误:</p>\n<br/><p>访问 <a href=\"https://xiaohaoxing.github.io/posts/macOS_config_mongoDB_transaction\" target=\"_blank\">https://xiaohaoxing.github.io/posts/macOS_config_mongoDB_transaction</a> 阅读全文。</p>",
+            "url": "https://xiaohaoxing.github.io/posts/macOS_config_mongoDB_transaction",
+            "title": "macOS配置mongoDB支持事务",
+            "date_modified": "2025-03-17T21:06:00.000Z",
+            "date_published": "2025-03-17T21:06:00.000Z",
+            "author": {
+                "name": "小海星",
+                "url": "https://valaxy.site"
+            }
+        },
+        {
+            "id": "https://xiaohaoxing.github.io/posts/OCR-tool",
+            "content_html": "<h1>背景</h1>\n<p>女朋友跟我吐槽了她购买的 iText 截图 OCR 工具不好用，每次使用都会闪退：</p>\n<p>![](<a href=\"https://xiaohaoxing-1257815318.cos.ap-chengdu\">https://xiaohaoxing-1257815318.cos.ap-chengdu</a>.</p>\n<br/><p>访问 <a href=\"https://xiaohaoxing.github.io/posts/OCR-tool\" target=\"_blank\">https://xiaohaoxing.github.io/posts/OCR-tool</a> 阅读全文。</p>",
+            "url": "https://xiaohaoxing.github.io/posts/OCR-tool",
+            "title": "5分钟实现一键文本识别工具",
+            "date_modified": "2024-10-25T16:26:37.000Z",
+            "date_published": "2024-10-25T16:26:37.000Z",
+            "author": {
+                "name": "小海星",
+                "url": "https://valaxy.site"
+            }
+        },
+        {
+            "id": "https://xiaohaoxing.github.io/posts/a_production_env_accident_Case_Study",
+            "content_html": "<h1>背景</h1>\n<p>半夜 12 点，接到同事电话，刚上线的产品有用户反馈买的东西在列表里没有，反馈过来了，需要立即跟进，于是就开始排查相关问题。</p>\n<br/><p>访问 <a href=\"https://xiaohaoxing.github.io/posts/a_production_env_accident_Case_Study\" target=\"_blank\">https://xiaohaoxing.github.io/posts/a_production_env_accident_Case_Study</a> 阅读全文。</p>",
+            "url": "https://xiaohaoxing.github.io/posts/a_production_env_accident_Case_Study",
+            "title": "一次线上事故 Case Study",
+            "date_modified": "2024-08-13T11:48:32.000Z",
+            "date_published": "2024-08-13T11:48:32.000Z",
+            "author": {
+                "name": "小海星",
+                "url": "https://valaxy.site"
+            }
+        },
+        {
+            "id": "https://xiaohaoxing.github.io/posts/all_about_doctor_degree",
+            "content_html": "<p>从申请博士退学算起已经2个多月了，个中的感受颇多，对于这段经历的想法也在随着时间的推移不断地变化着。这么一段难忘的经历我大概会很长时间里都会不断思考和总结，希望能成为未来自己的成长路上的一块基石。</p>\n<br/><p>访问 <a href=\"https://xiaohaoxing.github.io/posts/all_about_doctor_degree\" target=\"_blank\">https://xiaohaoxing.github.io/posts/all_about_doctor_degree</a> 阅读全文。</p>",
+            "url": "https://xiaohaoxing.github.io/posts/all_about_doctor_degree",
+            "title": "关于读博这件事",
+            "date_modified": "2024-05-19T17:16:00.000Z",
+            "date_published": "2024-05-19T17:16:00.000Z",
+            "author": {
+                "name": "小海星",
+                "url": "https://valaxy.site"
+            }
+        },
+        {
+            "id": "https://xiaohaoxing.github.io/posts/escape_from_wechat",
+            "content_html": "<p>鉴于微信的时间占用和空间占用都非常之高，个人对于所谓私域的厌恶，以及微信 XX 的使用体验，本人打算在未来的一段时间从微信的生态圈子里逃离，这里记录下思路和方案，供大家参考。</p>\n<br/><p>访问 <a href=\"https://xiaohaoxing.github.io/posts/escape_from_wechat\" target=\"_blank\">https://xiaohaoxing.github.io/posts/escape_from_wechat</a> 阅读全文。</p>",
+            "url": "https://xiaohaoxing.github.io/posts/escape_from_wechat",
+            "title": "微信逃离指南",
+            "date_modified": "2024-04-11T10:34:49.000Z",
+            "date_published": "2024-04-11T10:34:49.000Z",
+            "author": {
+                "name": "小海星",
+                "url": "https://valaxy.site"
+            }
+        },
+        {
+            "id": "https://xiaohaoxing.github.io/posts/remote_access_WSL",
+            "content_html": "<p>实验室的个人主机此前部署的Ubuntu系统因故启动异常，由于出现问题太过于频繁了，考虑到 WSL 已经发展相对成熟了，因此决定转移到 windows 阵地，用 WSL 替代部分需要用到的 Linux 系统的功能，同时也熟悉熟悉一些 Windows 的新功能。</p>\n<br/><p>访问 <a href=\"https://xiaohaoxing.github.io/posts/remote_access_WSL\" target=\"_blank\">https://xiaohaoxing.github.io/posts/remote_access_WSL</a> 阅读全文。</p>",
+            "url": "https://xiaohaoxing.github.io/posts/remote_access_WSL",
+            "title": "远程访问WSL",
+            "date_modified": "2023-11-29T22:09:46.000Z",
+            "date_published": "2023-11-29T22:09:46.000Z",
+            "author": {
+                "name": "小海星",
+                "url": "https://valaxy.site"
+            }
+        },
+        {
+            "id": "https://xiaohaoxing.github.io/posts/deploy-FRP",
+            "content_html": "<p>最近有好几个机器都要用反向代理能力将内网的机器映射出来，做多了就成了机械操作，这里把具体操作流程写下来，方便自己也方便大家参考。</p>\n<ul>\n<li>从0.52版本开始，FRP 将配置文件的格式从ini更新到</li>\n</ul>\n<br/><p>访问 <a href=\"https://xiaohaoxing.github.io/posts/deploy-FRP\" target=\"_blank\">https://xiaohaoxing.github.io/posts/deploy-FRP</a> 阅读全文。</p>",
+            "url": "https://xiaohaoxing.github.io/posts/deploy-FRP",
+            "title": "部署 FRP 反向代理流程",
+            "date_modified": "2023-04-14T18:28:32.000Z",
+            "date_published": "2023-04-14T18:28:32.000Z",
+            "author": {
+                "name": "小海星",
+                "url": "https://valaxy.site"
+            }
+        },
+        {
+            "id": "https://xiaohaoxing.github.io/posts/solve_mainland_OpenStreetMap_issue",
+            "content_html": "<p>今天去开会，了解到师弟那边项目遇到了一个问题：OpenStreetMap 的地图组件在国内网络环境则加载不出来。本着助人为乐的精神，我主动承担了帮助解决这个问题的任务。</p>\n<br/><p>访问 <a href=\"https://xiaohaoxing.github.io/posts/solve_mainland_OpenStreetMap_issue\" target=\"_blank\">https://xiaohaoxing.github.io/posts/solve_mainland_OpenStreetMap_issue</a> 阅读全文。</p>",
+            "url": "https://xiaohaoxing.github.io/posts/solve_mainland_OpenStreetMap_issue",
+            "title": "解决国内 OpenStreetMap 地图无法显示的问题",
+            "date_modified": "2023-04-11T00:53:21.000Z",
+            "date_published": "2023-04-11T00:53:21.000Z",
+            "author": {
+                "name": "小海星",
+                "url": "https://valaxy.site"
+            }
+        },
+        {
+            "id": "https://xiaohaoxing.github.io/posts/export_wechat_chat_history",
+            "content_html": "<h2>背景</h2>\n<p>女朋友论文需要引用微信群的聊天记录作为数据分析，因此有导出指定群聊的消息记录的需求。相信有很多重度依赖微信的朋友也有导出微信聊天记录的需求，因此这里过程特做一个记录，希望对大家有帮助~</p>\n<br/><p>访问 <a href=\"https://xiaohaoxing.github.io/posts/export_wechat_chat_history\" target=\"_blank\">https://xiaohaoxing.github.io/posts/export_wechat_chat_history</a> 阅读全文。</p>",
+            "url": "https://xiaohaoxing.github.io/posts/export_wechat_chat_history",
+            "title": "导出微信聊天记录",
+            "date_modified": "2022-11-15T09:53:36.000Z",
+            "date_published": "2022-11-15T09:53:36.000Z",
+            "author": {
+                "name": "小海星",
+                "url": "https://valaxy.site"
+            }
+        },
+        {
+            "id": "https://xiaohaoxing.github.io/posts/spider_wechat_official_accont_posts",
+            "content_html": "<h2>需求背景</h2>\n<p>  由于微信公众号文章的搜索功能实在是过于孱弱（只支持内容分词匹配+是否最近读过+排序方式），对于某些公众号内的文章需要进行更多的检索就只能自己动手了。</p>\n<br/><p>访问 <a href=\"https://xiaohaoxing.github.io/posts/spider_wechat_official_accont_posts\" target=\"_blank\">https://xiaohaoxing.github.io/posts/spider_wechat_official_accont_posts</a> 阅读全文。</p>",
+            "url": "https://xiaohaoxing.github.io/posts/spider_wechat_official_accont_posts",
+            "title": "爬取微信公众号文章",
+            "date_modified": "2022-07-05T15:15:38.000Z",
+            "date_published": "2022-07-05T15:15:38.000Z",
+            "author": {
+                "name": "小海星",
+                "url": "https://valaxy.site"
+            }
+        },
+        {
+            "id": "https://xiaohaoxing.github.io/posts/GitLab-CI-build_guide",
+            "content_html": "<h1>起因</h1>\n<p>事情的起因也是来自工作中跟我们日常密切相关，而又没有机会接触到的东西：CI。项目脚手架自带了 CI 脚本，只需要稍作修改就可以直接使用；GitLab 上的项目的 CI 配合也不需要我们管，直接使用<code>Public Runner</code>就行了。时间长了自然就对这方面比较感兴趣，想知道其中的原理。正好搭建了服务器，部署好了 GitLab，于是说干就干，开始着手做自己的 GitLab CI 配置。</p>\n<br/><p>访问 <a href=\"https://xiaohaoxing.github.io/posts/GitLab-CI-build_guide\" target=\"_blank\">https://xiaohaoxing.github.io/posts/GitLab-CI-build_guide</a> 阅读全文。</p>",
+            "url": "https://xiaohaoxing.github.io/posts/GitLab-CI-build_guide",
+            "title": "GitLab CI 搭建指南",
+            "date_modified": "2020-10-26T22:59:58.000Z",
+            "date_published": "2020-10-26T22:59:58.000Z",
+            "author": {
+                "name": "小海星",
+                "url": "https://valaxy.site"
+            }
+        },
+        {
+            "id": "https://xiaohaoxing.github.io/posts/copy_excel_to_update_data",
+            "content_html": "<h2>背景</h2>\n<p>  上季度在迭代通用策略的时候，曾经尝试迁移 PHP 版本的策略数据上传功能到 Java 后台，最后结果是配置管理部分的都完成了迁移（技术难度较低），但是相对而言，修改下载下来的 Excel 数据，然后复制内容到文本域里实现上传更新的功能就复杂的多，在上次的迁移中以失败告终，没有顺利迁移过来。</p>\n<p>  这个季度需要做的需求”智能调拨“也有类似的技术点：需要实现智能调拨方案的下载数据和修改数据，然后上传覆盖更新，还需要记录更新日志。不一样的业务场景，相似的技术点，不过最大的不同在于：这次的方案全盘由我自己来决策，需要什么字段自己加，需要执行什么操作自己构思；自由发挥的空间很大。因此心中就决心这次一定要把这个功能做好。</p>\n<p><strong>策略更新的信息</strong></p>\n<p><img src=\"https://xiaohaoxing-1257815318.cos.ap-chengdu.myqcloud.com/%E7%AD%96%E7%95%A5%E6%9B%B4%E6%96%B0.png\" alt=\"策略更新表\"></p>\n<br/><p>访问 <a href=\"https://xiaohaoxing.github.io/posts/copy_excel_to_update_data\" target=\"_blank\">https://xiaohaoxing.github.io/posts/copy_excel_to_update_data</a> 阅读全文。</p>",
+            "url": "https://xiaohaoxing.github.io/posts/copy_excel_to_update_data",
+            "title": "如何实现复制Excel内容更新数据",
+            "date_modified": "2020-05-15T17:03:42.000Z",
+            "date_published": "2020-05-15T17:03:42.000Z",
+            "author": {
+                "name": "小海星",
+                "url": "https://valaxy.site"
+            }
+        },
+        {
+            "id": "https://xiaohaoxing.github.io/posts/learn_to_use",
+            "content_html": "<h2>刷题经历</h2>\n<p>  最近一直在刷 Leetcode，刚好遇到一个 <a href=\"https://leetcode.com/problems/reformat-department-table/\">SQL 的题</a>涉及到没有学习过的知识点。该题描述如下：</p>\n<blockquote>\n<p>给定一个数据表 <code>Department</code>，数据格式如下：</p>\n</blockquote>\n<table>\n<thead>\n<tr>\n<th>id</th>\n<th>revenue</th>\n<th>month</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>8000</td>\n<td>Jan</td>\n</tr>\n<tr>\n<td>2</td>\n<td>9000</td>\n<td>Jan</td>\n</tr>\n<tr>\n<td>3</td>\n<td>10000</td>\n<td>Feb</td>\n</tr>\n<tr>\n<td>1</td>\n<td>7000</td>\n<td>Feb</td>\n</tr>\n<tr>\n<td>1</td>\n<td>6000</td>\n<td>Mar</td>\n</tr>\n</tbody>\n</table>\n<blockquote>\n<p>要求返回的格式是上述数据的按 <code>id</code> 和 <code>month</code> 进行聚合，但是列同时还是按月进行切分的。也就是说，行方向是根据 id 区分的，列方向是根据 month 区分的，如下表：</p>\n</blockquote>\n<br/><p>访问 <a href=\"https://xiaohaoxing.github.io/posts/learn_to_use\" target=\"_blank\">https://xiaohaoxing.github.io/posts/learn_to_use</a> 阅读全文。</p>",
+            "url": "https://xiaohaoxing.github.io/posts/learn_to_use",
+            "title": "学以致用",
+            "date_modified": "2020-04-30T14:22:43.000Z",
+            "date_published": "2020-04-30T14:22:43.000Z",
+            "author": {
+                "name": "小海星",
+                "url": "https://valaxy.site"
+            }
+        },
+        {
+            "id": "https://xiaohaoxing.github.io/posts/create_hexo_bash",
+            "content_html": "<h1>起因</h1>\n<p>本人创建<code>Hexo</code>脚本的痛点主要是2点：</p>\n<ol>\n<li>我用 vs code 的终端运行 hexo 命令和管理资源文件，用 Typora 撰写文章，因此每次不管是新建文章还是预览还是发布都需要来回切换，步骤较多挺麻烦的。</li>\n<li>博客源码的版本管理。之前写过好几篇博文，可是在一次装机的过程中忘记迁移，结果丢失了原始markdown的文章和配置文件，导致无法继续写下去了，只得重头开始!<code>QAQ</code></li>\n</ol>\n<br/><p>访问 <a href=\"https://xiaohaoxing.github.io/posts/create_hexo_bash\" target=\"_blank\">https://xiaohaoxing.github.io/posts/create_hexo_bash</a> 阅读全文。</p>",
+            "url": "https://xiaohaoxing.github.io/posts/create_hexo_bash",
+            "title": "创建hexo脚本",
+            "date_modified": "2020-01-06T16:37:44.000Z",
+            "date_published": "2020-01-06T16:37:44.000Z",
+            "author": {
+                "name": "小海星",
+                "url": "https://valaxy.site"
+            }
+        },
+        {
+            "id": "https://xiaohaoxing.github.io/posts/rule_config_platform",
+            "content_html": "<h3>1 业务背景</h3>\n<h4>1.1 是什么样的业务场景</h4>\n<p>当前业务场景中存在这样的一种较为特殊的需求：订单流的处理过程中，包括了一些决策的节点。如：拆单、合单、分快递等。这些场景存在共同点：</p>\n<ol>\n<li>\n<p>规则数量相对多，用单纯的分支代码逻辑实现起来麻烦且不优雅</p>\n</li>\n<li>\n<p>规则随时可能会调整，如果用硬编码实现则调整周期长，不能满足业务场景的要求；此外，硬编码导致每次调整都需要开发的支持，加重了开发的负担。</p>\n</li>\n<li>\n<p>规则的输入输出相对固定：输入一些字段的值，输出一些固定值的结果。不用的场景适合用同一套系统去维护。</p>\n</li>\n</ol>\n<p>此前 PHP 版本的系统中实现了一套较为简单的规则配置系统，但是其不管是输入还是输出，都是直接丢给用户一个输入框直接输入全文，用户面对这样的一个空白页面其实根本不知道填写什么。<br>\n因此，这版的 Java 新系统需求是需要实现一个更易用、拓展性更强的一个规则配置中心。暂时给的场景是规则数量较少的合单规则——当前仅有3条明确的合单规则，需要先将这些规则正确配置到系统中。</p>\n<br/><p>访问 <a href=\"https://xiaohaoxing.github.io/posts/rule_config_platform\" target=\"_blank\">https://xiaohaoxing.github.io/posts/rule_config_platform</a> 阅读全文。</p>",
+            "url": "https://xiaohaoxing.github.io/posts/rule_config_platform",
+            "title": "规则配置平台",
+            "date_modified": "2020-01-05T20:10:47.000Z",
+            "date_published": "2020-01-05T20:10:47.000Z",
+            "author": {
+                "name": "小海星",
+                "url": "https://valaxy.site"
+            }
+        }
+    ]
+}
