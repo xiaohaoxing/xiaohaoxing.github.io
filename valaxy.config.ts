@@ -1,5 +1,5 @@
-import { defineTheme, defineValaxyConfig } from 'valaxy'
-import { ThemeConfig } from "valaxy-theme-starter";
+import { defineValaxyConfig } from 'valaxy'
+import type { ThemeConfig } from 'valaxy-theme-yun/theme'
 import { VitePWA } from 'vite-plugin-pwa'
 import { addonWaline } from 'valaxy-addon-waline'
 
