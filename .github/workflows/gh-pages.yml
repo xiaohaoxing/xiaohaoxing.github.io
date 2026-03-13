@@ -21,10 +21,10 @@ jobs:
         with:
           version: 9
 
-      - name: Use Node.js 20
+      - name: Use Node.js 22
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: pnpm
 
       - name: 📦 Install Dependencies
@@ -34,7 +34,9 @@ jobs:
         run: pnpm run build:ssg
 
       - name: ✅ Verify static output
-        run: test -f dist/index.html
+        run: |
+          ls -la dist
+          test -f dist/index.html
 
       - name: 🪤 Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
